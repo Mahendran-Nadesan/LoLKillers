@@ -16,8 +16,7 @@ namespace LoLKillers.API.Repositories
 {
     public class RiotApiRepository : IRiotApiRepository
     {
-        private RiotApi _riotApi { get; set; } //{ get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        //private readonly string _connectionString;
+        private RiotApi _riotApi { get; set; } 
         private readonly IConfigRepository _configRepository;
 
         public RiotApiRepository(IConfigRepository configRepository)
@@ -80,8 +79,6 @@ namespace LoLKillers.API.Repositories
 
         public SummonerMatchSummaryStat GetSummonerMatchStats(Summoner summoner, Match match, ChampionListStatic champions)
         {
-            //var champions = GetChampions();
-
             var summonerParticipantId = match.ParticipantIdentities.Single(c => c.Player.AccountId == summoner.AccountId).ParticipantId;
             var summonerChampionId = match.Participants.Single(c => c.ParticipantId == summonerParticipantId).ChampionId;
             var summonerChampionName = champions.Champions.Single(c => c.Value.Id == summonerChampionId).Value.Name;

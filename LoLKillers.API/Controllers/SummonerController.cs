@@ -7,6 +7,8 @@ using LoLKillers.API.Interfaces;
 using RiotSharp.Misc;
 using RiotSharp.Endpoints.MatchEndpoint;
 using LoLKillers.API.Models;
+using Microsoft.Extensions.Options;
+using LoLKillers.API.Configuration;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,13 +19,14 @@ namespace LoLKillers.API.Controllers
     public class SummonerController : ControllerBase
     {
         private readonly IRiotApiRepository _riotApiRepository;
-        //private readonly IRiotStaticApiRepository _riotStaticApiRepository;
         private readonly IDatabaseRepository _databaseRepository;
+        private readonly int _searchNumber;
 
-        public SummonerController(IRiotApiRepository riotApiRepository, IDatabaseRepository databaseRepository)
+        public SummonerController(IRiotApiRepository riotApiRepository, IDatabaseRepository databaseRepository, IOptions<AppConfig> options)
         {
             _riotApiRepository = riotApiRepository;
             _databaseRepository = databaseRepository;
+            _searchNumber = options.Value.DefaultSearchNumber; // I don't like injecting options in like this, as it's in ConfigRepository which is in RiotApiRepository
         }
 
         // GET: api/<SummonerController>
@@ -64,7 +67,7 @@ namespace LoLKillers.API.Controllers
 
             // get matchlist
             List<MatchReference> matchList = new List<MatchReference>();
-            var matchListAll = _riotApiRepository.GetMatchList(summoner, 10, queueList); // replace numberOfMatches with const?
+            var matchListAll = _riotApiRepository.GetMatchList(summoner, _searchNumber, queueList); // replace numberOfMatches with const?
 
             // filter out ones we've stored
             if (matchIds.Any())

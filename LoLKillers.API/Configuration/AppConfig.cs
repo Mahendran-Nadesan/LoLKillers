@@ -9,5 +9,6 @@ namespace LoLKillers.API.Configuration
     {
         public string ConnectionString { get; set; }
         public string DataDragonVersionsURL { get; set; }
+        public int DefaultSearchNumber { get; set; }
     }
 }

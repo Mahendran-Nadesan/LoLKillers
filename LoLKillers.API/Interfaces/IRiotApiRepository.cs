@@ -13,15 +13,19 @@ namespace LoLKillers.API.Interfaces
 {
     public interface IRiotApiRepository
     {
-        //RiotApi RiotApi { get; set; }
+        // Summoner
         Summoner GetSummoner(string summonerName, Region region);
-        MatchList GetMatchList(Summoner summoner, long numberOfMatches, List<int> queueList); // eventually add support for queue types
+
+        // Matches
+        MatchList GetMatchList(Summoner summoner, long numberOfMatches, List<int> queueList);
         Match GetMatch(MatchReference matchReference);
         IEnumerable<Match> GetMatches(IEnumerable<MatchReference> matchList);
-        MatchTimeline GetMatchTimeline(MatchReference match);
-        IEnumerable<MatchTimeline> GetMatchTimelines(IEnumerable<MatchReference> matchList);
         SummonerMatchSummaryStat GetSummonerMatchStats(Summoner summoner, Match match, ChampionListStatic champions);
 
+        // Timelines
+        MatchTimeline GetMatchTimeline(MatchReference match);
+        IEnumerable<MatchTimeline> GetMatchTimelines(IEnumerable<MatchReference> matchList);
+        
 
         // Static Data
         ChampionListStatic GetChampions();

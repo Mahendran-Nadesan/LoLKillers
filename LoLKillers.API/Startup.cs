@@ -33,12 +33,9 @@ namespace LoLKillers.API
             services.AddOptions<AppConfig>().Bind(config);
 
             // dependency injection stuff
-            services.AddScoped<Interfaces.ISummonerChampionStatRepository, Repositories.SummonerChampionStatRepository>();
             services.AddSingleton<Interfaces.IConfigRepository, Repositories.ConfigRepository>();
             services.AddSingleton<Interfaces.IRiotApiRepository, Repositories.RiotApiRepository>();
-            //services.AddScoped<Interfaces.IRiotStaticApiRepository, Repositories.RiotStaticApiRepository>();
             services.AddScoped<Interfaces.IDatabaseRepository, Repositories.DatabaseRepository>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

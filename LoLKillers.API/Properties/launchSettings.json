@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/summonerchampion/euw/nadsofmahen/ranked/18",
+      "launchUrl": "api/summoner/na/jishiwu/normal",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

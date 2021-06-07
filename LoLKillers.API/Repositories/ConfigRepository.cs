@@ -40,6 +40,7 @@ namespace LoLKillers.API.Repositories
             catch (Exception e)
             {
                 Log.Error(e, "Error getting latest data dragon version from web");
+
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     var dbDataDragonVersion = connection.ExecuteScalar<string>("EXEC GetDataDragonVersion;");
