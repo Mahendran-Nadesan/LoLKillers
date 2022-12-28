@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SQL\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="RiotSharp">
       <HintPath>..\..\RiotSharp\RiotSharp.AspNetCore\bin\Debug\netstandard1.3\RiotSharp.dll</HintPath>
       <Private>true</Private>
@@ -25,6 +21,11 @@
       <HintPath>..\..\RiotSharp\RiotSharp.AspNetCore\bin\Debug\netstandard1.3\RiotSharp.AspNetCore.dll</HintPath>
       <Private>true</Private>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SQL Scripts\Tables\" />
+	<Folder Include="SQL Scripts\Stored Procedures\" />
   </ItemGroup>
 
 
