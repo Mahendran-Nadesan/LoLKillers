@@ -10,6 +10,9 @@
 *.userosscache
 *.sln.docstates
 
+# Mahen-specific files
+appsettings.json
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

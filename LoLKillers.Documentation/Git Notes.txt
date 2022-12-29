@@ -1,0 +1,17 @@
+Git Notes
+
+1. If you've just added a criterion to .gitignore but that file was already being tracked in the repo, commit all changes, then run the following commands:
+
+git rm -rf --cached .
+git add .
+
+Source: https://stackoverflow.com/a/25436481/2953322
+
+Alternatively, untrack (but not delete) just the file in question:
+
+git rm --cached filename
+
+Source: https://stackoverflow.com/a/26137730/2953322
+
+
+
