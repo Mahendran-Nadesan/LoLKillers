@@ -32,34 +32,34 @@ namespace LoLKillers.API.Repositories
 
         }
 
-        public MatchList GetMatchList(Summoner summoner, long numberOfMatches, List<int> queueList)
+        public List<string> GetMatchList(Summoner summoner, long numberOfMatches)
         {
-            return _riotApi.Match.GetMatchListAsync(summoner.Region, summoner.AccountId, null, queueList, null, null, null, 0, numberOfMatches).Result;
+            return _riotApi.Match.GetMatchListAsync(summoner.Region, summoner.AccountId, 0, numberOfMatches).Result; //todo: change "start" parameter
         }
 
-        public Match GetMatch(MatchReference matchReference)
+        public Match GetMatch(string matchId)
         {
-            return _riotApi.Match.GetMatchAsync(matchReference.Region, matchReference.GameId).Result;
+            return _riotApi.Match.GetMatchAsync(matchReference.Region, matchId).Result;
         }
 
-        public IEnumerable<Match> GetMatches(IEnumerable<MatchReference> matchList)
+        public IEnumerable<Match> GetMatches(List<string> matchIdsList)
         {
             List<Match> matches = new List<Match>();
 
             //todo: exclude remakes
 
-            foreach (var matchReference in matchList)
+            foreach (var matchId in matchIdsList)
             {
-                var newMatch = _riotApi.Match.GetMatchAsync(matchReference.Region, matchReference.GameId).Result;
+                var newMatch = _riotApi.Match.GetMatchAsync(matchReference.Region, matchId).Result;
                 matches.Add(newMatch);
             }
 
             return matches;
         }
 
-        public MatchTimeline GetMatchTimeline(MatchReference matchReference)
+        public MatchTimeline GetMatchTimeline(string matchId)
         {
-            return _riotApi.Match.GetMatchTimelineAsync(matchReference.Region, matchReference.GameId).Result;
+            return _riotApi.Match.GetMatchTimelineAsync(matchReference.Region, matchId).Result;
         }
 
         public IEnumerable<MatchTimeline> GetMatchTimelines(IEnumerable<MatchReference> matchList)

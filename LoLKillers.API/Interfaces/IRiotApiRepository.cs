@@ -17,9 +17,9 @@ namespace LoLKillers.API.Interfaces
         Summoner GetSummoner(string summonerName, Region region);
 
         // Matches
-        MatchList GetMatchList(Summoner summoner, long numberOfMatches, List<int> queueList);
-        Match GetMatch(MatchReference matchReference);
-        IEnumerable<Match> GetMatches(IEnumerable<MatchReference> matchList);
+        List<string> GetMatchList(Summoner summoner, long numberOfMatches);
+        Match GetMatch(string matchId);
+        IEnumerable<Match> GetMatches(IEnumerable<string> matchList);
         SummonerMatchSummaryStat GetSummonerMatchStats(Summoner summoner, Match match, ChampionListStatic champions);
 
         // Timelines

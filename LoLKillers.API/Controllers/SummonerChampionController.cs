@@ -68,8 +68,16 @@ namespace LoLKillers.API.Controllers
             }
 
             // get matchlist
-            List<MatchReference> matchList = new List<MatchReference>();
-            var matchListAll = _riotApiRepository.GetMatchList(summoner, _searchNumber, queueList); // replace numberOfMatches with const?
+            // todo: if we have a match recorded for this summoner, get the last game id and send it through. if not, get all matches
+            List<string> matchList = new List<string>();
+
+            //todo: query db to find matches by summoner
+
+
+
+            var matchListAll = _riotApiRepository.GetMatchList(summoner, _searchNumber); // replace numberOfMatches with const?
+
+            //todo: filter by queue if necessary
 
             // filter out ones we've stored
             if (matchIds.Any())
@@ -89,9 +97,9 @@ namespace LoLKillers.API.Controllers
                 // parse matches to get timelines
                 // retrieving stats and saving stats are separated                
 
-                foreach (var matchReference in matchList)
+                foreach (var matchId in matchList)
                 {
-                    var match = _riotApiRepository.GetMatch(matchReference);
+                    var match = _riotApiRepository.GetMatch(matchId);
 
                     List<SummonerChampVsChampMatchStat> summonerChampMatchStats = new List<SummonerChampVsChampMatchStat>();
 

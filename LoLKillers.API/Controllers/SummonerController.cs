@@ -66,8 +66,9 @@ namespace LoLKillers.API.Controllers
             }
 
             // get matchlist
-            List<MatchReference> matchList = new List<MatchReference>();
-            var matchListAll = _riotApiRepository.GetMatchList(summoner, _searchNumber, queueList); // replace numberOfMatches with const?
+            // todo: if we have a match recorded for this summoner, get the last game id and send it through. if not, get all matches
+            List<string> matchList = new List<string>();
+            var matchListAll = _riotApiRepository.GetMatchList(summoner, _searchNumber); // replace numberOfMatches with const?
 
             // filter out ones we've stored
             if (matchIds.Any())
