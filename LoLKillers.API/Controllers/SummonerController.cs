@@ -31,84 +31,115 @@ namespace LoLKillers.API.Controllers
 
         // GET: api/<SummonerController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+            // temp method to get some data
+            var karl = _riotApiRepository.GetSummoner("leagueofmouse", Region.Euw);
+            var mahen = _riotApiRepository.GetSummoner("nadsofmahen", Region.Euw);
+
+            var mahenMatchList = _riotApiRepository.GetMatchList(mahen, 80);
+
+            var mahenMatches = _riotApiRepository.GetMatches(mahen, mahenMatchList);
+
+            int allWins = 0;
+            int matchesWithKarl = 0;
+            int winsWithKarl = 0;
+
+            foreach (var match in mahenMatches)
+            {
+                if (match.Info.Participants.Any(c => c.SummonerId == karl.Id))
+                {
+                    matchesWithKarl += 1;
+
+                    if (match.Info.Participants.Where(c => c.SummonerId == karl.Id).FirstOrDefault().Winner)
+                    {
+                        winsWithKarl += 1;
+                    }
+                }
+
+                if (match.Info.Participants.Where(c => c.SummonerId == mahen.Id).FirstOrDefault().Winner)
+                {
+                    allWins += 1;
+                }
+            }
+
+            return string.Format("all games: {0}, games with karl: {1}, all wins: {2}, wins with karl: {3}", mahenMatches.Count(), matchesWithKarl, allWins, winsWithKarl);
+            
         }
 
         // GET api/<SummonerController>/5
-        [HttpGet("{region}/{summonerName}/{queue}")]
-        public IEnumerable<SummonerChampSummaryStat> Get(Region region, string summonerName, string queue)
-        {
-            // get summoner
-            var summoner = _riotApiRepository.GetSummoner(summonerName, region);
+        //[HttpGet("{region}/{summonerName}/{queue}")]
+        //public IEnumerable<SummonerChampSummaryStat> Get(Region region, string summonerName, string queue)
+        //{
+        //    // get summoner
+        //    var summoner = _riotApiRepository.GetSummoner(summonerName, region);
 
-            // get saved matches' Ids from db
-            IEnumerable<long> matchIds = _databaseRepository.GetSummonerMatchIdsByAccountId(summoner.AccountId, region, queue);
+        //    // get saved matches' Ids from db
+        //    IEnumerable<long> matchIds = _databaseRepository.GetSummonerMatchIdsByAccountId(summoner.AccountId, region, queue);
             
-            // set up queues
-            // find a way to pull from http://static.developer.riotgames.com/docs/lol/queues.json
-            // for now simulate normal games
-            // normal SR: 400, 430
-            // ranked SR: 420, 440
-            var queueList = new List<int>();
+        //    // set up queues
+        //    // find a way to pull from http://static.developer.riotgames.com/docs/lol/queues.json
+        //    // for now simulate normal games
+        //    // normal SR: 400, 430
+        //    // ranked SR: 420, 440
+        //    var queueList = new List<int>();
 
-            // if not specified, defaults to all queues
-            if (queue == "normal")
-            {
-                queueList.Add(400);
-                queueList.Add(430);
-            }
-            else if (queue == "ranked")
-            {
-                queueList.Add(420);
-                queueList.Add(440);
-            }
+        //    // if not specified, defaults to all queues
+        //    if (queue == "normal")
+        //    {
+        //        queueList.Add(400);
+        //        queueList.Add(430);
+        //    }
+        //    else if (queue == "ranked")
+        //    {
+        //        queueList.Add(420);
+        //        queueList.Add(440);
+        //    }
 
-            // get matchlist
-            // todo: if we have a match recorded for this summoner, get the last game id and send it through. if not, get all matches
-            List<string> matchList = new List<string>();
-            var matchListAll = _riotApiRepository.GetMatchList(summoner, _searchNumber); // replace numberOfMatches with const?
+        //    // get matchlist
+        //    // todo: if we have a match recorded for this summoner, get the last game id and send it through. if not, get all matches
+        //    List<string> matchList = new List<string>();
+        //    var matchListAll = _riotApiRepository.GetMatchList(summoner, _searchNumber); // replace numberOfMatches with const?
 
-            // filter out ones we've stored
-            if (matchIds.Any())
-            {
-                matchList = matchListAll.Matches.Where(item => !matchIds.Any(id => id.Equals(item.GameId))).ToList();
-            }
-            else
-            {
-                matchList = matchListAll.Matches;
-            }
+        //    // filter out ones we've stored
+        //    if (matchIds.Any())
+        //    {
+        //        matchList = matchListAll.Matches.Where(item => !matchIds.Any(id => id.Equals(item.GameId))).ToList();
+        //    }
+        //    else
+        //    {
+        //        matchList = matchListAll.Matches;
+        //    }
 
-            // get champion list every time we start parsing a list of matches
-            var champions = _riotApiRepository.GetChampions();
+        //    // get champion list every time we start parsing a list of matches
+        //    var champions = _riotApiRepository.GetChampions();
 
-            if (matchList.Any())
-            {
-                // parse matches to get regular stats
-                // retrieving stats and saving stats are separated
-                IEnumerable<Match> matches = _riotApiRepository.GetMatches(matchList);
-                List<SummonerMatchSummaryStat> summonerMatchStats = new List<SummonerMatchSummaryStat>();
+        //    if (matchList.Any())
+        //    {
+        //        // parse matches to get regular stats
+        //        // retrieving stats and saving stats are separated
+        //        IEnumerable<Match> matches = _riotApiRepository.GetMatches(matchList);
+        //        List<SummonerMatchSummaryStat> summonerMatchStats = new List<SummonerMatchSummaryStat>();
 
-                // get stats
-                foreach (var match in matches)
-                {
-                    var matchStat = _riotApiRepository.GetSummonerMatchStats(summoner, match, champions);
-                    summonerMatchStats.Add(matchStat);
-                }
+        //        // get stats
+        //        foreach (var match in matches)
+        //        {
+        //            var matchStat = _riotApiRepository.GetSummonerMatchStats(summoner, match, champions);
+        //            summonerMatchStats.Add(matchStat);
+        //        }
 
-                // save new data to db
-                foreach (var summonerMatchSummary in summonerMatchStats)
-                {
-                    _databaseRepository.InsertSummonerMatchSummaryStat(summonerMatchSummary);
-                }
-            }
+        //        // save new data to db
+        //        foreach (var summonerMatchSummary in summonerMatchStats)
+        //        {
+        //            _databaseRepository.InsertSummonerMatchSummaryStat(summonerMatchSummary);
+        //        }
+        //    }
 
-            // pull all data for summoner
-            var summonerChampionSummaryStats = _databaseRepository.GetSummonerChampSummaryStats(summoner.AccountId, region, queue);
+        //    // pull all data for summoner
+        //    var summonerChampionSummaryStats = _databaseRepository.GetSummonerChampSummaryStats(summoner.AccountId, region, queue);
 
-            return summonerChampionSummaryStats;
-        }
+        //    return summonerChampionSummaryStats;
+        //}
 
         // POST api/<SummonerController>
         [HttpPost]

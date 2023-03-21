@@ -9,15 +9,15 @@ namespace LoLKillers.API.Interfaces
 {
     public interface IDatabaseRepository
     {
-        // gets
-        IEnumerable<long> GetSummonerMatchIdsByAccountId(string summonerAccountId, Region region, string queue);
-        IEnumerable<long> GetSummonerChampSummaryMatchIdsByAccountId(string summonerAccountId, Region region, string queue);
-        IEnumerable<SummonerChampSummaryStat> GetSummonerChampSummaryStats(string summonerAccountId, Region region, string queue);
-        IEnumerable<SummonerChampVsChampSummaryStat> GetSummonerChampVsChampSummaryStats(string summonerAccountId, Region region, string queue, int riotChampId);
+        //// gets
+        //IEnumerable<long> GetSummonerMatchIdsByAccountId(string summonerAccountId, Region region, string queue);
+        ////IEnumerable<long> GetSummonerChampSummaryMatchIdsByAccountId(string summonerAccountId, Region region, string queue);
+        //IEnumerable<SummonerChampSummaryStat> GetSummonerChampSummaryStats(string summonerAccountId, Region region, string queue);
+        //IEnumerable<SummonerChampVsChampSummaryStat> GetSummonerChampVsChampSummaryStats(string summonerAccountId, Region region, string queue, int riotChampId);
         
-        // sets
-        void InsertSummonerMatchSummaryStat(SummonerMatchSummaryStat summonerMatchChampionStat);
-        void InsertSummonerChampVsChampStat(SummonerChampVsChampMatchStat summonerChampVsChampMatchStat);
+        //// sets
+        //void InsertSummonerMatchSummaryStat(SummonerMatchSummaryStat summonerMatchChampionStat);
+        //void InsertSummonerChampVsChampStat(SummonerChampVsChampMatchStat summonerChampVsChampMatchStat);
 
     }
 }

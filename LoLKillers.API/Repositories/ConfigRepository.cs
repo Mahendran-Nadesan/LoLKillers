@@ -52,12 +52,14 @@ namespace LoLKillers.API.Repositories
 
         public string GetRiotApiKey()
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var riotApiKey = connection.ExecuteScalar<string>("EXEC GetRiotApiKey;");
+            return "RGAPI-42c698ba-763a-409a-8052-bfc87bf73b1d";
 
-                return riotApiKey;
-            }
+            //using (var connection = new SqlConnection(_connectionString))
+            //{
+            //    var riotApiKey = connection.ExecuteScalar<string>("EXEC GetRiotApiKey;");
+
+            //    return riotApiKey;
+            //}
         }
     }
 }

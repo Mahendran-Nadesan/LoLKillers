@@ -11,6 +11,7 @@ using RiotSharp.Endpoints.SummonerEndpoint;
 using RiotSharp.Endpoints.MatchEndpoint;
 using LoLKillers.API.Models;
 using RiotSharp.Endpoints.StaticDataEndpoint.Champion;
+using LoLKillers.API.Utilities;
 
 namespace LoLKillers.API.Repositories
 {
@@ -34,87 +35,99 @@ namespace LoLKillers.API.Repositories
 
         public List<string> GetMatchList(Summoner summoner, long numberOfMatches)
         {
-            return _riotApi.Match.GetMatchListAsync(summoner.Region, summoner.AccountId, 0, numberOfMatches).Result; //todo: change "start" parameter
+            Region region = RegionConverter.ConvertToRoutingRegion(summoner.Region);
+
+            return _riotApi.Match.GetMatchListAsync(region, summoner.Puuid, 0, numberOfMatches).Result; //todo: change "start" parameter
         }
 
-        public Match GetMatch(string matchId)
-        {
-            return _riotApi.Match.GetMatchAsync(matchReference.Region, matchId).Result;
-        }
+        //public Match GetMatch(string matchId)
+        //{
+        //    return _riotApi.Match.GetMatchAsync(matchReference.Region, matchId).Result;
+        //}
 
-        public IEnumerable<Match> GetMatches(List<string> matchIdsList)
+        public IEnumerable<Match> GetMatches(Summoner summoner, IEnumerable<string> matchIdsList)
         {
+            Region region = RegionConverter.ConvertToRoutingRegion(summoner.Region);
+
             List<Match> matches = new List<Match>();
 
             //todo: exclude remakes
 
-            foreach (var matchId in matchIdsList)
+            try
             {
-                var newMatch = _riotApi.Match.GetMatchAsync(matchReference.Region, matchId).Result;
-                matches.Add(newMatch);
-            }
+                foreach (var matchId in matchIdsList)
+                {
+                    var newMatch = _riotApi.Match.GetMatchAsync(region, matchId).Result;
+                    matches.Add(newMatch);
+                }
 
-            return matches;
+                return matches;
+            }
+            catch (RiotSharpException rEx)
+            {
+                Console.WriteLine(rEx.Message);
+                return matches;
+            }            
         }
 
-        public MatchTimeline GetMatchTimeline(string matchId)
-        {
-            return _riotApi.Match.GetMatchTimelineAsync(matchReference.Region, matchId).Result;
-        }
+        //public MatchTimeline GetMatchTimeline(string matchId)
+        //{
+        //    return _riotApi.Match.GetMatchTimelineAsync(matchReference.Region, matchId).Result;
+        //}
 
-        public IEnumerable<MatchTimeline> GetMatchTimelines(IEnumerable<MatchReference> matchList)
-        {
-            List<MatchTimeline> matchTimelines = new List<MatchTimeline>();
+        //public IEnumerable<MatchTimeline> GetMatchTimelines(IEnumerable<MatchReference> matchList)
+        //{
+        //    List<MatchTimeline> matchTimelines = new List<MatchTimeline>();
 
-            //todo: exclude remakes
+        //    //todo: exclude remakes
 
-            foreach (var match in matchList)
-            {
-                var newMatchTimeline = _riotApi.Match.GetMatchTimelineAsync(match.Region, match.GameId).Result;
-                matchTimelines.Add(newMatchTimeline);
-            }
+        //    foreach (var match in matchList)
+        //    {
+        //        var newMatchTimeline = _riotApi.Match.GetMatchTimelineAsync(match.Region, match.GameId).Result;
+        //        matchTimelines.Add(newMatchTimeline);
+        //    }
 
-            return matchTimelines;
-        }
+        //    return matchTimelines;
+        //}
 
-        public SummonerMatchSummaryStat GetSummonerMatchStats(Summoner summoner, Match match, ChampionListStatic champions)
-        {
-            var summonerParticipantId = match.ParticipantIdentities.Single(c => c.Player.AccountId == summoner.AccountId).ParticipantId;
-            var summonerChampionId = match.Participants.Single(c => c.ParticipantId == summonerParticipantId).ChampionId;
-            var summonerChampionName = champions.Champions.Single(c => c.Value.Id == summonerChampionId).Value.Name;
-            var summonerMatchStats = match.Participants.Single(c => c.ParticipantId == summonerParticipantId).Stats;
-            var isWin = summonerMatchStats.Winner;
-            string queue;
+        //public SummonerMatchSummaryStat GetSummonerMatchStats(Summoner summoner, Match match, ChampionListStatic champions)
+        //{
+        //    var summonerParticipantId = match.ParticipantIdentities.Single(c => c.Player.AccountId == summoner.AccountId).ParticipantId;
+        //    var summonerChampionId = match.Participants.Single(c => c.ParticipantId == summonerParticipantId).ChampionId;
+        //    var summonerChampionName = champions.Champions.Single(c => c.Value.Id == summonerChampionId).Value.Name;
+        //    var summonerMatchStats = match.Participants.Single(c => c.ParticipantId == summonerParticipantId).Stats;
+        //    var isWin = summonerMatchStats.Winner;
+        //    string queue;
 
-            if (match.QueueId == 400 || match.QueueId == 430)
-            {
-                queue = "normal";
-            }
-            else if (match.QueueId == 420 || match.QueueId == 440)
-            {
-                queue = "ranked";
-            }
-            else
-            {
-                queue = "other";
-            }
+        //    if (match.QueueId == 400 || match.QueueId == 430)
+        //    {
+        //        queue = "normal";
+        //    }
+        //    else if (match.QueueId == 420 || match.QueueId == 440)
+        //    {
+        //        queue = "ranked";
+        //    }
+        //    else
+        //    {
+        //        queue = "other";
+        //    }
 
-            SummonerMatchSummaryStat summonerMatchChampionStat = new SummonerMatchSummaryStat
-            {
-                AccountId = summoner.AccountId,
-                RiotMatchId = match.GameId,
-                Region = summoner.Region.ToString(),
-                Queue = queue,
-                RiotChampId = summonerChampionId,
-                RiotChampName = summonerChampionName,
-                IsWin = isWin,
-                MatchKills = Convert.ToInt32(summonerMatchStats.Kills),
-                MatchDeaths = Convert.ToInt32(summonerMatchStats.Deaths),
-                MatchAssists = Convert.ToInt32(summonerMatchStats.Assists)
-            };
+        //    SummonerMatchSummaryStat summonerMatchChampionStat = new SummonerMatchSummaryStat
+        //    {
+        //        AccountId = summoner.AccountId,
+        //        RiotMatchId = match.GameId,
+        //        Region = summoner.Region.ToString(),
+        //        Queue = queue,
+        //        RiotChampId = summonerChampionId,
+        //        RiotChampName = summonerChampionName,
+        //        IsWin = isWin,
+        //        MatchKills = Convert.ToInt32(summonerMatchStats.Kills),
+        //        MatchDeaths = Convert.ToInt32(summonerMatchStats.Deaths),
+        //        MatchAssists = Convert.ToInt32(summonerMatchStats.Assists)
+        //    };
 
-            return summonerMatchChampionStat;
-        }
+        //    return summonerMatchChampionStat;
+        //}
 
         // Calls to the static API
         public ChampionListStatic GetChampions()

@@ -18,13 +18,13 @@ namespace LoLKillers.API.Interfaces
 
         // Matches
         List<string> GetMatchList(Summoner summoner, long numberOfMatches);
-        Match GetMatch(string matchId);
-        IEnumerable<Match> GetMatches(IEnumerable<string> matchList);
-        SummonerMatchSummaryStat GetSummonerMatchStats(Summoner summoner, Match match, ChampionListStatic champions);
+        //Match GetMatch(string matchId);
+        IEnumerable<Match> GetMatches(Summoner summoner, IEnumerable<string> matchList);
+        //SummonerMatchSummaryStat GetSummonerMatchStats(Summoner summoner, Match match, ChampionListStatic champions);
 
         // Timelines
-        MatchTimeline GetMatchTimeline(MatchReference match);
-        IEnumerable<MatchTimeline> GetMatchTimelines(IEnumerable<MatchReference> matchList);
+        //MatchTimeline GetMatchTimeline(MatchReference match);
+        //IEnumerable<MatchTimeline> GetMatchTimelines(IEnumerable<MatchReference> matchList);
         
 
         // Static Data
