@@ -17,12 +17,14 @@ namespace LoLKillers.API.Repositories
     {
         private readonly string _connectionString;
         private readonly string _dataDragonURL;
+        private readonly LoLKillersDbContext _lolKillersDbContext;
 
-        public ConfigRepository(IOptions<AppConfig> options)
+        public ConfigRepository(IOptions<AppConfig> options, LoLKillersDbContext loLKillersDbContext)
         {
-            _connectionString = options.Value.ConnectionString;
+            //_connectionString = options.Value.ConnectionString;
             _dataDragonURL = options.Value.DataDragonVersionsURL;
             //_dataDragonVersion = options.Value.DataDragonVersion;
+            _lolKillersDbContext= loLKillersDbContext;
         }
 
         public string GetLatestDataDragonVersion()
@@ -41,18 +43,22 @@ namespace LoLKillers.API.Repositories
             {
                 Log.Error(e, "Error getting latest data dragon version from web");
 
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    var dbDataDragonVersion = connection.ExecuteScalar<string>("EXEC GetDataDragonVersion;");
+                return _lolKillersDbContext.LoLKillersConfigs.Where(c => c.ConfigKey == "DataDragonVersion").FirstOrDefault().ConfigValue;
+                //using (var connection = new SqlConnection(_connectionString))
+                //{
+                //    var dbDataDragonVersion = connection.ExecuteScalar<string>("EXEC GetDataDragonVersion;");
 
-                    return dbDataDragonVersion;
-                }
+                //    return dbDataDragonVersion;
+                //}
             }
         }
 
         public string GetRiotApiKey()
         {
-            return "RGAPI-42c698ba-763a-409a-8052-bfc87bf73b1d";
+            return _lolKillersDbContext.LoLKillersConfigs.Where(c => c.ConfigKey == "RiotAPIKey").FirstOrDefault().ConfigValue;
+            
+            
+            //return "RGAPI-42c698ba-763a-409a-8052-bfc87bf73b1d";
 
             //using (var connection = new SqlConnection(_connectionString))
             //{

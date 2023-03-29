@@ -29,7 +29,7 @@ namespace LoLKillers.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            
 
             // Options pattern
             var config = Configuration.GetSection("AppConfig");
@@ -37,7 +37,7 @@ namespace LoLKillers.API
 
             // dbContext
             services.AddDbContext<LoLKillersDbContext>(dbContextOptions =>
-                dbContextOptions.UseSqlServer(config.GetConnectionString("ConnectionString")));
+                dbContextOptions.UseSqlServer(config.GetConnectionString("PCConnection")));
 
             // Identity
             services.AddIdentityCore<IdentityUser>()
@@ -46,9 +46,12 @@ namespace LoLKillers.API
 
             // dependency injection stuff
             //todo: remove extraneous repos
-            services.AddSingleton<Interfaces.IConfigRepository, ConfigRepository>();
-            services.AddSingleton<Interfaces.IRiotApiRepository, RiotApiRepository>();
+            services.AddScoped<LoLKillersDbContext>();
+            services.AddScoped<Interfaces.IConfigRepository, ConfigRepository>();
+            services.AddScoped<Interfaces.IRiotApiRepository, RiotApiRepository>();
             services.AddScoped<Interfaces.IDatabaseRepository, DatabaseRepository>();
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

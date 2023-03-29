@@ -1,0 +1,65 @@
+
+---------------
+- Conventions -
+---------------
+
+1. Handling Regions
+	1.1 Regions are passed in as strings. Calls to the database will use region as strings. 
+	However, calls to RiotSharp need a Region (enum) type, so we will convert the string to the enum for RiotSharp calls.
+	1.2 Regions are prioritised in argument order - if a call needs a region parameter, region should be before summoner, etc.
+
+2. Getting Summoner Match Lists
+There are two ways we can go about getting new matches for a summoner:
+	2.1 Get missing matches
+		2.1.1 Get all match ids for the summoner from the database
+		2.1.2 Get the most recent {searchNumber} match ids for the summoner from the Riot API
+		2.1.3 Get a list of match ids in the Riot list that are not in the database list
+	2.2 Get all matches from last id
+		2.2.1 Get the most recent match id for the summoner from the database
+		2.2.2 Get the most recent {searchNumber} match ids for the summoner from the Riot API
+		2.2.3 Get a list of match ids from the Riot list that are after the most recent match id from the database
+	THEN loop through that list and get matches
+* I will use 2.2 *
+
+3. Controller Parameters
+The web app will obviously store its own summoner, match, champ stats, etc. objects in memory in its own models. 
+But when querying our API, it can either pass in, as parameters:
+	3.1 Whole objects, like a Summoner object, then take out what we need (e.g. summoner.puuid, summoner.region) for any calls inside the controller
+	3.2 Only the things we need, like the puuid or region. If we then need more data, we can use what's passed in to get whole objects, like get the Summoner object from the puuid.
+* I will use 3.2 *
+
+4. Dapper (stored procs) vs. Entity Framework LINQ
+	4.1 Adding, saving an entity from Models.EF can be done via EF
+	4.2 Retrieving all entities or entities with one or two simple filters (e.g. all matches for a puuid in a region) can be done via EF
+	4.3 Queries that require joins, more parameters, or data from multiple tables will be done with stored procs via Dapper
+
+5. Error Handling
+	5.1 Should we have a custom exception class, specifically one that indicates success or failure of a call to return to the web app?
+	5.2 We will return nulls when a Riot API/RiotSharp call fails, when only the result of that call is being returned in the method. 
+	See RiotApiRepository.GetMatchList() or RiotApiRepository.GetSummoner() for examples.
+
+6. Database Repository
+	6.1 Parameters to calls should be individual fields, not objects, where possible
+	6.2 INSERTS and UPDATES should be done in transactions
+	6.3 Not sure whether to use the async version of .SaveChanges()
+
+7. Data Completion
+	7.1 If a single summoner is queried on the web app, we will store summoner MATCH data (i.e. not the summoner itself) for all the summoners in their matches, but only for the original summoner's matches
+
+8. Queue Types
+	8.1 We will support "normal", "ranked", "all" for now, which are also RiotSharp.Endpoints.MatchEndpoint.EnumsMatchFilterType enums.
+	8.2 We have to work out how to add in other modes
+
+9. Data Types and Null Checks
+	9.1 All data returned from RiotSharp/Riot API are strings. We will store values as int, long, etc. in the database, and convert where necessary.
+	9.2 For single values, like strings, check for nulls or whatever is appropriate. For enumerables, check for .Any()
+
+
+
+---------
+- To Do -
+---------
+
+1. Add logging
+2. Add try...catches in the repository code at least, and throw the errors if the method doesn't require some sort of data to be returned.
+If we need data to be returned, catch blocks can return nulls or whatever data has been collected thus far.

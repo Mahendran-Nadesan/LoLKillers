@@ -8,9 +8,9 @@ namespace LoLKillers.API.Models.EF
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
+        [Required, MaxLength(50), Column(TypeName ="VARCHAR")]
         public string ConfigKey { get; set; }
-        [Required]
+        [Required, MaxLength(100), Column(TypeName = "VARCHAR")]
         public string ConfigValue { get; set; }
     }
 }

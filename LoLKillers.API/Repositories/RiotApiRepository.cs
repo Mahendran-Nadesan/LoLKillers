@@ -12,6 +12,7 @@ using RiotSharp.Endpoints.MatchEndpoint;
 using LoLKillers.API.Models;
 using RiotSharp.Endpoints.StaticDataEndpoint.Champion;
 using LoLKillers.API.Utilities;
+using RiotSharp.Endpoints.MatchEndpoint.Enums;
 
 namespace LoLKillers.API.Repositories
 {
@@ -29,15 +30,31 @@ namespace LoLKillers.API.Repositories
 
         public Summoner GetSummoner(string summonerName, Region region)
         {
-            return _riotApi.Summoner.GetSummonerByNameAsync(region, summonerName).Result;
-
+            try
+            {
+                return _riotApi.Summoner.GetSummonerByNameAsync(region, summonerName).Result;
+            }
+            catch (Exception e)
+            {
+                //todo: log exception
+                return null;
+            }
         }
 
-        public List<string> GetMatchList(Summoner summoner, long numberOfMatches)
+        public List<string> GetMatchList(Region region, string riotPuuId, long numberOfMatches, long? startMatchId = null, MatchFilterType? matchFilterType = null)
         {
-            Region region = RegionConverter.ConvertToRoutingRegion(summoner.Region);
+            Region routingRegion = RegionConverter.ConvertToRoutingRegion(region);
 
-            return _riotApi.Match.GetMatchListAsync(region, summoner.Puuid, 0, numberOfMatches).Result; //todo: change "start" parameter
+            try
+            {
+                return _riotApi.Match.GetMatchListAsync(routingRegion, riotPuuId, startMatchId, numberOfMatches, null, matchFilterType).Result; // queue = null for now
+            }
+            catch (Exception)
+            {
+                //todo: log exception
+                return null;
+            }
+            
         }
 
         //public Match GetMatch(string matchId)
@@ -45,11 +62,11 @@ namespace LoLKillers.API.Repositories
         //    return _riotApi.Match.GetMatchAsync(matchReference.Region, matchId).Result;
         //}
 
-        public IEnumerable<Match> GetMatches(Summoner summoner, IEnumerable<string> matchIdsList)
+        public IEnumerable<Match> GetMatches(Region region, IEnumerable<string> matchIdsList)
         {
-            Region region = RegionConverter.ConvertToRoutingRegion(summoner.Region);
+            Region routingRegion = RegionConverter.ConvertToRoutingRegion(region);
 
-            List<Match> matches = new List<Match>();
+            List<Match> matches = new();
 
             //todo: exclude remakes
 
@@ -57,17 +74,26 @@ namespace LoLKillers.API.Repositories
             {
                 foreach (var matchId in matchIdsList)
                 {
-                    var newMatch = _riotApi.Match.GetMatchAsync(region, matchId).Result;
+                    var newMatch = _riotApi.Match.GetMatchAsync(routingRegion, matchId).Result;
                     matches.Add(newMatch);
                 }
 
                 return matches;
             }
-            catch (RiotSharpException rEx)
+            //catch (RiotSharpException rEx)
+            //{
+            //    Console.WriteLine(rEx.Message);
+            //    return matches;
+            //}          
+            //catch (RiotSharpRateLimitException rlEx)
+            //{
+            //    Console.WriteLine(rEx.Message);
+            //    return matches;
+            //}
+            catch (Exception e)
             {
-                Console.WriteLine(rEx.Message);
                 return matches;
-            }            
+            }
         }
 
         //public MatchTimeline GetMatchTimeline(string matchId)
