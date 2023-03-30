@@ -4,6 +4,7 @@ using LoLKillers.API.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoLKillers.API.Migrations
 {
     [DbContext(typeof(LoLKillersDbContext))]
-    partial class LoLKillersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230330175852_added_summoner_dates")]
+    partial class addedsummonerdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,12 +182,6 @@ namespace LoLKillers.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("FirstBlood")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("FirstBloodAssist")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsWin")
                         .HasColumnType("bit");
 
@@ -195,9 +192,6 @@ namespace LoLKillers.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("MatchKills")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinionsKilled")
                         .HasColumnType("int");
 
                     b.Property<string>("QueueType")

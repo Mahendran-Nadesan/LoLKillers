@@ -32,10 +32,23 @@ namespace LoLKillers.API.Controllers
         }
 
         // GET: api/<SummonerChampionSummary>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("{region}/{riotPuuId}/{queue?}")]
+        public async Task<IActionResult> Get(string region, string riotPuuId, string queue = "all")
         {
-            return new string[] { "value1", "value2" };
+            LoLKillersResponse response = new();
+
+            var summonerChampSummaryStats = await _databaseRepository.GetSummonerChampSummaryStatsByRiotPuuId(region, riotPuuId, queue);
+
+            if (summonerChampSummaryStats != null && summonerChampSummaryStats.Any())
+            {
+                response.Data = summonerChampSummaryStats;
+
+                return Ok(response);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         // GET api/<SummonerChampionSummary>/5

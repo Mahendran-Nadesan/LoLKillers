@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoLKillers.API.Models.EF
@@ -18,5 +19,9 @@ namespace LoLKillers.API.Models.EF
         public string Name { get; set; }
         [Required, MaxLength(10), Column(TypeName = "VARCHAR")]
         public string Region { get; set; }
+        [Required, Column(TypeName = "DATETIMEOFFSET")]
+        public DateTimeOffset SummonerLastUpdatedDate { get; set; }
+        [Column(TypeName = "DATETIMEOFFSET")]
+        public DateTimeOffset SummonerMatchesLastUpdatedDate { get; set; }
     }
 }

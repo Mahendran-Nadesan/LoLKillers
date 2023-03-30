@@ -37,11 +37,16 @@ But when querying our API, it can either pass in, as parameters:
 	5.1 Should we have a custom exception class, specifically one that indicates success or failure of a call to return to the web app?
 	5.2 We will return nulls when a Riot API/RiotSharp call fails, when only the result of that call is being returned in the method. 
 	See RiotApiRepository.GetMatchList() or RiotApiRepository.GetSummoner() for examples.
+	5.3 Should we return data when there's an exception in the Catch or Finally section?
 
 6. Database Repository
 	6.1 Parameters to calls should be individual fields, not objects, where possible
 	6.2 INSERTS and UPDATES should be done in transactions
 	6.3 Not sure whether to use the async version of .SaveChanges()
+	6.4 We can pass an update argument to database repo code so we know whether to .Add or .Update in EF. BUT, 
+		6.4.1 Should we do checks in the repo methods to see if that entry exists (applies to summoners and summoner matches at least)?
+		6.4.2 With match summaries, we assume the code that checks for new matches is adequate. Should we move the filtering to the Riot repo code, which would mean injecting the db repo into the Riot repo, which I don't like.
+		6.4.3 We should add complex unique constraints on tables, e.g. for summoner matches, the contraint would be a unique Riot PuuId + Riot Match Id
 
 7. Data Completion
 	7.1 If a single summoner is queried on the web app, we will store summoner MATCH data (i.e. not the summoner itself) for all the summoners in their matches, but only for the original summoner's matches
@@ -54,7 +59,10 @@ But when querying our API, it can either pass in, as parameters:
 	9.1 All data returned from RiotSharp/Riot API are strings. We will store values as int, long, etc. in the database, and convert where necessary.
 	9.2 For single values, like strings, check for nulls or whatever is appropriate. For enumerables, check for .Any()
 
+10. We are splitting by queue. Will we split/filter by season?
 
+11. Controller return types
+	11.1 We always return Task<IActionResults> with the data type LoLKillersResponse
 
 ---------
 - To Do -
@@ -63,3 +71,16 @@ But when querying our API, it can either pass in, as parameters:
 1. Add logging
 2. Add try...catches in the repository code at least, and throw the errors if the method doesn't require some sort of data to be returned.
 If we need data to be returned, catch blocks can return nulls or whatever data has been collected thus far.
+3. Add appsettings.json to git (only when we have development connection strings)
+4. Change AppConfig class to represent appsettings.Development.json
+5. Sort out data dragon url and version in appsettings and db
+6. Lots of issues with the options/config object on laptop
+7. Add seed data for table QueueTypeMappings
+8. Add Unique constraints on tables, add to migrations, or db context builder?
+9. Should we convert all controller methods to return async Task<IActionResult>?
+10. Add team id to the match stats
+11. Add controllers for misc. stats i'm interested in
+12. Add data for graphing KDA over time, win rate over time, etc.
+13. Add section for stats for playing with people, people that feature in multiple games with the summoner in question
+14. Find a way to add kill participation to individual match summary stat
+15. Also add to match summary stats (SummonerMatchSummaryStat): level, gold earned, gold spent, longest time alive, time spent dead, time played, damage done, damage received, spells cast (including summoner spells), wards placed, vision score

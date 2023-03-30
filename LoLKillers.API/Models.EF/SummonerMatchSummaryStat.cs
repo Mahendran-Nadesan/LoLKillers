@@ -28,6 +28,12 @@ namespace LoLKillers.API.Models.EF
         [Required]
         public int MatchAssists { get; set; }
         [Required]
+        public int MinionsKilled { get; set; }
+        [Required]
+        public bool FirstBlood { get; set; }
+        [Required]
+        public bool FirstBloodAssist { get; set; }
+        [Required]
         public bool IsWin { get; set; }
 
     }

@@ -1,0 +1,33 @@
+
+---------
+- Pages -
+---------
+
+1. Main Search page
+2. Main Summoner page --> 
+	2.1 [side] Summoner Info
+	2.2 [tab, default] Summoner Match History [with a queue type filter]
+	2.3 [tab] Summoner Champion Stats [with a queue type filter], on-click of champion opens up a new table with Champ vs. Champ stats
+
+
+--------
+- Flow -
+--------
+
+1. Summoner page --> Main/Match History tab --> results of Summoner controller and Summoner Match controller
+
+
+
+---------------
+- Conventions -
+---------------
+
+1. 
+
+
+---------------
+- Constraints -
+---------------
+
+1. Default search number can be 100
+2. Profiles can only be updated every 5 minutes. Should we check this only in the web app, or in the API as well?

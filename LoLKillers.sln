@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoLKillers.Documentation", 
 	ProjectSection(SolutionItems) = preProject
 		API Notes.txt = API Notes.txt
 		LoLKillers.Documentation\Git Notes.txt = LoLKillers.Documentation\Git Notes.txt
+		Web App Notes.txt = Web App Notes.txt
 	EndProjectSection
 EndProject
 Global

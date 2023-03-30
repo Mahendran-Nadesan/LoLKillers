@@ -19,6 +19,7 @@ namespace LoLKillers.API
         {
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", true)
+                .AddEnvironmentVariables()
                 .Build();
 
             var logConnectionString = configuration["AppConfig:ConnectionString"];

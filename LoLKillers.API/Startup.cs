@@ -29,15 +29,13 @@ namespace LoLKillers.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
             // Options pattern
             var config = Configuration.GetSection("AppConfig");
             services.AddOptions<AppConfig>().Bind(config);
 
             // dbContext
             services.AddDbContext<LoLKillersDbContext>(dbContextOptions =>
-                dbContextOptions.UseSqlServer(config.GetConnectionString("PCConnection")));
+                dbContextOptions.UseSqlServer(config.GetConnectionString("LaptopConnection")));
 
             // Identity
             services.AddIdentityCore<IdentityUser>()

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Dapper;
 using RiotSharp.Misc;
 using System.Drawing;
+using Microsoft.EntityFrameworkCore;
 
 namespace LoLKillers.API.Repositories
 {
@@ -20,7 +21,7 @@ namespace LoLKillers.API.Repositories
 
         public DatabaseRepository(IOptions<AppConfig> options, LoLKillersDbContext lolKillersDbContext)
         {
-            _connectionString = options.Value.ConnectionString;
+            //_connectionString = options.Value.ConnectionString;
             _lolKillersDbContext = lolKillersDbContext;
             _connectionString = _lolKillersDbContext.Connection.ConnectionString;
         }
@@ -29,22 +30,35 @@ namespace LoLKillers.API.Repositories
 
         #region Summoners
 
-        public Models.EF.Summoner GetSummonerByRiotAccountId(string region, string riotAccountId)
+        public async Task<Models.EF.Summoner> GetSummonerByRiotAccountId(string region, string riotAccountId)
         {
-            return _lolKillersDbContext.Summoners.Where(c => c.Region == region && c.RiotAccountId == riotAccountId).FirstOrDefault();
+            return await _lolKillersDbContext.Summoners.Where(s => s.Region == region && s.RiotAccountId == riotAccountId).FirstOrDefaultAsync();
         }
 
-        public Models.EF.Summoner GetSummonerBySummonerName(string region, string summonerName)
+        public async Task<Models.EF.Summoner> GetSummonerBySummonerName(string region, string summonerName)
         {
             // note, cannot use .ToLowerInvariant() - https://github.com/dotnet/efcore/issues/18995
-            return _lolKillersDbContext.Summoners.Where(c => c.Region == region && c.Name.ToLower() == summonerName.ToLower()).FirstOrDefault();
+            return await _lolKillersDbContext.Summoners.Where(s => s.Region == region && s.Name.ToLower() == summonerName.ToLower()).FirstOrDefaultAsync();
         }
 
-        public void SaveSummoner(Models.EF.Summoner appSummoner) 
+        public async Task<Models.EF.Summoner> GetSummonerByRiotPuuId(string region, string riotPuuId)
+        {
+            return await _lolKillersDbContext.Summoners.Where(s => s.Region == region && s.RiotPuuId == riotPuuId).FirstOrDefaultAsync();
+        }
+
+        public async Task<int> SaveSummoner(Models.EF.Summoner appSummoner, bool update = false) 
         {
             //todo: wrap in transaction, either here, or in calling code (but probably here to reduce code duplication)
-            _lolKillersDbContext.Summoners.Add(appSummoner);
-            _lolKillersDbContext.SaveChanges();
+            if (update)
+            {
+                _lolKillersDbContext.Summoners.Update(appSummoner);
+            }
+            else
+            {
+                _lolKillersDbContext.Summoners.Add(appSummoner);
+            }
+            
+            return await _lolKillersDbContext.SaveChangesAsync();
         }
 
         #endregion
@@ -67,22 +81,22 @@ namespace LoLKillers.API.Repositories
             }
         }
 
-        public IEnumerable<Models.EF.SummonerMatchSummaryStat> GetSummonerMatchSummaryStats(string region, string summonerPuuId, string queue = "all")
+        public async Task<IEnumerable<Models.EF.SummonerMatchSummaryStat>> GetSummonerMatchSummaryStats(string region, string summonerPuuId, string queue = "all")
         {
             if (queue == "all")
             {
-                return _lolKillersDbContext.SummonerMatchSummaryStats.Where(stat => stat.Region == region && stat.RiotPuuId == summonerPuuId);
+                return await _lolKillersDbContext.SummonerMatchSummaryStats.Where(stat => stat.Region == region && stat.RiotPuuId == summonerPuuId).ToListAsync();
             }
             else
             {
-                return _lolKillersDbContext.SummonerMatchSummaryStats.Where(stat => stat.Region == region && stat.RiotPuuId == summonerPuuId && stat.QueueType == queue);
+                return await _lolKillersDbContext.SummonerMatchSummaryStats.Where(stat => stat.Region == region && stat.RiotPuuId == summonerPuuId && stat.QueueType == queue).ToListAsync();
             }
         }
-
 
         public void SaveSummonerMatchSummaryStat(Models.EF.SummonerMatchSummaryStat summonerMatchSummaryStat)
         {
             //todo: wrap in transaction, either here, or in calling code (but probably here to reduce code duplication)
+            //todo: return an async int for rows committed
             _lolKillersDbContext.SummonerMatchSummaryStats.Add(summonerMatchSummaryStat);
             _lolKillersDbContext.SaveChanges();
         }
@@ -123,63 +137,13 @@ namespace LoLKillers.API.Repositories
 
         #endregion
 
-        //public IEnumerable<SummonerChampSummaryStat> GetSummonerChampSummaryStats(string summonerAccountId, Region region, string queue)
-        //{
-        //    IQueryable<Models.EF.SummonerMatchSummaryStat> summonerMatchesAllQueues = _lolKillersDbContext.SummonerMatchSummaryStats
-        //        .Where(c => c.RiotPuuId == summonerAccountId && c.Region == region.ToString());
-
-        //    IQueryable<Models.EF.SummonerMatchSummaryStat> summonerMatchesInQueue;
-
-        //    if (queue != "all")
-        //    {
-        //        summonerMatchesInQueue = summonerMatchesAllQueues
-        //            .Where(c => c.QueueType == queue);
-        //    }
-        //    else
-        //    {
-        //        summonerMatchesInQueue = summonerMatchesAllQueues;
-        //    }
-
-        //    var summonerChampSummaryStats = summonerMatchesInQueue
-        //        .GroupBy(g => g.RiotChampId)
-        //        .Select(c => new SummonerChampSummaryStat
-        //        {
-        //            AccountId = summonerAccountId,
-        //            Region = region.ToString(),
-        //            Queue = queue,
-        //            NumberOfMatches = summonerMatchesInQueue.Count(i => i.RiotChampId == c.Key),
-        //            RiotChampId = c.Key,
-        //            RiotChampName = summonerMatchesInQueue.Where(i => i.RiotChampId == c.Key).Select(d => d.RiotChampName).First(), //todo: use a lookup here
-        //            Wins = summonerMatchesInQueue.Count(i => i.RiotChampId == c.Key && i.IsWin),
-        //            Losses = summonerMatchesInQueue.Count(i => i.RiotChampId == c.Key && !i.IsWin),
-        //            AverageKills = summonerMatchesInQueue.Where(i => i.RiotChampId == c.Key).Average(a => a.MatchKills),
-        //            AverageDeaths = summonerMatchesInQueue.Where(i => i.RiotChampId == c.Key).Average(a => a.MatchDeaths),
-        //            AverageAssists = summonerMatchesInQueue.Where(i => i.RiotChampId == c.Key).Average(a => a.MatchAssists),
-        //        });
-
-        //    return summonerChampSummaryStats.ToList();
-
-        //    //var summonerChampSummaryStat = new SummonerChampSummaryStat
-        //    //{
-        //    //    AccountId = summonerAccountId,
-        //    //    Region = region.ToString(),
-        //    //    Queue = queue,
-        //    //    NumberOfMatches = (queue == "all" ? summonerMatchesAllQueues.Count() : summonerMatchesAllQueues.Where(c => c.QueueType == queue).Count(),
-
-        //    //}
-
-        //    //var sqlParams = new
-        //    //{
-        //    //    AccountId = summonerAccountId,
-        //    //    Region = region.ToString(),
-        //    //    Queue = queue
-        //    //};
-
-        //    //using (var connection = new SqlConnection(_connectionString))
-        //    //{
-        //    //    return connection.Query<SummonerChampSummaryStat>("GetSummonerChampSummaryStats", sqlParams, commandType: System.Data.CommandType.StoredProcedure);
-        //    //}
-        //}
+        public async Task<IEnumerable<SummonerChampSummaryStat>> GetSummonerChampSummaryStatsByRiotPuuId(string region, string riotPuuId, string queue)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return await connection.QueryAsync<SummonerChampSummaryStat>("GetSummonerChampSummaryStatsByRiotPuuId", new { Region = region, RiotPuuId = riotPuuId, Queue = queue }, commandType: System.Data.CommandType.StoredProcedure);
+            }
+        }
 
         //public IEnumerable<SummonerChampVsChampSummaryStat> GetSummonerChampVsChampSummaryStats(string summonerAccountId, Region region, string queue, int riotChampId)
         //{

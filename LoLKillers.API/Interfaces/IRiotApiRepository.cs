@@ -15,12 +15,12 @@ namespace LoLKillers.API.Interfaces
     public interface IRiotApiRepository
     {
         // Summoner
-        Summoner GetSummoner(string summonerName, Region region);
+        Task<Summoner> GetSummoner(string summonerName, Region region);
 
         // Matches
-        List<string> GetMatchList(Region region, string riotPuuId, long numberOfMatches, long? startMatchId = null, MatchFilterType? matchFilterType = null);
+        Task<List<string>> GetMatchList(Region region, string riotPuuId, long numberOfMatches, long? startMatchId = null, MatchFilterType? matchFilterType = null);
         //Match GetMatch(string matchId);
-        IEnumerable<Match> GetMatches(Region region, IEnumerable<string> matchIdsList);
+        Task<IEnumerable<Match>> GetMatches(Region region, IEnumerable<string> matchIdsList);
         //SummonerMatchSummaryStat GetSummonerMatchStats(Summoner summoner, Match match, ChampionListStatic champions);
 
         // Timelines
@@ -29,6 +29,6 @@ namespace LoLKillers.API.Interfaces
         
 
         // Static Data
-        ChampionListStatic GetChampions();
+        //ChampionListStatic GetChampions();
     }
 }

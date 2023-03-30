@@ -28,11 +28,11 @@ namespace LoLKillers.API.Repositories
             _riotApi = RiotApi.GetDevelopmentInstance(riotApiKey); // this will have to change if we get a production key
         }
 
-        public Summoner GetSummoner(string summonerName, Region region)
+        public async Task<Summoner> GetSummoner(string summonerName, Region region)
         {
             try
             {
-                return _riotApi.Summoner.GetSummonerByNameAsync(region, summonerName).Result;
+                return await _riotApi.Summoner.GetSummonerByNameAsync(region, summonerName);
             }
             catch (Exception e)
             {
@@ -41,13 +41,13 @@ namespace LoLKillers.API.Repositories
             }
         }
 
-        public List<string> GetMatchList(Region region, string riotPuuId, long numberOfMatches, long? startMatchId = null, MatchFilterType? matchFilterType = null)
+        public async Task<List<string>> GetMatchList(Region region, string riotPuuId, long numberOfMatches, long? startMatchId = null, MatchFilterType? matchFilterType = null)
         {
             Region routingRegion = RegionConverter.ConvertToRoutingRegion(region);
 
             try
             {
-                return _riotApi.Match.GetMatchListAsync(routingRegion, riotPuuId, startMatchId, numberOfMatches, null, matchFilterType).Result; // queue = null for now
+                return await _riotApi.Match.GetMatchListAsync(routingRegion, riotPuuId, startMatchId, numberOfMatches, null, matchFilterType); // queue = null for now
             }
             catch (Exception)
             {
@@ -62,7 +62,7 @@ namespace LoLKillers.API.Repositories
         //    return _riotApi.Match.GetMatchAsync(matchReference.Region, matchId).Result;
         //}
 
-        public IEnumerable<Match> GetMatches(Region region, IEnumerable<string> matchIdsList)
+        public async Task<IEnumerable<Match>> GetMatches(Region region, IEnumerable<string> matchIdsList)
         {
             Region routingRegion = RegionConverter.ConvertToRoutingRegion(region);
 
@@ -74,7 +74,7 @@ namespace LoLKillers.API.Repositories
             {
                 foreach (var matchId in matchIdsList)
                 {
-                    var newMatch = _riotApi.Match.GetMatchAsync(routingRegion, matchId).Result;
+                    var newMatch = await _riotApi.Match.GetMatchAsync(routingRegion, matchId);
                     matches.Add(newMatch);
                 }
 
@@ -156,12 +156,12 @@ namespace LoLKillers.API.Repositories
         //}
 
         // Calls to the static API
-        public ChampionListStatic GetChampions()
-        {
-            // get latest data dragon version from web, or db if that fails
-            var latestVersion = _configRepository.GetLatestDataDragonVersion();
+        //public ChampionListStatic GetChampions()
+        //{
+        //    // get latest data dragon version from web, or db if that fails
+        //    var latestVersion = _configRepository.GetLatestDataDragonVersion();
 
-            return _riotApi.DataDragon.Champions.GetAllAsync(latestVersion, Language.en_US, false).Result;
-        }
+        //    return _riotApi.DataDragon.Champions.GetAllAsync(latestVersion, Language.en_US, false).Result;
+        //}
     }
 }

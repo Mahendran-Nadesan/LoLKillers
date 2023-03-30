@@ -1,4 +1,5 @@
 ﻿using RiotSharp.Misc;
+using System;
 
 namespace LoLKillers.API.Utilities
 {
@@ -49,6 +50,11 @@ namespace LoLKillers.API.Utilities
                 default:
                     return Region.NoRegion;
             }
+        }
+
+        public static Region ConvertToRoutingRegion(string summonerRegion)
+        {
+            return ConvertToRoutingRegion(Enum.Parse<Region>(summonerRegion, true));
         }
     }
 }

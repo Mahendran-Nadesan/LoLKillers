@@ -4,6 +4,7 @@ using LoLKillers.API.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoLKillers.API.Migrations
 {
     [DbContext(typeof(LoLKillersDbContext))]
-    partial class LoLKillersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230330220636_added_summoner_match_fields")]
+    partial class addedsummonermatchfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
