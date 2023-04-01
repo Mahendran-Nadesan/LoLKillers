@@ -30,6 +30,7 @@ namespace LoLKillers.API.Interfaces
 
         // sets
         Task<int> SaveSummoner(Models.EF.Summoner appSummoner, bool update = false);
+        Task<int> SaveTeamMatchSummaryStat(Models.EF.TeamMatchSummaryStat teamMatchSummaryStat);
         void SaveSummonerMatchSummaryStat(Models.EF.SummonerMatchSummaryStat summonerMatchSummaryStat);
         //void InsertSummonerMatchSummaryStat(SummonerMatchSummaryStat summonerMatchChampionStat);
         //void InsertSummonerChampVsChampStat(SummonerChampVsChampMatchStat summonerChampVsChampMatchStat);

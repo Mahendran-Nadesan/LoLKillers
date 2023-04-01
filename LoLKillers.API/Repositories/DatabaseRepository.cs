@@ -93,6 +93,13 @@ namespace LoLKillers.API.Repositories
             }
         }
 
+        public async Task<int> SaveTeamMatchSummaryStat(Models.EF.TeamMatchSummaryStat teamMatchSummaryStat)
+        {
+            _lolKillersDbContext.TeamMatchSummaryStats.Add(teamMatchSummaryStat);
+
+            return await _lolKillersDbContext.SaveChangesAsync();
+        }
+
         public void SaveSummonerMatchSummaryStat(Models.EF.SummonerMatchSummaryStat summonerMatchSummaryStat)
         {
             //todo: wrap in transaction, either here, or in calling code (but probably here to reduce code duplication)

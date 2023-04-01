@@ -22,15 +22,48 @@ namespace LoLKillers.API.Models
         public int TotalMinionsKilled { get; set; }
         public int TotalFirstBloods { get; set; }
         public int TotalFirstBloodAssists { get; set; }
-        public decimal AverageKills => Math.Round((Convert.ToDecimal(TotalKills) / Convert.ToDecimal(TotalMatches)), 1);
-        public decimal AverageDeaths => Math.Round((Convert.ToDecimal(TotalDeaths) / Convert.ToDecimal(TotalMatches)), 1);
-        public decimal AverageAssists => Math.Round((Convert.ToDecimal(TotalAssists) / Convert.ToDecimal(TotalMatches)), 1);
-        public decimal KDA => Math.Round((Convert.ToDecimal(TotalKills) + Convert.ToDecimal(TotalAssists)) / Convert.ToDecimal(TotalDeaths), 1);
-        public decimal KD => Math.Round(Convert.ToDecimal(TotalKills) / Convert.ToDecimal(TotalDeaths), 1);
-        public decimal KA => Math.Round(Convert.ToDecimal(TotalAssists) / Convert.ToDecimal(TotalDeaths), 1);
-        public decimal AverageMinionsKilled => Math.Round(Convert.ToDecimal(TotalMinionsKilled) / Convert.ToDecimal(TotalMatches), 1);
-        public decimal AverageFirstBloods => Math.Round(Convert.ToDecimal(TotalFirstBloods) / Convert.ToDecimal(TotalMatches), 1);
-        public decimal AverageFirstBloodAssists => Math.Round(Convert.ToDecimal(TotalFirstBloodAssists) / Convert.ToDecimal(TotalMatches), 1);
-        public decimal AverageFirstBloodParticipation => Math.Round((Convert.ToDecimal(TotalFirstBloods) + Convert.ToDecimal(TotalFirstBloodAssists)) / Convert.ToDecimal(TotalMatches), 1);
+        public long TotalPhysicalDamageDealtToChampions { get; set; }
+        public long TotalMagicDamageDealtToChampions { get; set; }
+        public long TotalDamageDealtToChampions { get; set; }
+        public int TotalSpell1Casts { get; set; }
+        public int TotalSpell2Casts { get; set; }
+        public int TotalSpell3Casts { get; set; }
+        public int TotalSpell4Casts { get; set; }
+        public int TotalSummonerSpell1Casts { get; set; }
+        public int TotalSummonerSpell2Casts { get; set; }
+        public int TotalGoldEarned { get; set; }
+        public int TotalGoldSpent { get; set; }
+        public int TotalWardsPlaced { get; set; }
+        public int TotalVisionScore { get; set; }
+        public int TotalLongestTimeSpentLiving { get; set; }    // in seconds
+        public int TotalTimeSpentDead { get; set; }             // in seconds
+        public int TotalMatchesDuration { get; set; }            // in seconds
+        // averages per match
+        public decimal AverageKills { get; set; }
+        public decimal AverageDeaths { get; set; }
+        public decimal AverageAssists { get; set; }
+        public decimal KDA { get; set; }
+        public decimal KD { get; set; }
+        public decimal AD { get; set; }
+        public decimal AverageMinionsKilled { get; set; }
+        public decimal AverageFirstBloods { get; set; }
+        public decimal AverageFirstBloodAssists { get; set; }
+        public decimal AverageFirstBloodParticipation { get; set; }
+        public decimal AverageSpell1Casts { get; set; }
+        public decimal AverageSpell2Casts { get; set; }
+        public decimal AverageSpell3Casts { get; set; }
+        public decimal AverageSpell4Casts { get; set; }
+        public decimal AverageSummonerSpell1Casts { get; set; }
+        public decimal AverageSummonerSpell2Casts { get; set; }
+        public decimal AverageGoldEarned { get; set; }
+        public decimal AverageGoldSpent { get; set; }
+        public decimal AverageWardsPlaced { get; set; }
+        public decimal AverageVisionScore { get; set; }
+        public decimal AverageLongestTimeSpentLiving { get; set; }    // in seconds
+        public decimal AverageTimeSpentDead { get; set; }   // in seconds
+        public decimal AverageMatchDuration { get; set; }   // in seconds
+
+        // computed fields - average per duration
+        public decimal AverageKillsPerMinute { get; set; }
     }
 }

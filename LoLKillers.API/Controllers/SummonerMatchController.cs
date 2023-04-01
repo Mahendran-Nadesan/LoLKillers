@@ -109,15 +109,46 @@ namespace LoLKillers.API.Controllers
 
                     foreach (var match in matches)
                     {
+                        var riotMatchId = match.Metadata.MatchId;
+                        var mappedQueueType = _databaseRepository.GetQueueNameByQueueId(match.Info.QueueId);
+                        var team1Id = match.Info.Teams[0].TeamId;
+                        var team2Id = match.Info.Teams[1].TeamId;
+
+                        TeamMatchSummaryStat team1Stats = new()
+                        {
+                            Region = region,
+                            RiotMatchId = riotMatchId,
+                            QueueType = mappedQueueType,
+                            RiotTeamId = team1Id,
+                            TeamKills = Convert.ToInt32(match.Info.Participants.Where(p => p.TeamId == team1Id).Sum(t => t.Kills)),
+                            TeamDeaths = Convert.ToInt32(match.Info.Participants.Where(p => p.TeamId == team1Id).Sum(t => t.Deaths)),
+                            TeamAssists = Convert.ToInt32(match.Info.Participants.Where(p => p.TeamId == team1Id).Sum(t => t.Assists)),
+                        };
+
+                        TeamMatchSummaryStat team2Stats = new()
+                        {
+                            Region = region,
+                            RiotMatchId = riotMatchId,
+                            QueueType = mappedQueueType,
+                            RiotTeamId = team2Id,
+                            TeamKills = Convert.ToInt32(match.Info.Participants.Where(p => p.TeamId == team2Id).Sum(t => t.Kills)),
+                            TeamDeaths = Convert.ToInt32(match.Info.Participants.Where(p => p.TeamId == team2Id).Sum(t => t.Deaths)),
+                            TeamAssists = Convert.ToInt32(match.Info.Participants.Where(p => p.TeamId == team2Id).Sum(t => t.Assists)),
+                        };
+
+                        await _databaseRepository.SaveTeamMatchSummaryStat(team1Stats);
+                        await _databaseRepository.SaveTeamMatchSummaryStat(team2Stats);
+
                         foreach (var participant in match.Info.Participants)
                         {
+                            
                             // we create summoner data without actually creating a summoner on our end
                             SummonerMatchSummaryStat participantStat = new()
                             {
                                 Region = region,
                                 RiotPuuId = participant.Puuid,
-                                RiotMatchId = match.Metadata.MatchId,
-                                QueueType = _databaseRepository.GetQueueNameByQueueId(match.Info.QueueId),
+                                RiotMatchId = riotMatchId,
+                                QueueType = mappedQueueType,
                                 RiotChampId = participant.ChampionId,
                                 RiotChampName = participant.ChampionName,
                                 MatchKills = Convert.ToInt32(participant.Kills),
@@ -126,11 +157,27 @@ namespace LoLKillers.API.Controllers
                                 MinionsKilled = Convert.ToInt32(participant.TotalMinionsKilled),
                                 FirstBlood = participant.FirstBloodKill,
                                 FirstBloodAssist = participant.FirstBloodAssist,
+                                PhysicalDamageDealtToChampions = participant.PhysicalDamageDealtToChampions,
+                                MagicDamageDealtToChampions = participant.MagicDamageDealtToChampions,
+                                TotalDamageDealtToChampions = participant.TotalDamageDealtToChampions,
+                                Spell1Casts = participant.Spell1Casts,
+                                Spell2Casts = ,
+                                Spell3Casts = ,
+                                Spell4Casts = ,
+                                SummonerSpell1Casts = ,
+                                SummonerSpell2Casts = ,
+                                GoldEarned = ,
+                                GoldSpent = ,
+                                WardsPlaced = ,
+                                VisionScore = ,
+                                LongestTimeSpentLiving = participant.LongestTimeSpentLiving.TotalSeconds,
+                                TimeSpentDead = participant.TotalTimeSpentDead.TotalSeconds,
+                                MatchDuration = participant.timePlayed.TotalSeconds,
                                 IsWin = participant.Winner,
                             };
 
                             // save summoner's match summary stat
-                            _databaseRepository.SaveSummonerMatchSummaryStat(participantStat);
+                            _databaseRepository.SaveSummonerMatchSummaryStat(participantStat); //todo: change to async
                         }
                     }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,6 +19,8 @@ namespace LoLKillers.API.Models.EF
         [Required, MaxLength(30), Column(TypeName = "VARCHAR")] //todo: maxlength and column type was added after initial migration
         public string QueueType { get; set; }
         [Required]
+        public int RiotTeamId { get; set; }
+        [Required]
         public int RiotChampId { get; set; }
         [Required, MaxLength(30), Column(TypeName = "VARCHAR")] //todo: maxlength and column type was added after initial migration
         public string RiotChampName { get; set; }
@@ -33,6 +36,38 @@ namespace LoLKillers.API.Models.EF
         public bool FirstBlood { get; set; }
         [Required]
         public bool FirstBloodAssist { get; set; }
+        [Required]
+        public long PhysicalDamageDealtToChampions { get; set; }
+        [Required]
+        public long MagicDamageDealtToChampions { get; set; }
+        [Required]
+        public long TotalDamageDealtToChampions { get; set; }
+        [Required]
+        public int Spell1Casts { get; set; }
+        [Required]
+        public int Spell2Casts { get; set; }
+        [Required]
+        public int Spell3Casts { get; set; }
+        [Required]
+        public int Spell4Casts { get; set; }
+        [Required]
+        public int SummonerSpell1Casts { get; set; }
+        [Required]
+        public int SummonerSpell2Casts { get; set; }
+        [Required]
+        public int GoldEarned { get; set; }
+        [Required]
+        public int GoldSpent { get; set; }
+        [Required]
+        public int WardsPlaced { get; set; }
+        [Required]
+        public int VisionScore { get; set; }
+        [Required]
+        public int LongestTimeSpentLiving { get; set; }     // in seconds
+        [Required]
+        public int TimeSpentDead { get; set; }              // in seconds
+        [Required]
+        public int MatchDuration { get; set; }              // in seconds
         [Required]
         public bool IsWin { get; set; }
 
