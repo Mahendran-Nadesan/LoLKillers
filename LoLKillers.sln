@@ -8,9 +8,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoLKillers.Documentation", "LoLKillers.Documentation", "{95AE88AE-8A93-48F7-929B-A250C6203544}"
 	ProjectSection(SolutionItems) = preProject
 		API Notes.txt = API Notes.txt
+		LoLKillers.Documentation\API Notes.txt = LoLKillers.Documentation\API Notes.txt
 		General Notes.txt = General Notes.txt
+		LoLKillers.Documentation\General Notes.txt = LoLKillers.Documentation\General Notes.txt
 		LoLKillers.Documentation\Git Notes.txt = LoLKillers.Documentation\Git Notes.txt
 		Web App Notes.txt = Web App Notes.txt
+		LoLKillers.Documentation\Web App Notes.txt = LoLKillers.Documentation\Web App Notes.txt
 	EndProjectSection
 EndProject
 Global

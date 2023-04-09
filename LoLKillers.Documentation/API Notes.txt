@@ -64,6 +64,11 @@ But when querying our API, it can either pass in, as parameters:
 11. Controller return types
 	11.1 We always return Task<IActionResults> with the data type LoLKillersResponse
 
+12. Data Models/Types
+12.1 Database tables will be mapped to classes in Models.EF
+12.2 Stored Procedure results will be mapped to classes in Models.DAL
+12.3 Data returned by the API will be mapped to classes in Models.DTOs
+
 ---------
 - To Do -
 ---------
@@ -77,10 +82,12 @@ If we need data to be returned, catch blocks can return nulls or whatever data h
 6. Lots of issues with the options/config object on laptop
 7. Add seed data for table QueueTypeMappings
 8. Add Unique constraints on tables, add to migrations, or db context builder?
-9. Should we convert all controller methods to return async Task<IActionResult>?
-10. Add team id to the match stats
+9. [DONE] Should we convert all controller methods to return async Task<IActionResult>?
+10. [DONE] Add team id to the match stats
 11. Add controllers for misc. stats i'm interested in
 12. Add data for graphing KDA over time, win rate over time, etc.
 13. Add section for stats for playing with people, people that feature in multiple games with the summoner in question
-14. Find a way to add kill participation to individual match summary stat
+14. [DONE] Find a way to add kill participation to individual match summary stat
 15. Also add to match summary stats (SummonerMatchSummaryStat): level, gold earned, gold spent, longest time alive, time spent dead, time played, damage done, damage received, spells cast (including summoner spells), wards placed, vision score
+16. Handle remakes
+17. Add SEASON data

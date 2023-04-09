@@ -12,6 +12,8 @@ namespace LoLKillers.API.Models.EF
         public int Id { get; set; }
         [Required, MaxLength(100), Column(TypeName = "VARCHAR")]
         public string RiotPuuId { get; set; }    // Riot's Id
+        [Required, MaxLength(100), Column(TypeName = "VARCHAR")]
+        public string SummonerName { get; set; }
         [Required, MaxLength(10), Column(TypeName = "VARCHAR")]
         public string Region { get; set; }
         [Required, MaxLength(20), Column(TypeName = "VARCHAR")]
@@ -51,6 +53,10 @@ namespace LoLKillers.API.Models.EF
         [Required]
         public int Spell4Casts { get; set; }
         [Required]
+        public int SummonerSpell1Id { get; set; }
+        [Required]
+        public int SummonerSpell2Id { get; set; }
+        [Required]
         public int SummonerSpell1Casts { get; set; }
         [Required]
         public int SummonerSpell2Casts { get; set; }
@@ -65,9 +71,9 @@ namespace LoLKillers.API.Models.EF
         [Required]
         public int LongestTimeSpentLiving { get; set; }     // in seconds
         [Required]
-        public int TimeSpentDead { get; set; }              // in seconds
+        public int TimeSpentAlive { get; set; }             // in seconds
         [Required]
-        public int MatchDuration { get; set; }              // in seconds
+        public int TimeSpentDead { get; set; }              // in seconds
         [Required]
         public bool IsWin { get; set; }
 

@@ -19,7 +19,7 @@ namespace LoLKillers.API.Repositories
         public DbSet<Summoner> Summoners { get; set; }
         public DbSet<SummonerMatchChampStat> SummonerMatchChampStats { get; set; }
         public DbSet<SummonerMatchSummaryStat> SummonerMatchSummaryStats { get; set; }
-        public DbSet<TeamMatchSummaryStat> TeamMatchSummaryStats { get; set; }
+        public DbSet<MatchTeamSummaryStat> TeamMatchSummaryStats { get; set; }
         public DbSet<QueueTypeMapping> QueueTypeMappings { get; set; }
 
         //todo: add seed data

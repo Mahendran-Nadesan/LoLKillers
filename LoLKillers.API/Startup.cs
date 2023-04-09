@@ -35,7 +35,7 @@ namespace LoLKillers.API
 
             // dbContext
             services.AddDbContext<LoLKillersDbContext>(dbContextOptions =>
-                dbContextOptions.UseSqlServer(config.GetConnectionString("LaptopConnection")));
+                dbContextOptions.UseSqlServer(config.GetConnectionString("PCConnection")));
 
             // Identity
             services.AddIdentityCore<IdentityUser>()

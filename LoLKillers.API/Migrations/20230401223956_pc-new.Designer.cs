@@ -4,6 +4,7 @@ using LoLKillers.API.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoLKillers.API.Migrations
 {
     [DbContext(typeof(LoLKillersDbContext))]
-    partial class LoLKillersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230401223956_pc-new")]
+    partial class pcnew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,6 +209,9 @@ namespace LoLKillers.API.Migrations
                     b.Property<int>("MatchDeaths")
                         .HasColumnType("int");
 
+                    b.Property<int>("MatchDuration")
+                        .HasColumnType("int");
+
                     b.Property<int>("MatchKills")
                         .HasColumnType("int");
 
@@ -258,11 +264,6 @@ namespace LoLKillers.API.Migrations
                     b.Property<int>("Spell4Casts")
                         .HasColumnType("int");
 
-                    b.Property<string>("SummonerName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("VARCHAR");
-
                     b.Property<int>("SummonerSpell1Casts")
                         .HasColumnType("int");
 
@@ -273,9 +274,6 @@ namespace LoLKillers.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SummonerSpell2Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TimeSpentAlive")
                         .HasColumnType("int");
 
                     b.Property<int>("TimeSpentDead")
@@ -306,9 +304,6 @@ namespace LoLKillers.API.Migrations
                     b.Property<bool>("IsWin")
                         .HasColumnType("bit");
 
-                    b.Property<int>("MatchDuration")
-                        .HasColumnType("int");
-
                     b.Property<string>("QueueType")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -333,34 +328,7 @@ namespace LoLKillers.API.Migrations
                     b.Property<int>("TeamDeaths")
                         .HasColumnType("int");
 
-                    b.Property<bool>("TeamFirstBlood")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("TeamGoldEarned")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamGoldSpent")
-                        .HasColumnType("int");
-
                     b.Property<int>("TeamKills")
-                        .HasColumnType("int");
-
-                    b.Property<long>("TeamMagicDamageDealtToChampions")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("TeamMinionsKilled")
-                        .HasColumnType("int");
-
-                    b.Property<long>("TeamPhysicalDamageDealtToChampions")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("TeamTotalDamageDealtToChampions")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("TeamVisionScore")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamWardsPlaced")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

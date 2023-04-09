@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using LoLKillers.API.Interfaces;
 using RiotSharp.Misc;
 using RiotSharp.Endpoints.MatchEndpoint;
-using LoLKillers.API.Models;
 using Microsoft.Extensions.Options;
 using LoLKillers.API.Configuration;
 using LoLKillers.API.Models.EF;
+using LoLKillers.API.Models.DTOs;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -73,7 +73,7 @@ namespace LoLKillers.API.Controllers
         [HttpGet("{region}/{summonerName}/{update?}")]
         public async Task<IActionResult> Get(string region, string summonerName, bool update = false)
         {
-            LoLKillersResponse response = new();
+            LoLKillersResponseDTO response = new();
             Models.EF.Summoner appSummoner = null;
             RiotSharp.Endpoints.SummonerEndpoint.Summoner riotSummoner = null;
 
@@ -118,6 +118,7 @@ namespace LoLKillers.API.Controllers
                 {
                     // account for name changes
                     appSummoner.Name = riotSummoner.Name;
+                    updateSummoner = true;
                 }
 
                 appSummoner.SummonerLastUpdatedDate = DateTimeOffset.Now;

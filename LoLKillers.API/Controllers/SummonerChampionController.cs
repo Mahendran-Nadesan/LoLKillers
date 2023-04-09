@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LoLKillers.API.Models;
 using RiotSharp.Misc;
 using RiotSharp.Endpoints.MatchEndpoint;
 using RiotSharp.Endpoints.MatchEndpoint.Enums;
 using Microsoft.Extensions.Options;
 using LoLKillers.API.Configuration;
+using LoLKillers.API.Models;
+using LoLKillers.API.Models.DTOs;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,13 +36,35 @@ namespace LoLKillers.API.Controllers
         [HttpGet("{region}/{riotPuuId}/{queue?}")]
         public async Task<IActionResult> Get(string region, string riotPuuId, string queue = "all")
         {
-            LoLKillersResponse response = new();
+            LoLKillersResponseDTO response = new();
+            SummonerAllChampSummaryStatsDTO allChampStats = new();
 
-            var summonerChampSummaryStats = await _databaseRepository.GetSummonerChampSummaryStatsByRiotPuuId(region, riotPuuId, queue);
+            var summonerTotalStats = await _databaseRepository.GetSummonerChampSummaryStatsByRiotPuuId(region, riotPuuId, queue);
+            var summonerBlueSideStats = await _databaseRepository.GetSummonerChampSummaryStatsByRiotPuuId(region, riotPuuId, queue, "blue");
+            var summonerRedSideStats = await _databaseRepository.GetSummonerChampSummaryStatsByRiotPuuId(region, riotPuuId, queue, "red");
 
-            if (summonerChampSummaryStats != null && summonerChampSummaryStats.Any())
+
+            if (summonerTotalStats != null && summonerTotalStats.Any())
             {
-                response.Data = summonerChampSummaryStats;
+                allChampStats.RiotPuuId = summonerTotalStats.FirstOrDefault().RiotPuuId;
+
+                //todo: what if a champ has stats on one side and not the other? make an empty row?
+                foreach (var summonerChampStat in summonerTotalStats)
+                {
+                    SummonerChampSummaryStatsDTO champStats = new()
+                    {
+                        RiotChampId = summonerChampStat.RiotChampId,
+                        RiotChampName = summonerChampStat.RiotChampName,
+                        TotalStats = summonerChampStat,
+                        BlueSideStats = summonerBlueSideStats.Where(stat => stat.RiotChampId == summonerChampStat.RiotChampId).FirstOrDefault(),
+                        RedSideStats = summonerRedSideStats.Where(stat => stat.RiotChampId == summonerChampStat.RiotChampId).FirstOrDefault(),
+                    };
+
+                    allChampStats.ChampSummaryStats.Add(champStats);
+
+                }
+
+                response.Data = allChampStats;
 
                 return Ok(response);
             }
@@ -50,6 +73,8 @@ namespace LoLKillers.API.Controllers
                 return NotFound();
             }
         }
+
+        //todo: do we need a GET for individual champs?
 
         // GET api/<SummonerChampionSummary>/5
         //[HttpGet("{region}/{summonerName}/{queue}/{riotChampionId}")]

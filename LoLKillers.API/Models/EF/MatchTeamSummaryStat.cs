@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoLKillers.API.Models.EF
 {
-    public class TeamMatchSummaryStat
+    public class MatchTeamSummaryStat
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,8 +24,26 @@ namespace LoLKillers.API.Models.EF
         public int TeamDeaths { get; set; }
         [Required]
         public int TeamAssists { get; set; }
-        //todo: add damage stats, ward and vision stats, gold stats, minion stats
-
+        [Required]
+        public int TeamMinionsKilled { get; set; }
+        [Required]
+        public bool TeamFirstBlood { get; set; }
+        [Required]
+        public long TeamPhysicalDamageDealtToChampions { get; set; }
+        [Required]
+        public long TeamMagicDamageDealtToChampions { get; set; }
+        [Required]
+        public long TeamTotalDamageDealtToChampions { get; set; }
+        [Required]
+        public int TeamGoldEarned { get; set; }
+        [Required]
+        public int TeamGoldSpent { get; set; }
+        [Required]
+        public int TeamWardsPlaced { get; set; }
+        [Required]
+        public int TeamVisionScore { get; set; }
+        [Required]
+        public int MatchDuration { get; set; }
         [Required]
         public bool IsWin { get; set; }
     }

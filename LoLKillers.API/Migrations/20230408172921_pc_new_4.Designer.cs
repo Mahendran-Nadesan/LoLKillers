@@ -4,6 +4,7 @@ using LoLKillers.API.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoLKillers.API.Migrations
 {
     [DbContext(typeof(LoLKillersDbContext))]
-    partial class LoLKillersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230408172921_pc_new_4")]
+    partial class pcnew4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,11 +260,6 @@ namespace LoLKillers.API.Migrations
 
                     b.Property<int>("Spell4Casts")
                         .HasColumnType("int");
-
-                    b.Property<string>("SummonerName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("VARCHAR");
 
                     b.Property<int>("SummonerSpell1Casts")
                         .HasColumnType("int");

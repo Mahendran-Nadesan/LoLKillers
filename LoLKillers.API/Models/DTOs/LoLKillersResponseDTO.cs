@@ -1,6 +1,6 @@
-﻿namespace LoLKillers.API.Models
+﻿namespace LoLKillers.API.Models.DTOs
 {
-    public class LoLKillersResponse
+    public class LoLKillersResponseDTO
     {
         public string Message { get; set; } = string.Empty;
         public object Data { get; set; } = null;

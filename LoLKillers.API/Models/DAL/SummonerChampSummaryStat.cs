@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LoLKillers.API.Models
+namespace LoLKillers.API.Models.DAL
 {
     public class SummonerChampSummaryStat
     {
+        //todo: consider splitting out blue and red side stats into their own class(es), and own stored procs? and then just name the variables allStats vs. blueSideStats vs. redSideStats
         public string RiotPuuId { get; set; }
         public string Region { get; set; }
         public string QueueType { get; set; }
+        public string MapSide { get; set; }
         public int TotalMatches { get; set; }
         public int RiotChampId { get; set; }
         public string RiotChampName { get; set; }
-        public int Wins { get; set; }
-        public int Losses => TotalMatches - Wins;
-        public decimal WinRate => Math.Round(((Convert.ToDecimal(Wins) / Convert.ToDecimal(TotalMatches)) * 100), 1);
+        public int TotalWins { get; set; }
+        public int TotalLosses { get; set; }
         public int TotalKills { get; set; }
         public int TotalDeaths { get; set; }
         public int TotalAssists { get; set; }
@@ -37,7 +38,11 @@ namespace LoLKillers.API.Models
         public int TotalVisionScore { get; set; }
         public int TotalLongestTimeSpentLiving { get; set; }    // in seconds
         public int TotalTimeSpentDead { get; set; }             // in seconds
+        public int TotalTimeSpentAlive { get; set; }            // in seconds
         public int TotalMatchesDuration { get; set; }            // in seconds
+        // match related stats
+        public int TotalTeamKills { get; set; }
+        public int TotalTeamDeaths { get; set; }
         // averages per match
         public decimal AverageKills { get; set; }
         public decimal AverageDeaths { get; set; }
@@ -49,6 +54,8 @@ namespace LoLKillers.API.Models
         public decimal AverageFirstBloods { get; set; }
         public decimal AverageFirstBloodAssists { get; set; }
         public decimal AverageFirstBloodParticipation { get; set; }
+        public decimal AverageKillParticipation { get; set; }
+        public decimal AverageDeathParticipation { get; set; }
         public decimal AverageSpell1Casts { get; set; }
         public decimal AverageSpell2Casts { get; set; }
         public decimal AverageSpell3Casts { get; set; }
@@ -61,9 +68,26 @@ namespace LoLKillers.API.Models
         public decimal AverageVisionScore { get; set; }
         public decimal AverageLongestTimeSpentLiving { get; set; }    // in seconds
         public decimal AverageTimeSpentDead { get; set; }   // in seconds
+        public decimal AverageTimeSpentAlive { get; set; }
         public decimal AverageMatchDuration { get; set; }   // in seconds
-
-        // computed fields - average per duration
-        public decimal AverageKillsPerMinute { get; set; }
+        // averages per duration (seconds)
+        public decimal AverageKillsPerSecond { get; set; }
+        public decimal AverageDeathsPerSecond { get; set; }
+        public decimal AverageAssistsPerSecond { get; set; }
+        public decimal AverageKDAPerSecond { get; set; }
+        public decimal AverageKDPerSecond { get; set; }
+        public decimal AverageADPerSecond { get; set; }
+        public decimal AverageMinionsPerSecond { get; set; }
+        // percentage stats
+        public decimal TotalWinRate { get; set; }
+        public decimal TotalKillParticipation { get; set; }
+        //// Blue side stats
+        //public int BlueSideTotalMatches { get; set; }
+        //public int BlueSideWins { get; set; }
+        //public int BlueSideWinRate { get; set; }
+        //// Red side stats
+        //public int RedSideTotalMatches { get; set; }
+        //public int RedSideWins { get; set; }
+        //public int RedSideWinRate { get; set; }
     }
 }

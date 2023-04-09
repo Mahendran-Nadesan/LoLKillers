@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoLKillers.API.Configuration;
 using LoLKillers.API.Interfaces;
-using LoLKillers.API.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using Dapper;
 using RiotSharp.Misc;
 using System.Drawing;
 using Microsoft.EntityFrameworkCore;
+using LoLKillers.API.Models.DAL;
 
 namespace LoLKillers.API.Repositories
 {
@@ -46,7 +46,7 @@ namespace LoLKillers.API.Repositories
             return await _lolKillersDbContext.Summoners.Where(s => s.Region == region && s.RiotPuuId == riotPuuId).FirstOrDefaultAsync();
         }
 
-        public async Task<int> SaveSummoner(Models.EF.Summoner appSummoner, bool update = false) 
+        public async Task<int> SaveSummoner(Models.EF.Summoner appSummoner, bool update = false)
         {
             //todo: wrap in transaction, either here, or in calling code (but probably here to reduce code duplication)
             if (update)
@@ -57,7 +57,7 @@ namespace LoLKillers.API.Repositories
             {
                 _lolKillersDbContext.Summoners.Add(appSummoner);
             }
-            
+
             return await _lolKillersDbContext.SaveChangesAsync();
         }
 
@@ -80,32 +80,80 @@ namespace LoLKillers.API.Repositories
                 return connection.Query<string>("GetSummonerMatchIdsByRiotPuuId", new { Region = region, RiotPuuId = summonerPuuId, Queue = queue }, commandType: System.Data.CommandType.StoredProcedure);
             }
         }
+        //public bool MatchRecordExists(string region, string matchId)
+        //{
+        //    if (_lolKillersDbContext.TeamMatchSummaryStats.Any(c => c.Region == region && c.RiotMatchId == matchId)) 
+        //        return true;
 
-        public async Task<IEnumerable<Models.EF.SummonerMatchSummaryStat>> GetSummonerMatchSummaryStats(string region, string summonerPuuId, string queue = "all")
+        //    return false;
+        //}
+
+        public async Task<IEnumerable<SummonerMatchSummaryChampStat>> GetSummonerMatchesSummaryStats(string region, string riotPuuId, string queue = "all")
         {
-            if (queue == "all")
+            //if (queue == "all")
+            //{
+            //    return await _lolKillersDbContext.SummonerMatchSummaryStats.Where(stat => stat.Region == region && stat.RiotPuuId == summonerPuuId).ToListAsync();
+            //}
+            //else
+            //{
+            //    return await _lolKillersDbContext.SummonerMatchSummaryStats.Where(stat => stat.Region == region && stat.RiotPuuId == summonerPuuId && stat.QueueType == queue).ToListAsync();
+            //}
+            using (var connection = new SqlConnection(_connectionString))
             {
-                return await _lolKillersDbContext.SummonerMatchSummaryStats.Where(stat => stat.Region == region && stat.RiotPuuId == summonerPuuId).ToListAsync();
-            }
-            else
-            {
-                return await _lolKillersDbContext.SummonerMatchSummaryStats.Where(stat => stat.Region == region && stat.RiotPuuId == summonerPuuId && stat.QueueType == queue).ToListAsync();
+                return await connection.QueryAsync<SummonerMatchSummaryChampStat>("GetSummonerMatchSummaryStatsByRiotPuuId", new { Region = region, RiotPuuId = riotPuuId, Queue = queue }, commandType: System.Data.CommandType.StoredProcedure);
             }
         }
 
-        public async Task<int> SaveTeamMatchSummaryStat(Models.EF.TeamMatchSummaryStat teamMatchSummaryStat)
+        public async Task<int> SaveTeamMatchSummaryStat(Models.EF.MatchTeamSummaryStat teamMatchSummaryStat)
         {
-            _lolKillersDbContext.TeamMatchSummaryStats.Add(teamMatchSummaryStat);
+            if (!_lolKillersDbContext.TeamMatchSummaryStats.Any(s => s.RiotMatchId == teamMatchSummaryStat.RiotMatchId))
+            {
+                _lolKillersDbContext.TeamMatchSummaryStats.Add(teamMatchSummaryStat);
+
+                return await _lolKillersDbContext.SaveChangesAsync();
+            }
+
+            return 0;
+        }
+        public async Task<int> SaveTeamMatchSummaryStats(List<Models.EF.MatchTeamSummaryStat> teamMatchSummaryStats)
+        {
+            foreach (var teamMatchSummaryStat in teamMatchSummaryStats)
+            {
+                if (!_lolKillersDbContext.TeamMatchSummaryStats.Any(s => s.RiotMatchId == teamMatchSummaryStat.RiotMatchId))
+                {
+                    _lolKillersDbContext.TeamMatchSummaryStats.Add(teamMatchSummaryStat);
+                }
+            }
 
             return await _lolKillersDbContext.SaveChangesAsync();
         }
 
-        public void SaveSummonerMatchSummaryStat(Models.EF.SummonerMatchSummaryStat summonerMatchSummaryStat)
+        public async Task<int> SaveSummonerMatchSummaryStat(Models.EF.SummonerMatchSummaryStat summonerMatchSummaryStat)
         {
             //todo: wrap in transaction, either here, or in calling code (but probably here to reduce code duplication)
             //todo: return an async int for rows committed
-            _lolKillersDbContext.SummonerMatchSummaryStats.Add(summonerMatchSummaryStat);
-            _lolKillersDbContext.SaveChanges();
+            if (!_lolKillersDbContext.SummonerMatchSummaryStats.Any(c => c.Region == summonerMatchSummaryStat.Region && c.RiotPuuId == summonerMatchSummaryStat.RiotPuuId && c.RiotMatchId == summonerMatchSummaryStat.RiotMatchId))
+            {
+                _lolKillersDbContext.SummonerMatchSummaryStats.Add(summonerMatchSummaryStat);
+                return await _lolKillersDbContext.SaveChangesAsync();
+            }
+
+            return 0;
+        }
+
+        public async Task<int> SaveSummonerMatchSummaryStats(List<Models.EF.SummonerMatchSummaryStat> summonerMatchSummaryStats)
+        {
+            //todo: wrap in transaction, either here, or in calling code (but probably here to reduce code duplication)
+            //todo: return an async int for rows committed
+            foreach (var summonerMatchSummaryStat in summonerMatchSummaryStats)
+            {
+                if (!_lolKillersDbContext.SummonerMatchSummaryStats.Any(c => c.Region == summonerMatchSummaryStat.Region && c.RiotPuuId == summonerMatchSummaryStat.RiotPuuId && c.RiotMatchId == summonerMatchSummaryStat.RiotMatchId))
+                {
+                    _lolKillersDbContext.SummonerMatchSummaryStats.Add(summonerMatchSummaryStat);
+                }
+            }
+
+            return await _lolKillersDbContext.SaveChangesAsync();
         }
 
         //public IEnumerable<long> GetSummonerMatchIdsByAccountId(string region, string summonerPuuId, string queue)
@@ -144,11 +192,19 @@ namespace LoLKillers.API.Repositories
 
         #endregion
 
-        public async Task<IEnumerable<SummonerChampSummaryStat>> GetSummonerChampSummaryStatsByRiotPuuId(string region, string riotPuuId, string queue)
+        public async Task<IEnumerable<SummonerChampSummaryStat>> GetSummonerChampSummaryStatsByRiotPuuId(string region, string riotPuuId, string queue, string mapSide = null)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                return await connection.QueryAsync<SummonerChampSummaryStat>("GetSummonerChampSummaryStatsByRiotPuuId", new { Region = region, RiotPuuId = riotPuuId, Queue = queue }, commandType: System.Data.CommandType.StoredProcedure);
+                if (mapSide == null)
+                {
+                    return await connection.QueryAsync<SummonerChampSummaryStat>("GetSummonerChampSummaryStatsByRiotPuuId", new { Region = region, RiotPuuId = riotPuuId, Queue = queue }, commandType: System.Data.CommandType.StoredProcedure);
+                }
+                else
+                {
+                    return await connection.QueryAsync<SummonerChampSummaryStat>("GetSummonerChampSummaryStatsByRiotPuuId", new { Region = region, RiotPuuId = riotPuuId, Queue = queue, MapSide = mapSide }, commandType: System.Data.CommandType.StoredProcedure);
+                }
+
             }
         }
 
