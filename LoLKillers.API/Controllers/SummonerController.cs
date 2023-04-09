@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using LoLKillers.API.Interfaces;
 using RiotSharp.Misc;
 using RiotSharp.Endpoints.MatchEndpoint;
-using LoLKillers.API.Models;
 using Microsoft.Extensions.Options;
 using LoLKillers.API.Configuration;
+using LoLKillers.API.Models.EF;
+using LoLKillers.API.Models.DTOs;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,102 +32,114 @@ namespace LoLKillers.API.Controllers
         }
 
         // GET: api/<SummonerController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        //[HttpGet]
+        //public string Get()
+        //{
+        //    // temp method to get some data
+        //    var karl = _riotApiRepository.GetSummoner("leagueofmouse", Region.Euw);
+        //    var mahen = _riotApiRepository.GetSummoner("nadsofmahen", Region.Euw);
+
+        //    var mahenMatchList = _riotApiRepository.GetMatchList(mahen, 80);
+
+        //    var mahenMatches = _riotApiRepository.GetMatches(mahen, mahenMatchList);
+
+        //    int allWins = 0;
+        //    int matchesWithKarl = 0;
+        //    int winsWithKarl = 0;
+
+        //    foreach (var match in mahenMatches)
+        //    {
+        //        if (match.Info.Participants.Any(c => c.SummonerId == karl.Id))
+        //        {
+        //            matchesWithKarl += 1;
+
+        //            if (match.Info.Participants.Where(c => c.SummonerId == karl.Id).FirstOrDefault().Winner)
+        //            {
+        //                winsWithKarl += 1;
+        //            }
+        //        }
+
+        //        if (match.Info.Participants.Where(c => c.SummonerId == mahen.Id).FirstOrDefault().Winner)
+        //        {
+        //            allWins += 1;
+        //        }
+        //    }
+
+        //    return string.Format("all games: {0}, games with karl: {1}, all wins: {2}, wins with karl: {3}", mahenMatches.Count(), matchesWithKarl, allWins, winsWithKarl);
+
+        //}
+
+        // returns Models.EF.Summoner
+        [HttpGet("{region}/{summonerName}/{update?}")]
+        public async Task<IActionResult> Get(string region, string summonerName, bool update = false)
         {
-            return new string[] { "value1", "value2" };
-        }
+            LoLKillersResponseDTO response = new();
+            Models.EF.Summoner appSummoner = null;
+            RiotSharp.Endpoints.SummonerEndpoint.Summoner riotSummoner = null;
 
-        // GET api/<SummonerController>/5
-        [HttpGet("{region}/{summonerName}/{queue}")]
-        public IEnumerable<SummonerChampSummaryStat> Get(Region region, string summonerName, string queue)
-        {
-            // get summoner
-            var summoner = _riotApiRepository.GetSummoner(summonerName, region);
+            // do we already have this summoner?
+            appSummoner = await _databaseRepository.GetSummonerBySummonerName(region, summonerName);
 
-            // get saved matches' Ids from db
-            IEnumerable<long> matchIds = _databaseRepository.GetSummonerMatchIdsByAccountId(summoner.AccountId, region, queue);
-            
-            // set up queues
-            // find a way to pull from http://static.developer.riotgames.com/docs/lol/queues.json
-            // for now simulate normal games
-            // normal SR: 400, 430
-            // ranked SR: 420, 440
-            var queueList = new List<int>();
-
-            // if not specified, defaults to all queues
-            if (queue == "normal")
+            // get data from Riot if this is a completely new summoner or if an update is requested
+            if (appSummoner == null || update)
             {
-                queueList.Add(400);
-                queueList.Add(430);
-            }
-            else if (queue == "ranked")
-            {
-                queueList.Add(420);
-                queueList.Add(440);
+                // get summoner from Riot - note that we don't have summoner level or any other cool info
+                riotSummoner = await _riotApiRepository.GetSummoner(summonerName, Enum.Parse<Region>(region, true));
             }
 
-            // get matchlist
-            // todo: if we have a match recorded for this summoner, get the last game id and send it through. if not, get all matches
-            List<string> matchList = new List<string>();
-            var matchListAll = _riotApiRepository.GetMatchList(summoner, _searchNumber); // replace numberOfMatches with const?
-
-            // filter out ones we've stored
-            if (matchIds.Any())
+            if (riotSummoner == null)   // could be null due to transient error, issue with API, summoner not existing, or not updating the summoner
             {
-                matchList = matchListAll.Matches.Where(item => !matchIds.Any(id => id.Equals(item.GameId))).ToList();
+                if (appSummoner == null)
+                {
+                    return NotFound("Summoner Not Found");
+                }
+
+                response.Data = appSummoner;
+
+                return Ok(response);
             }
             else
             {
-                matchList = matchListAll.Matches;
-            }
+                bool updateSummoner = false;
+                appSummoner = await _databaseRepository.GetSummonerByRiotAccountId(region, riotSummoner.AccountId);
 
-            // get champion list every time we start parsing a list of matches
-            var champions = _riotApiRepository.GetChampions();
-
-            if (matchList.Any())
-            {
-                // parse matches to get regular stats
-                // retrieving stats and saving stats are separated
-                IEnumerable<Match> matches = _riotApiRepository.GetMatches(matchList);
-                List<SummonerMatchSummaryStat> summonerMatchStats = new List<SummonerMatchSummaryStat>();
-
-                // get stats
-                foreach (var match in matches)
+                if (appSummoner == null)
                 {
-                    var matchStat = _riotApiRepository.GetSummonerMatchStats(summoner, match, champions);
-                    summonerMatchStats.Add(matchStat);
+                    appSummoner = new Models.EF.Summoner()
+                    {
+                        Name = riotSummoner.Name,
+                        Region = riotSummoner.Region.ToString(),
+                        RiotId = riotSummoner.Id,
+                        RiotAccountId = riotSummoner.AccountId,
+                        RiotPuuId = riotSummoner.Puuid,
+                    };
+                }
+                else
+                {
+                    // account for name changes
+                    appSummoner.Name = riotSummoner.Name;
+                    updateSummoner = true;
                 }
 
-                // save new data to db
-                foreach (var summonerMatchSummary in summonerMatchStats)
+                appSummoner.SummonerLastUpdatedDate = DateTimeOffset.Now;
+
+                // only save app summoner if we have received some data from Riot
+                var summonerSaved = await _databaseRepository.SaveSummoner(appSummoner, updateSummoner);
+
+                if (summonerSaved > 0)
                 {
-                    _databaseRepository.InsertSummonerMatchSummaryStat(summonerMatchSummary);
+                    response.Data = appSummoner; // will this appSummoner have the id if it's a new save?
+
+                    return Ok(response);
+                }
+                else
+                {
+                    response.Message = "Summoner not saved! Riot summoner returned.";
+                    response.Data = riotSummoner;
+
+                    return Ok(response);
                 }
             }
-
-            // pull all data for summoner
-            var summonerChampionSummaryStats = _databaseRepository.GetSummonerChampSummaryStats(summoner.AccountId, region, queue);
-
-            return summonerChampionSummaryStats;
-        }
-
-        // POST api/<SummonerController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<SummonerController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<SummonerController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

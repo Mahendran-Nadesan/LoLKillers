@@ -7,8 +7,9 @@ namespace LoLKillers.API.Configuration
 {
     public class AppConfig
     {
-        public string ConnectionString { get; set; }
+        public List<string> ConnectionStrings { get; set; }
         public string DataDragonVersionsURL { get; set; }
         public int DefaultSearchNumber { get; set; }
+        public int MaxSearchNumber { get; set; }
     }
 }

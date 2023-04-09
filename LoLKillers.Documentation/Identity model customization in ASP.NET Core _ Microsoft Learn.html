@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="hasSidebar hasPageActions hasBreadcrumb conceptual has-default-focus theme-light" lang="en-us" dir="ltr" data-css-variable-support="true" data-authenticated="false" data-auth-status-determined="false" data-target="docs" x-ms-format-detection="none">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:title" content="Identity model customization in ASP.NET Core" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://learn.microsoft.com/en-us/aspnet/core/security/authentication/customize-identity-model" />
+			<meta property="og:description" content="This article describes how to customize the underlying Entity Framework Core data model for ASP.NET Core Identity." />
+
+	<meta property="og:image" content="https://learn.microsoft.com/en-us/media/logos/logo-ms-social.png" />
+
+	<meta property="og:image:alt" content="Microsoft Logo" />
+
+	<meta name="twitter:card" content="summary" />
+
+	<meta name="twitter:site" content="@docsmsft" />
+
+	<meta name="color-scheme" content="light dark">
+
+
+	<meta name="author" content="ajcvickers" />
+<meta name="breadcrumb_path" content="/aspnet/core/breadcrumb/toc.json" />
+<meta name="depot_name" content="MSDN.aspnet-core-conceptual" />
+<meta name="description" content="This article describes how to customize the underlying Entity Framework Core data model for ASP.NET Core Identity." />
+<meta name="document_id" content="d9869895-9ba2-5027-46cd-89d1d995cba4" />
+<meta name="document_version_independent_id" content="8750939b-6ae5-3b9a-6c32-5e84b7fea22c" />
+<meta name="gitcommit" content="https://github.com/dotnet/AspNetCore.Docs/blob/e260c43d3ea2391032be1e64677a2c350d372f33/aspnetcore/security/authentication/customize-identity-model.md" />
+<meta name="locale" content="en-us" />
+<meta name="monikers" content="aspnetcore-1.0" />
+<meta name="monikers" content="aspnetcore-1.1" />
+<meta name="monikers" content="aspnetcore-2.0" />
+<meta name="monikers" content="aspnetcore-2.1" />
+<meta name="monikers" content="aspnetcore-2.2" />
+<meta name="monikers" content="aspnetcore-3.0" />
+<meta name="monikers" content="aspnetcore-3.1" />
+<meta name="monikers" content="aspnetcore-5.0" />
+<meta name="monikers" content="aspnetcore-6.0" />
+<meta name="monikers" content="aspnetcore-7.0" />
+<meta name="monikers" content="aspnetcore-8.0" />
+<meta name="ms.author" content="avickers" />
+<meta name="ms.date" content="07/01/2019" />
+<meta name="ms.prod" content="aspnet-core" />
+<meta name="ms.technology" content="aspnetcore-security" />
+<meta name="ms.topic" content="conceptual" />
+<meta name="original_content_git_url" content="https://github.com/dotnet/AspNetCore.Docs/blob/live/aspnetcore/security/authentication/customize-identity-model.md" />
+<meta name="page_type" content="conceptual" />
+<meta name="pdf_url_template" content="https://learn.microsoft.com/pdfstore/en-us/MSDN.aspnet-core-conceptual/{branchName}{pdfName}" />
+<meta name="schema" content="Conceptual" />
+<meta name="site_name" content="Docs" />
+<meta name="toc_rel" content="../../toc.json" />
+<meta name="uhfHeaderId" content="MSDocsHeader-AspNet" />
+<meta name="uid" content="security/authentication/customize_identity_model" />
+<meta name="updated_at" content="2022-09-29 02:07 PM" />
+<meta name="word_count" content="3683" />
+
+
+
+
+	<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/56a03cf0-cabf-4e70-800b-dcb9ff39361c" data-source="generated" />
+
+	<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/d452572f-6212-498f-9050-ca4a9e50a425" data-source="generated" />
+
+	<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/75c493a7-abb6-4435-a651-8d9450a8ce66" data-source="generated" />
+
+	
+
+	<meta name="scope" content="ASP.NET Core" />
+	<meta name="github_feedback_content_git_url" content="https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/customize-identity-model.md" />
+<link href="https://learn.microsoft.com/en-us/aspnet/core/security/authentication/customize-identity-model" rel="canonical">
+	<title>Identity model customization in ASP.NET Core | Microsoft Learn</title>
+
+		<link rel="stylesheet" href="/_themes/docs.theme/master/en-us/_themes/styles/aeed2be4.site-ltr.css ">
+
+	
+
+	<script id="msdocs-script">
+	var msDocs = {
+		data: {
+			timeOrigin: Date.now(),
+			contentLocale: 'en-us',
+			contentDir: 'ltr',
+			userLocale: 'en-us',
+			userDir: 'ltr',
+			pageTemplate: 'Conceptual',
+			brand: '',
+			context: {
+			},
+			hasBinaryRating: true,
+			hasGithubIssues: true,
+			standardFeedback: false,
+			showFeedbackReport: false,
+			enableTutorialFeedback: false,
+			feedbackSystem: 'GitHub',
+			feedbackGitHubRepo: 'dotnet/AspNetCore.Docs',
+			feedbackProductUrl: 'https://github.com/dotnet/aspnetcore/blob/main/CONTRIBUTING.md',
+			extendBreadcrumb: true,
+			isEditDisplayable: true,
+			hideViewSource: false,
+			hasPageActions: true,
+			hasPrintButton: true,
+			hasBookmark: true,
+			hasShare: true,
+			isPermissioned: false,
+			hasRecommendations: true,
+			contributors: [
+						{ name: "ajcvickers", url: "https://github.com/ajcvickers" },
+						{ name: "HaoK", url: "https://github.com/HaoK" },
+						{ name: "guardrex", url: "https://github.com/guardrex" },
+						{ name: "serpent5", url: "https://github.com/serpent5" },
+						{ name: "Rick-Anderson", url: "https://github.com/Rick-Anderson" },
+						{ name: "fiyazbinhasan", url: "https://github.com/fiyazbinhasan" },
+						{ name: "gunnim", url: "https://github.com/gunnim" },
+						{ name: "scottaddie", url: "https://github.com/scottaddie" },
+						{ name: "nschonni", url: "https://github.com/nschonni" }
+],
+		},
+		functions:{}
+	};
+	</script>
+	<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+	<script src="https://js.monitor.azure.com/scripts/c/ms.jsll-3.min.js"></script>
+
+	<script src="/_themes/docs.theme/master/en-us/_themes/global/67a45209.deprecation.js"></script>
+		<script src="/_themes/docs.theme/master/en-us/_themes/scripts/4b524b8e.index-docs.js"></script>
+</head>
+
+<body lang="en-us" dir="ltr">
+	<div class="header-holder has-default-focus">
+		<a href="#main" class="skip-to-main-link has-outline-color-text visually-hidden-until-focused position-fixed has-inner-focus focus-visible top-0 left-0 right-0 padding-xs has-text-centered has-body-background" tabindex="1">Skip to main content</a>
+
+		<div hidden id="cookie-consent-holder"></div>
+
+		<div id="unsupported-browser" style="
+			background-color: white;
+			color: black;
+			padding: 16px;
+			border-bottom: 1px solid grey;"
+			hidden
+		>
+			<div style="max-width: 800px; margin: 0 auto;">
+				<p style="font-size: 24px">This browser is no longer supported.</p>
+				<p style="font-size: 16px; margin-top: 16px;">Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.</p>
+				<div style="margin-top: 12px;">
+					<a href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+						style="
+						background-color: #0078d4;
+						border: 1px solid #0078d4;
+						color: white;
+						padding: 6px 12px;
+						border-radius: 2px;
+						display: inline-block;
+						">
+Download Microsoft Edge					</a>
+					<a href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+						style="
+							background-color: white;
+							padding: 6px 12px;
+							border: 1px solid #505050;
+							color: #171717;
+							border-radius: 2px;
+							display: inline-block;
+							">
+More info about Internet Explorer and Microsoft Edge					</a>
+				</div>
+			</div>
+
+		</div>
+		<!-- liquid-tag banners global -->
+		<div id="headerAreaHolder" data-bi-name="header">
+<header role="banner" itemscope="itemscope" itemtype="http://schema.org/Organization">
+	<div class="nav-bar">
+		<div class="nav-bar-brand">
+			<a itemprop="url" href="https://www.microsoft.com" aria-label="Microsoft" class="nav-bar-button">
+				<div class="nav-bar-logo has-background-image theme-display is-light" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+				<div class="nav-bar-logo has-background-image theme-display is-dark is-high-contrast" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+			</a>
+		</div>
+	</div>
+	<div class="nav-bar border-top is-hidden-mobile"></div>
+</header>		</div>
+
+
+			<div id="content-header" class="content-header uhf-container has-padding has-default-focus border-bottom-none" data-bi-name="content-header">
+				<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
+					<button type="button" class="contents-button button button-sm margin-right-xxs" data-bi-name="contents-expand" aria-haspopup="true" data-contents-button>
+						<span class="icon"><span class="docon docon-menu" aria-hidden="true"></span></span>
+						<span class="contents-expand-title">
+Table of contents						</span>
+					</button>
+					<button type="button" class="ap-collapse-behavior ap-expanded button button-sm" data-bi-name="ap-collapse" aria-controls="action-panel">
+						<span class="icon"><span class="docon docon-exit-mode" aria-hidden="true"></span></span>
+						<span>Exit focus mode</span>
+					</button>
+				</div>
+			</div>
+
+		<div id="disclaimer-holder" class="has-overflow-hidden has-default-focus">
+			<!-- liquid-tag banners sectional -->
+		</div>
+	</div>
+
+	<div class="mainContainer  uhf-container has-default-focus" data-bi-name="body">
+
+		<div class="columns has-large-gaps is-gapless-mobile ">
+
+			<div id="left-container" class="left-container is-hidden-mobile column is-one-third-tablet is-one-quarter-desktop">
+				<nav id="affixed-left-container" class="margin-top-sm-tablet position-fixed display-flex flex-direction-column" role="navigation" aria-label="Primary"></nav>
+			</div>
+
+			<!-- .primary-holder -->
+			<section class="primary-holder column is-two-thirds-tablet is-three-quarters-desktop">
+				<!--div.columns -->
+				<div class="columns is-gapless-mobile has-large-gaps ">
+
+
+					<div id="main-column" class="column  is-full is-8-desktop">
+
+						<main id="main" role="main" data-bi-name="content" lang="en-us" dir="ltr">
+							<!-- article-header -->
+							<div id="article-header" class="background-color-body margin-top-sm-tablet margin-bottom-xs display-none-print">
+								<div class="display-flex align-items-center ">
+									<details id="article-header-breadcrumbs-overflow-popover" class="popover" data-for="article-header-breadcrumbs">
+										<summary class="button button-clear button-primary button-sm" aria-label="All breadcrumbs">
+											<span class="icon">
+												<span class="docon docon-more"></span>
+											</span>
+										</summary>
+										<div id="article-header-breadcrumbs-overflow" class="popover-content padding-none">
+
+										</div>
+									</details>
+									<bread-crumbs id="article-header-breadcrumbs" class="overflow-hidden flex-grow-1 margin-right-sm margin-right-md-tablet margin-right-lg-desktop" id="page-breadcrumbs"></bread-crumbs>
+
+									<div id="article-header-page-actions"  class="opacity-none margin-left-auto display-flex flex-wrap-no-wrap align-items-stretch">
+
+										<a
+											id="lang-link-tablet"
+											class="button button-primary button-clear button-sm display-none display-inline-flex-tablet"
+											title="Read in English" data-bi-name="language-toggle"
+											data-read-in-link
+											hidden>
+											<span class="icon margin-none" aria-hidden="true" data-read-in-link-icon>
+												<span class="docon docon-locale-globe"></span>
+											</span>
+											<span class="is-visually-hidden" data-read-in-link-text>Read in English</span>
+										</a>
+
+											<button
+												type="button"
+												class="collection button button-clear button-sm button-primary display-none display-inline-flex-tablet"
+												data-list-type="collection"
+												data-bi-name="collection"
+												title="Add to collection">
+												<span class="icon margin-none" aria-hidden="true">
+													<span class="docon docon-circle-addition"></span>
+												</span>
+												<span class="collection-status is-visually-hidden">Save</span>
+											</button>
+										
+
+											<a	data-contenteditbtn
+												class="button button-clear button-sm text-decoration-none button-primary display-none display-inline-flex-tablet"
+												aria-label="Edit"
+												title="Edit This Document"
+												data-bi-name="edit"
+
+														href="https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/customize-identity-model.md"
+														data-original_content_git_url="https://github.com/dotnet/AspNetCore.Docs/blob/live/aspnetcore/security/authentication/customize-identity-model.md"
+														data-original_content_git_url_template="{repo}/blob/{branch}/aspnetcore/security/authentication/customize-identity-model.md"
+														data-pr_repo=""
+														data-pr_branch=""
+											>
+												<span class="icon margin-none" aria-hidden="true">
+													<span class="docon docon-edit-outline"></span>
+												</span>
+											</a>
+										
+
+
+										
+										<details class="popover popover-right" id="article-header-page-actions-overflow">
+											<summary class="justify-content-flex-start button button-clear button-sm button-primary" aria-label="More actions">
+												<span class="icon" aria-hidden="true">
+													<span class="docon docon-more-vertical"></span>
+												</span>
+											</summary>
+											<div class="popover-content padding-none">
+													<button
+														data-page-action-item="overflow-mobile"
+														type="button"
+														class="justify-content-flex-start button-block button-sm has-inner-focus button button-clear display-none-tablet"
+														aria-label="Contents"
+														data-bi-name="contents-expand"
+														data-contents-button
+														data-popover-close>
+														<span class="icon">
+															<span class="docon docon-editor-list-bullet" aria-hidden="true"></span>
+														</span>
+														<span class="contents-expand-title">Table of contents</span>
+													</button>
+
+												<a
+													id="lang-link-overflow"
+													class="justify-content-flex-start button-sm has-inner-focus button button-clear button-block display-none-tablet"
+													title="Read in English" data-bi-name="language-toggle"
+													data-page-action-item="overflow-mobile"
+													data-check-hidden="true"
+													data-read-in-link
+													hidden
+													>
+													<span class="icon" aria-hidden="true" data-read-in-link-icon>
+														<span class="docon docon-locale-globe"></span>
+													</span>
+													<span data-read-in-link-text>Read in English</span>
+												</a>
+
+													<button
+														type="button"
+														class="collection justify-content-flex-start button button-clear button-sm has-inner-focus button-block display-none-tablet"
+														data-list-type="collection"
+														data-bi-name="collection"
+														title="Add to collection"
+														data-page-action-item="overflow-mobile"
+														data-check-hidden="true"
+														data-popover-close>
+														<span class="icon" aria-hidden="true">
+															<span class="docon docon-circle-addition"></span>
+														</span>
+														<span class="collection-status">Save</span>
+													</button>
+
+													<a	data-contenteditbtn
+														class="button button-clear button-block button-sm has-inner-focus justify-content-flex-start text-decoration-none display-none-tablet"
+														aria-label="Edit"
+														title="Edit This Document"
+														data-bi-name="edit"
+
+																href="https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/customize-identity-model.md"
+																data-original_content_git_url="https://github.com/dotnet/AspNetCore.Docs/blob/live/aspnetcore/security/authentication/customize-identity-model.md"
+																data-original_content_git_url_template="{repo}/blob/{branch}/aspnetcore/security/authentication/customize-identity-model.md"
+																data-pr_repo=""
+																data-pr_branch=""
+													>
+														<span class="icon" aria-hidden="true">
+															<span class="docon docon-edit-outline"></span>
+														</span>
+														<span>Edit</span>
+													</a>
+
+													<button
+														class="button button-block button-clear button-sm justify-content-flex-start has-inner-focus"
+														title="Print"
+														type="button"
+														aria-label="Print"
+														data-bi-name="print"
+														data-page-action-item="overflow-all"
+														data-popover-close
+														data-print-page
+														data-check-hidden="true"
+														hidden>
+														<span class="icon" aria-hidden="true">
+															<span class="docon docon-print"></span>
+														</span>
+														<span>Print</span>
+													</button>
+
+													<div aria-hidden="true" class="margin-none display-none-tablet border-top" data-page-action-item="overflow-all"></div>
+
+													
+														<a class="button button-clear button-sm has-inner-focus button-block text-decoration-none justify-content-flex-start share-twitter" data-bi-name="twitter" data-page-action-item="overflow-all">
+															<span class="icon" aria-hidden="true">
+																<span class="docon docon-brand-twitter"></span>
+															</span>
+															<span>Twitter</span>
+														</a>
+														<a class="button button-clear button-sm has-inner-focus button-block text-decoration-none justify-content-flex-start share-linkedin" data-bi-name="linkedin" data-page-action-item="overflow-all">
+															<span class="icon" aria-hidden="true">
+																<span class="docon docon-brand-linkedin"></span>
+															</span>
+															<span>LinkedIn</span>
+														</a>
+														<a class="button button-clear button-sm button-block has-inner-focus text-decoration-none justify-content-flex-start share-facebook" data-bi-name="facebook" data-page-action-item="overflow-all">
+															<span class="icon" aria-hidden="true">
+																<span class="docon docon-brand-facebook"></span>
+															</span>
+															<span>Facebook</span>
+														</a>
+														<a class="button button-clear button-sm button-block has-inner-focus text-decoration-none justify-content-flex-start share-email" data-bi-name="email" data-page-action-item="overflow-all">
+															<span class="icon" aria-hidden="true">
+																<span class="docon docon-mail-message-fill"></span>
+															</span>
+															<span>Email</span>
+														</a>
+												
+											</div>
+										</details>
+										
+									</div>
+								</div>
+							</div>
+							<!-- end article-header -->
+
+
+							<div class="">
+								<button type="button" class="border contents-button button button-clear button-sm is-hidden-tablet has-inner-focus" aria-label="Contents" data-bi-name="contents-expand" data-contents-button hidden>
+									<span class="icon">
+										<span class="docon docon-editor-list-bullet" aria-hidden="true"></span>
+									</span>
+									<span class="contents-expand-title">Table of contents</span>
+								</button>
+							</div>
+
+							<!-- end mobile-contents button  -->
+
+							<div class="content ">
+
+
+								<h1 id="identity-model-customization-in-aspnet-core">Identity model customization in ASP.NET Core</h1>
+
+
+									<div class="display-flex justify-content-space-between align-items-center flex-wrap-wrap page-metadata-container">
+										<div class="margin-right-xxs">
+											<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+													<li>
+Article													</li>
+													<li class="visibility-hidden-visual-diff">
+														<time class="is-invisible" data-article-date aria-label="Article review date" datetime="2022-09-29T14:07:00Z" data-article-date-source="git">09/29/2022</time>
+													</li>
+															<li class="readingTime">18 minutes to read</li>
+														<li class="contributors-holder display-none-print">
+															<button aria-label="View all contributors" class="contributors-button link-button" data-bi-name="contributors" title="View all contributors">
+																	9 contributors
+															</button>
+														</li>
+											</ul>
+										</div>
+
+<div id="user-feedback" class="margin-block-xxs display-none-print" data-hide-on-archived>
+	<button
+		id="user-feedback-button"
+		data-test-id="conceptual-feedback-button"
+		class="button button-sm button-clear button-primary"
+		type="button"
+		data-bi-name="user-feedback-button"
+		data-user-feedback-button
+	>
+		<span class="icon" aria-hidden="true">
+			<span class="docon docon-like"></span>
+		</span>
+		<span>Feedback</span>
+	</button>
+</div>
+									</div>
+
+										<nav id="center-doc-outline" class="doc-outline is-hidden-desktop display-none-print" data-bi-name="intopic toc" role="navigation" aria-label="Article Outline">
+											<h3>In this article</h3>
+										</nav>
+
+								<!-- <content> -->
+									<p>By <a href="https://github.com/ajcvickers" data-linktype="external">Arthur Vickers</a></p>
+<p>ASP.NET Core Identity provides a framework for managing and storing user accounts in ASP.NET Core apps. Identity is added to your project when <strong>Individual User Accounts</strong> is selected as the authentication mechanism. By default, Identity makes use of an Entity Framework (EF) Core data model. This article describes how to customize the Identity model.</p>
+<h2 id="identity-and-ef-core-migrations">Identity and EF Core Migrations</h2>
+<p>Before examining the model, it's useful to understand how Identity works with <a href="/en-us/ef/core/managing-schemas/migrations/" data-linktype="absolute-path">EF Core Migrations</a> to create and update a database. At the top level, the process is:</p>
+<ol>
+<li>Define or update a <a href="/en-us/ef/core/modeling/" data-linktype="absolute-path">data model in code</a>.</li>
+<li>Add a Migration to translate this model into changes that can be applied to the database.</li>
+<li>Check that the Migration correctly represents your intentions.</li>
+<li>Apply the Migration to update the database to be in sync with the model.</li>
+<li>Repeat steps 1 through 4 to further refine the model and keep the database in sync.</li>
+</ol>
+<p>Use one of the following approaches to add and apply Migrations:</p>
+<ul>
+<li>The <strong>Package Manager Console</strong> (PMC) window if using Visual Studio. For more information, see <a href="/en-us/ef/core/miscellaneous/cli/powershell" data-linktype="absolute-path">EF Core PMC tools</a>.</li>
+<li>The .NET Core CLI if using the command line. For more information, see <a href="/en-us/ef/core/miscellaneous/cli/dotnet" data-linktype="absolute-path">EF Core .NET command line tools</a>.</li>
+<li>Clicking the <strong>Apply Migrations</strong> button on the error page when the app is run.</li>
+</ul>
+<p>ASP.NET Core has a development-time error page handler. The handler can apply migrations when the app is run. Production apps typically generate SQL scripts from the migrations and deploy database changes as part of a controlled app and database deployment.</p>
+<p>When a new app using Identity is created, steps 1 and 2 above have already been completed. That is, the initial data model already exists, and the initial migration has been added to the project. The initial migration still needs to be applied to the database. The initial migration can be applied via one of the following approaches:</p>
+<ul>
+<li>Run <code>Update-Database</code> in PMC.</li>
+<li>Run <code>dotnet ef database update</code> in a command shell.</li>
+<li>Click the <strong>Apply Migrations</strong> button on the error page when the app is run.</li>
+</ul>
+<p>Repeat the preceding steps as changes are made to the model.</p>
+<h2 id="the-identity-model">The Identity model</h2>
+<h3 id="entity-types">Entity types</h3>
+<p>The Identity model consists of the following entity types.</p>
+<table>
+<thead>
+<tr>
+<th>Entity type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>User</code></td>
+<td>Represents the user.</td>
+</tr>
+<tr>
+<td><code>Role</code></td>
+<td>Represents a role.</td>
+</tr>
+<tr>
+<td><code>UserClaim</code></td>
+<td>Represents a claim that a user possesses.</td>
+</tr>
+<tr>
+<td><code>UserToken</code></td>
+<td>Represents an authentication token for a user.</td>
+</tr>
+<tr>
+<td><code>UserLogin</code></td>
+<td>Associates a user with a login.</td>
+</tr>
+<tr>
+<td><code>RoleClaim</code></td>
+<td>Represents a claim that's granted to all users within a role.</td>
+</tr>
+<tr>
+<td><code>UserRole</code></td>
+<td>A join entity that associates users and roles.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="entity-type-relationships">Entity type relationships</h3>
+<p>The <a href="#entity-types" data-linktype="self-bookmark">entity types</a> are related to each other in the following ways:</p>
+<ul>
+<li>Each <code>User</code> can have many <code>UserClaims</code>.</li>
+<li>Each <code>User</code> can have many <code>UserLogins</code>.</li>
+<li>Each <code>User</code> can have many <code>UserTokens</code>.</li>
+<li>Each <code>Role</code> can have many associated <code>RoleClaims</code>.</li>
+<li>Each <code>User</code> can have many associated <code>Roles</code>, and each <code>Role</code> can be associated with many <code>Users</code>. This is a many-to-many relationship that requires a join table in the database. The join table is represented by the <code>UserRole</code> entity.</li>
+</ul>
+<h3 id="default-model-configuration">Default model configuration</h3>
+<p>Identity defines many <em>context classes</em> that inherit from <a href="/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext" class="no-loc" data-linktype="absolute-path">DbContext</a> to configure and use the model. This configuration is done using the <a href="/en-us/ef/core/modeling/" data-linktype="absolute-path">EF Core Code First Fluent API</a> in the <a href="/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating" class="no-loc" data-linktype="absolute-path">OnModelCreating</a> method of the context class. The default configuration is:</p>
+<pre><code class="lang-csharp">builder.Entity&lt;TUser&gt;(b =&gt;
+{
+    // Primary key
+    b.HasKey(u =&gt; u.Id);
+
+    // Indexes for &quot;normalized&quot; username and email, to allow efficient lookups
+    b.HasIndex(u =&gt; u.NormalizedUserName).HasName(&quot;UserNameIndex&quot;).IsUnique();
+    b.HasIndex(u =&gt; u.NormalizedEmail).HasName(&quot;EmailIndex&quot;);
+
+    // Maps to the AspNetUsers table
+    b.ToTable(&quot;AspNetUsers&quot;);
+
+    // A concurrency token for use with the optimistic concurrency checking
+    b.Property(u =&gt; u.ConcurrencyStamp).IsConcurrencyToken();
+
+    // Limit the size of columns to use efficient database types
+    b.Property(u =&gt; u.UserName).HasMaxLength(256);
+    b.Property(u =&gt; u.NormalizedUserName).HasMaxLength(256);
+    b.Property(u =&gt; u.Email).HasMaxLength(256);
+    b.Property(u =&gt; u.NormalizedEmail).HasMaxLength(256);
+
+    // The relationships between User and other entity types
+    // Note that these relationships are configured with no navigation properties
+
+    // Each User can have many UserClaims
+    b.HasMany&lt;TUserClaim&gt;().WithOne().HasForeignKey(uc =&gt; uc.UserId).IsRequired();
+
+    // Each User can have many UserLogins
+    b.HasMany&lt;TUserLogin&gt;().WithOne().HasForeignKey(ul =&gt; ul.UserId).IsRequired();
+
+    // Each User can have many UserTokens
+    b.HasMany&lt;TUserToken&gt;().WithOne().HasForeignKey(ut =&gt; ut.UserId).IsRequired();
+
+    // Each User can have many entries in the UserRole join table
+    b.HasMany&lt;TUserRole&gt;().WithOne().HasForeignKey(ur =&gt; ur.UserId).IsRequired();
+});
+
+builder.Entity&lt;TUserClaim&gt;(b =&gt;
+{
+    // Primary key
+    b.HasKey(uc =&gt; uc.Id);
+
+    // Maps to the AspNetUserClaims table
+    b.ToTable(&quot;AspNetUserClaims&quot;);
+});
+
+builder.Entity&lt;TUserLogin&gt;(b =&gt;
+{
+    // Composite primary key consisting of the LoginProvider and the key to use
+    // with that provider
+    b.HasKey(l =&gt; new { l.LoginProvider, l.ProviderKey });
+
+    // Limit the size of the composite key columns due to common DB restrictions
+    b.Property(l =&gt; l.LoginProvider).HasMaxLength(128);
+    b.Property(l =&gt; l.ProviderKey).HasMaxLength(128);
+
+    // Maps to the AspNetUserLogins table
+    b.ToTable(&quot;AspNetUserLogins&quot;);
+});
+
+builder.Entity&lt;TUserToken&gt;(b =&gt;
+{
+    // Composite primary key consisting of the UserId, LoginProvider and Name
+    b.HasKey(t =&gt; new { t.UserId, t.LoginProvider, t.Name });
+
+    // Limit the size of the composite key columns due to common DB restrictions
+    b.Property(t =&gt; t.LoginProvider).HasMaxLength(maxKeyLength);
+    b.Property(t =&gt; t.Name).HasMaxLength(maxKeyLength);
+
+    // Maps to the AspNetUserTokens table
+    b.ToTable(&quot;AspNetUserTokens&quot;);
+});
+
+builder.Entity&lt;TRole&gt;(b =&gt;
+{
+    // Primary key
+    b.HasKey(r =&gt; r.Id);
+
+    // Index for &quot;normalized&quot; role name to allow efficient lookups
+    b.HasIndex(r =&gt; r.NormalizedName).HasName(&quot;RoleNameIndex&quot;).IsUnique();
+
+    // Maps to the AspNetRoles table
+    b.ToTable(&quot;AspNetRoles&quot;);
+
+    // A concurrency token for use with the optimistic concurrency checking
+    b.Property(r =&gt; r.ConcurrencyStamp).IsConcurrencyToken();
+
+    // Limit the size of columns to use efficient database types
+    b.Property(u =&gt; u.Name).HasMaxLength(256);
+    b.Property(u =&gt; u.NormalizedName).HasMaxLength(256);
+
+    // The relationships between Role and other entity types
+    // Note that these relationships are configured with no navigation properties
+
+    // Each Role can have many entries in the UserRole join table
+    b.HasMany&lt;TUserRole&gt;().WithOne().HasForeignKey(ur =&gt; ur.RoleId).IsRequired();
+
+    // Each Role can have many associated RoleClaims
+    b.HasMany&lt;TRoleClaim&gt;().WithOne().HasForeignKey(rc =&gt; rc.RoleId).IsRequired();
+});
+
+builder.Entity&lt;TRoleClaim&gt;(b =&gt;
+{
+    // Primary key
+    b.HasKey(rc =&gt; rc.Id);
+
+    // Maps to the AspNetRoleClaims table
+    b.ToTable(&quot;AspNetRoleClaims&quot;);
+});
+
+builder.Entity&lt;TUserRole&gt;(b =&gt;
+{
+    // Primary key
+    b.HasKey(r =&gt; new { r.UserId, r.RoleId });
+
+    // Maps to the AspNetUserRoles table
+    b.ToTable(&quot;AspNetUserRoles&quot;);
+});
+</code></pre>
+<h3 id="model-generic-types">Model generic types</h3>
+<p>Identity defines default <a href="/en-us/dotnet/standard/glossary#clr" data-linktype="absolute-path">Common Language Runtime</a> (CLR) types for each of the entity types listed above. These types are all prefixed with <em>Identity</em>:</p>
+<ul>
+<li><code>IdentityUser</code></li>
+<li><code>IdentityRole</code></li>
+<li><code>IdentityUserClaim</code></li>
+<li><code>IdentityUserToken</code></li>
+<li><code>IdentityUserLogin</code></li>
+<li><code>IdentityRoleClaim</code></li>
+<li><code>IdentityUserRole</code></li>
+</ul>
+<p>Rather than using these types directly, the types can be used as base classes for the app's own types. The <code>DbContext</code> classes defined by Identity are generic, such that different CLR types can be used for one or more of the entity types in the model. These generic types also allow the <code>User</code> primary key (PK) data type to be changed.</p>
+<p>When using Identity with support for roles, an <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identitydbcontext" class="no-loc" data-linktype="absolute-path">IdentityDbContext</a> class should be used. For example:</p>
+<pre><code class="lang-csharp">// Uses all the built-in Identity types
+// Uses `string` as the key type
+public class IdentityDbContext
+    : IdentityDbContext&lt;IdentityUser, IdentityRole, string&gt;
+{
+}
+
+// Uses the built-in Identity types except with a custom User type
+// Uses `string` as the key type
+public class IdentityDbContext&lt;TUser&gt;
+    : IdentityDbContext&lt;TUser, IdentityRole, string&gt;
+        where TUser : IdentityUser
+{
+}
+
+// Uses the built-in Identity types except with custom User and Role types
+// The key type is defined by TKey
+public class IdentityDbContext&lt;TUser, TRole, TKey&gt; : IdentityDbContext&lt;
+    TUser, TRole, TKey, IdentityUserClaim&lt;TKey&gt;, IdentityUserRole&lt;TKey&gt;,
+    IdentityUserLogin&lt;TKey&gt;, IdentityRoleClaim&lt;TKey&gt;, IdentityUserToken&lt;TKey&gt;&gt;
+        where TUser : IdentityUser&lt;TKey&gt;
+        where TRole : IdentityRole&lt;TKey&gt;
+        where TKey : IEquatable&lt;TKey&gt;
+{
+}
+
+// No built-in Identity types are used; all are specified by generic arguments
+// The key type is defined by TKey
+public abstract class IdentityDbContext&lt;
+    TUser, TRole, TKey, TUserClaim, TUserRole, TUserLogin, TRoleClaim, TUserToken&gt;
+    : IdentityUserContext&lt;TUser, TKey, TUserClaim, TUserLogin, TUserToken&gt;
+         where TUser : IdentityUser&lt;TKey&gt;
+         where TRole : IdentityRole&lt;TKey&gt;
+         where TKey : IEquatable&lt;TKey&gt;
+         where TUserClaim : IdentityUserClaim&lt;TKey&gt;
+         where TUserRole : IdentityUserRole&lt;TKey&gt;
+         where TUserLogin : IdentityUserLogin&lt;TKey&gt;
+         where TRoleClaim : IdentityRoleClaim&lt;TKey&gt;
+         where TUserToken : IdentityUserToken&lt;TKey&gt;
+</code></pre>
+<p>It's also possible to use Identity without roles (only claims), in which case an <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityusercontext-1" class="no-loc" data-linktype="absolute-path">IdentityUserContext&lt;TUser&gt;</a> class should be used:</p>
+<pre><code class="lang-csharp">// Uses the built-in non-role Identity types except with a custom User type
+// Uses `string` as the key type
+public class IdentityUserContext&lt;TUser&gt;
+    : IdentityUserContext&lt;TUser, string&gt;
+        where TUser : IdentityUser
+{
+}
+
+// Uses the built-in non-role Identity types except with a custom User type
+// The key type is defined by TKey
+public class IdentityUserContext&lt;TUser, TKey&gt; : IdentityUserContext&lt;
+    TUser, TKey, IdentityUserClaim&lt;TKey&gt;, IdentityUserLogin&lt;TKey&gt;,
+    IdentityUserToken&lt;TKey&gt;&gt;
+        where TUser : IdentityUser&lt;TKey&gt;
+        where TKey : IEquatable&lt;TKey&gt;
+{
+}
+
+// No built-in Identity types are used; all are specified by generic arguments, with no roles
+// The key type is defined by TKey
+public abstract class IdentityUserContext&lt;
+    TUser, TKey, TUserClaim, TUserLogin, TUserToken&gt; : DbContext
+        where TUser : IdentityUser&lt;TKey&gt;
+        where TKey : IEquatable&lt;TKey&gt;
+        where TUserClaim : IdentityUserClaim&lt;TKey&gt;
+        where TUserLogin : IdentityUserLogin&lt;TKey&gt;
+        where TUserToken : IdentityUserToken&lt;TKey&gt;
+{
+}
+</code></pre>
+<h2 id="customize-the-model">Customize the model</h2>
+<p>The starting point for model customization is to derive from the appropriate context type. See the <a href="#model-generic-types" data-linktype="self-bookmark">Model generic types</a> section. This context type is customarily called <code>ApplicationDbContext</code> and is created by the ASP.NET Core templates.</p>
+<p>The context is used to configure the model in two ways:</p>
+<ul>
+<li>Supplying entity and key types for the generic type parameters.</li>
+<li>Overriding <code>OnModelCreating</code> to modify the mapping of these types.</li>
+</ul>
+<p>When overriding <code>OnModelCreating</code>, <code>base.OnModelCreating</code> should be called first; the overriding configuration should be called next. EF Core generally has a last-one-wins policy for configuration. For example, if the <code>ToTable</code> method for an entity type is called first with one table name and then again later with a different table name, the table name in the second call is used.</p>
+<p><em><strong>NOTE</strong></em>: If the <code>DbContext</code> doesn't derive from <code>IdentityDbContext</code>, <code>AddEntityFrameworkStores</code> may not infer the correct POCO types for <code>TUserClaim</code>, <code>TUserLogin</code>, and <code>TUserToken</code>. If <code>AddEntityFrameworkStores</code> doesn't infer the correct POCO types, a workaround is to directly add the correct types via <code>services.AddScoped&lt;IUser/RoleStore&lt;TUser&gt;</code> and <code>UserStore&lt;...&gt;&gt;</code>.</p>
+<h3 id="custom-user-data">Custom user data</h3>
+<!--
+set projNam=WebApp1
+dotnet new webapp -o %projNam%
+cd %projNam%
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design 
+dotnet aspnet-codegenerator identity  -dc ApplicationDbContext --useDefaultUI 
+dotnet ef migrations add CreateIdentitySchema
+dotnet ef database update
+ -->
+<p><a href="add-user-data?view=aspnetcore-6.0" data-linktype="relative-path">Custom user data</a> is supported by inheriting from <code>IdentityUser</code>. It's customary to name this type <code>ApplicationUser</code>:</p>
+<pre><code class="lang-csharp">public class ApplicationUser : IdentityUser
+{
+    public string CustomTag { get; set; }
+}
+</code></pre>
+<p>Use the <code>ApplicationUser</code> type as a generic argument for the context:</p>
+<pre><code class="lang-csharp">public class ApplicationDbContext : IdentityDbContext&lt;ApplicationUser&gt;
+{
+    public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options)
+        : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+    }
+}
+</code></pre>
+<p>There's no need to override <code>OnModelCreating</code> in the <code>ApplicationDbContext</code> class. EF Core maps the <code>CustomTag</code> property by convention. However, the database needs to be updated to create a new <code>CustomTag</code> column. To create the column, add a migration, and then update the database as described in <a href="#identity-and-ef-core-migrations" data-linktype="self-bookmark">Identity and EF Core Migrations</a>.</p>
+<p>Update <code>Pages/Shared/_LoginPartial.cshtml</code> and replace <code>IdentityUser</code> with <code>ApplicationUser</code>:</p>
+<pre><code class="lang-cshtml">@using Microsoft.AspNetCore.Identity
+@using WebApp1.Areas.Identity.Data
+@inject SignInManager&lt;ApplicationUser&gt; SignInManager
+@inject UserManager&lt;ApplicationUser&gt; UserManager
+</code></pre>
+<p>Update <code>Areas/Identity/IdentityHostingStartup.cs</code> or <code>Startup.ConfigureServices</code> and replace <code>IdentityUser</code> with <code>ApplicationUser</code>.</p>
+<pre><code class="lang-csharp">services.AddDefaultIdentity&lt;ApplicationUser&gt;(options =&gt; options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores&lt;ApplicationDbContext&gt;();                                    
+</code></pre>
+<p>Calling <a href="/en-us/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionuiextensions.adddefaultidentity" class="no-loc" data-linktype="absolute-path">AddDefaultIdentity</a> is equivalent to the following code:</p>
+<pre><code class="lang-csharp">services.AddAuthentication(o =&gt;
+{
+    o.DefaultScheme = IdentityConstants.ApplicationScheme;
+    o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+})
+.AddIdentityCookies(o =&gt; { });
+
+services.AddIdentityCore&lt;TUser&gt;(o =&gt;
+{
+    o.Stores.MaxLengthForKeys = 128;
+    o.SignIn.RequireConfirmedAccount = true;
+})
+.AddDefaultUI()
+.AddDefaultTokenProviders();
+</code></pre>
+<p>Identity is provided as a Razor Class Library. For more information, see <a href="scaffold-identity?view=aspnetcore-6.0" data-linktype="relative-path">Scaffold Identity in ASP.NET Core projects</a>. Consequently, the preceding code requires a call to <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identitybuilderuiextensions.adddefaultui" class="no-loc" data-linktype="absolute-path">AddDefaultUI</a>. If the Identity scaffolder was used to add Identity files to the project, remove the call to <code>AddDefaultUI</code>. For more information, see:</p>
+<ul>
+<li><a href="scaffold-identity?view=aspnetcore-6.0" data-linktype="relative-path">Scaffold Identity</a></li>
+<li><a href="add-user-data?view=aspnetcore-6.0" data-linktype="relative-path">Add, download, and delete custom user data to Identity</a></li>
+</ul>
+<h3 id="change-the-primary-key-type">Change the primary key type</h3>
+<p>A change to the PK column's data type after the database has been created is problematic on many database systems. Changing the PK typically involves dropping and re-creating the table. Therefore, key types should be specified in the initial migration when the database is created.</p>
+<p>Follow these steps to change the PK type:</p>
+<ol>
+<li><p>If the database was created before the PK change, run <code>Drop-Database</code> (PMC) or <code>dotnet ef database drop</code> (.NET Core CLI) to delete it.</p>
+</li>
+<li><p>After confirming deletion of the database, remove the initial migration with <code>Remove-Migration</code> (PMC) or <code>dotnet ef migrations remove</code> (.NET Core CLI).</p>
+</li>
+<li><p>Update the <code>ApplicationDbContext</code> class to derive from <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identitydbcontext-3" class="no-loc" data-linktype="absolute-path">IdentityDbContext&lt;TUser,TRole,TKey&gt;</a>. Specify the new key type for <code>TKey</code>. For example, to use a <code>Guid</code> key type:</p>
+<pre><code class="lang-csharp">public class ApplicationDbContext
+    : IdentityDbContext&lt;IdentityUser&lt;Guid&gt;, IdentityRole&lt;Guid&gt;, Guid&gt;
+{
+    public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options)
+        : base(options)
+    {
+    }
+}
+</code></pre>
+<p>In the preceding code, the generic classes <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identityuser-1" class="no-loc" data-linktype="absolute-path">IdentityUser&lt;TKey&gt;</a> and <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identityrole-1" class="no-loc" data-linktype="absolute-path">IdentityRole&lt;TKey&gt;</a> must be specified to use the new key type.</p>
+<p><code>Startup.ConfigureServices</code> must be updated to use the generic user:</p>
+<pre><code class="lang-csharp">services.AddDefaultIdentity&lt;IdentityUser&lt;Guid&gt;&gt;(options =&gt; options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores&lt;ApplicationDbContext&gt;();
+</code></pre>
+</li>
+<li><p>If a custom <code>ApplicationUser</code> class is being used, update the class to inherit from <code>IdentityUser</code>. For example:</p>
+<pre><code class="lang-csharp" highlight-lines="4">using System;
+using Microsoft.AspNetCore.Identity;
+
+public class ApplicationUser : IdentityUser&lt;Guid&gt;
+{
+    public string CustomTag { get; set; }
+}
+</code></pre>
+<p>Update <code>ApplicationDbContext</code> to reference the custom <code>ApplicationUser</code> class:</p>
+<pre><code class="lang-csharp">public class ApplicationDbContext
+    : IdentityDbContext&lt;ApplicationUser, IdentityRole&lt;Guid&gt;, Guid&gt;
+{
+    public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options)
+        : base(options)
+    {
+    }
+}
+</code></pre>
+<p>Register the custom database context class when adding the Identity service in <code>Startup.ConfigureServices</code>:</p>
+<pre><code class="lang-csharp">services.AddDefaultIdentity&lt;ApplicationUser&gt;(options =&gt; options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores&lt;ApplicationDbContext&gt;();
+</code></pre>
+<p>The primary key's data type is inferred by analyzing the <a href="/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext" class="no-loc" data-linktype="absolute-path">DbContext</a> object.</p>
+<p>Identity is provided as a Razor Class Library. For more information, see <a href="scaffold-identity?view=aspnetcore-6.0" data-linktype="relative-path">Scaffold Identity in ASP.NET Core projects</a>. Consequently, the preceding code requires a call to <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identitybuilderuiextensions.adddefaultui" class="no-loc" data-linktype="absolute-path">AddDefaultUI</a>. If the Identity scaffolder was used to add Identity files to the project, remove the call to <code>AddDefaultUI</code>.</p>
+</li>
+<li><p>If a custom <code>ApplicationRole</code> class is being used, update the class to inherit from <code>IdentityRole&lt;TKey&gt;</code>. For example:</p>
+<pre><code class="lang-csharp" highlight-lines="4">using System;
+using Microsoft.AspNetCore.Identity;
+
+public class ApplicationRole : IdentityRole&lt;Guid&gt;
+{
+    public string Description { get; set; }
+}
+</code></pre>
+<p>Update <code>ApplicationDbContext</code> to reference the custom <code>ApplicationRole</code> class. For example, the following class references a custom <code>ApplicationUser</code> and a custom <code>ApplicationRole</code>:</p>
+<pre><code class="lang-csharp" highlight-lines="5-6">using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+public class ApplicationDbContext :
+    IdentityDbContext&lt;ApplicationUser, ApplicationRole, Guid&gt;
+{
+    public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options)
+        : base(options)
+    {
+    }
+}
+</code></pre>
+<p>Register the custom database context class when adding the Identity service in <code>Startup.ConfigureServices</code>:</p>
+<pre><code class="lang-csharp" highlight-lines="13-16">public void ConfigureServices(IServiceCollection services)
+{
+    services.Configure&lt;CookiePolicyOptions&gt;(options =&gt;
+    {
+        options.CheckConsentNeeded = context =&gt; true;
+        options.MinimumSameSitePolicy = SameSiteMode.None;
+    });
+
+    services.AddDbContext&lt;ApplicationDbContext&gt;(options =&gt;
+        options.UseSqlServer(
+            Configuration.GetConnectionString(&quot;DefaultConnection&quot;)));
+
+    services.AddIdentity&lt;ApplicationUser, ApplicationRole&gt;()
+            .AddEntityFrameworkStores&lt;ApplicationDbContext&gt;()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
+
+    services.AddMvc()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+}
+</code></pre>
+<p>The primary key's data type is inferred by analyzing the <a href="/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext" class="no-loc" data-linktype="absolute-path">DbContext</a> object.</p>
+<p>Identity is provided as a Razor Class Library. For more information, see <a href="scaffold-identity?view=aspnetcore-6.0" data-linktype="relative-path">Scaffold Identity in ASP.NET Core projects</a>. Consequently, the preceding code requires a call to <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identitybuilderuiextensions.adddefaultui" class="no-loc" data-linktype="absolute-path">AddDefaultUI</a>. If the Identity scaffolder was used to add Identity files to the project, remove the call to <code>AddDefaultUI</code>.</p>
+</li>
+</ol>
+<h3 id="add-navigation-properties">Add navigation properties</h3>
+<p>Changing the model configuration for relationships can be more difficult than making other changes. Care must be taken to replace the existing relationships rather than create new, additional relationships. In particular, the changed relationship must specify the same foreign key (FK) property as the existing relationship. For example, the relationship between <code>Users</code> and <code>UserClaims</code> is, by default, specified as follows:</p>
+<pre><code class="lang-csharp">builder.Entity&lt;TUser&gt;(b =&gt;
+{
+    // Each User can have many UserClaims
+    b.HasMany&lt;TUserClaim&gt;()
+     .WithOne()
+     .HasForeignKey(uc =&gt; uc.UserId)
+     .IsRequired();
+});
+</code></pre>
+<p>The FK for this relationship is specified as the <code>UserClaim.UserId</code> property. <code>HasMany</code> and <code>WithOne</code> are called without arguments to create the relationship without navigation properties.</p>
+<p>Add a navigation property to <code>ApplicationUser</code> that allows associated <code>UserClaims</code> to be referenced from the user:</p>
+<pre><code class="lang-csharp">public class ApplicationUser : IdentityUser
+{
+    public virtual ICollection&lt;IdentityUserClaim&lt;string&gt;&gt; Claims { get; set; }
+}
+</code></pre>
+<p>The <code>TKey</code> for <code>IdentityUserClaim&lt;TKey&gt;</code> is the type specified for the PK of users. In this case, <code>TKey</code> is <code>string</code> because the defaults are being used. It's <strong>not</strong> the PK type for the <code>UserClaim</code> entity type.</p>
+<p>Now that the navigation property exists, it must be configured in <code>OnModelCreating</code>:</p>
+<pre><code class="lang-csharp">public class ApplicationDbContext : IdentityDbContext&lt;ApplicationUser&gt;
+{
+    public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options)
+        : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity&lt;ApplicationUser&gt;(b =&gt;
+        {
+            // Each User can have many UserClaims
+            b.HasMany(e =&gt; e.Claims)
+                .WithOne()
+                .HasForeignKey(uc =&gt; uc.UserId)
+                .IsRequired();
+        });
+    }
+}
+</code></pre>
+<p>Notice that relationship is configured exactly as it was before, only with a navigation property specified in the call to <code>HasMany</code>.</p>
+<p>The navigation properties only exist in the EF model, not the database. Because the FK for the relationship hasn't changed, this kind of model change doesn't require the database to be updated. This can be checked by adding a migration after making the change. The <code>Up</code> and <code>Down</code> methods are empty.</p>
+<h3 id="add-all-user-navigation-properties">Add all User navigation properties</h3>
+<p>Using the section above as guidance, the following example configures unidirectional navigation properties for all relationships on User:</p>
+<pre><code class="lang-csharp">public class ApplicationUser : IdentityUser
+{
+    public virtual ICollection&lt;IdentityUserClaim&lt;string&gt;&gt; Claims { get; set; }
+    public virtual ICollection&lt;IdentityUserLogin&lt;string&gt;&gt; Logins { get; set; }
+    public virtual ICollection&lt;IdentityUserToken&lt;string&gt;&gt; Tokens { get; set; }
+    public virtual ICollection&lt;IdentityUserRole&lt;string&gt;&gt; UserRoles { get; set; }
+}
+</code></pre>
+<pre><code class="lang-csharp">public class ApplicationDbContext : IdentityDbContext&lt;ApplicationUser&gt;
+{
+    public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options)
+        : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity&lt;ApplicationUser&gt;(b =&gt;
+        {
+            // Each User can have many UserClaims
+            b.HasMany(e =&gt; e.Claims)
+                .WithOne()
+                .HasForeignKey(uc =&gt; uc.UserId)
+                .IsRequired();
+
+            // Each User can have many UserLogins
+            b.HasMany(e =&gt; e.Logins)
+                .WithOne()
+                .HasForeignKey(ul =&gt; ul.UserId)
+                .IsRequired();
+
+            // Each User can have many UserTokens
+            b.HasMany(e =&gt; e.Tokens)
+                .WithOne()
+                .HasForeignKey(ut =&gt; ut.UserId)
+                .IsRequired();
+
+            // Each User can have many entries in the UserRole join table
+            b.HasMany(e =&gt; e.UserRoles)
+                .WithOne()
+                .HasForeignKey(ur =&gt; ur.UserId)
+                .IsRequired();
+        });
+    }
+}
+</code></pre>
+<h3 id="add-user-and-role-navigation-properties">Add User and Role navigation properties</h3>
+<p>Using the section above as guidance, the following example configures navigation properties for all relationships on User and Role:</p>
+<pre><code class="lang-csharp">public class ApplicationUser : IdentityUser
+{
+    public virtual ICollection&lt;IdentityUserClaim&lt;string&gt;&gt; Claims { get; set; }
+    public virtual ICollection&lt;IdentityUserLogin&lt;string&gt;&gt; Logins { get; set; }
+    public virtual ICollection&lt;IdentityUserToken&lt;string&gt;&gt; Tokens { get; set; }
+    public virtual ICollection&lt;ApplicationUserRole&gt; UserRoles { get; set; }
+}
+
+public class ApplicationRole : IdentityRole
+{
+    public virtual ICollection&lt;ApplicationUserRole&gt; UserRoles { get; set; }
+}
+
+public class ApplicationUserRole : IdentityUserRole&lt;string&gt;
+{
+    public virtual ApplicationUser User { get; set; }
+    public virtual ApplicationRole Role { get; set; }
+}
+</code></pre>
+<pre><code class="lang-csharp">public class ApplicationDbContext
+    : IdentityDbContext&lt;
+        ApplicationUser, ApplicationRole, string,
+        IdentityUserClaim&lt;string&gt;, ApplicationUserRole, IdentityUserLogin&lt;string&gt;,
+        IdentityRoleClaim&lt;string&gt;, IdentityUserToken&lt;string&gt;&gt;
+{
+    public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options)
+        : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity&lt;ApplicationUser&gt;(b =&gt;
+        {
+            // Each User can have many UserClaims
+            b.HasMany(e =&gt; e.Claims)
+                .WithOne()
+                .HasForeignKey(uc =&gt; uc.UserId)
+                .IsRequired();
+
+            // Each User can have many UserLogins
+            b.HasMany(e =&gt; e.Logins)
+                .WithOne()
+                .HasForeignKey(ul =&gt; ul.UserId)
+                .IsRequired();
+
+            // Each User can have many UserTokens
+            b.HasMany(e =&gt; e.Tokens)
+                .WithOne()
+                .HasForeignKey(ut =&gt; ut.UserId)
+                .IsRequired();
+
+            // Each User can have many entries in the UserRole join table
+            b.HasMany(e =&gt; e.UserRoles)
+                .WithOne(e =&gt; e.User)
+                .HasForeignKey(ur =&gt; ur.UserId)
+                .IsRequired();
+        });
+
+        modelBuilder.Entity&lt;ApplicationRole&gt;(b =&gt;
+        {
+            // Each Role can have many entries in the UserRole join table
+            b.HasMany(e =&gt; e.UserRoles)
+                .WithOne(e =&gt; e.Role)
+                .HasForeignKey(ur =&gt; ur.RoleId)
+                .IsRequired();
+        });
+
+    }
+}
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li>This example also includes the <code>UserRole</code> join entity, which is needed to navigate the many-to-many relationship from Users to Roles.</li>
+<li>Remember to change the types of the navigation properties to reflect that <code>Application{...}</code> types are now being used instead of <code>Identity{...}</code> types.</li>
+<li>Remember to use the <code>Application{...}</code> in the generic <code>ApplicationContext</code> definition.</li>
+</ul>
+<h3 id="add-all-navigation-properties">Add all navigation properties</h3>
+<p>Using the section above as guidance, the following example configures navigation properties for all relationships on all entity types:</p>
+<pre><code class="lang-csharp">public class ApplicationUser : IdentityUser
+{
+    public virtual ICollection&lt;ApplicationUserClaim&gt; Claims { get; set; }
+    public virtual ICollection&lt;ApplicationUserLogin&gt; Logins { get; set; }
+    public virtual ICollection&lt;ApplicationUserToken&gt; Tokens { get; set; }
+    public virtual ICollection&lt;ApplicationUserRole&gt; UserRoles { get; set; }
+}
+
+public class ApplicationRole : IdentityRole
+{
+    public virtual ICollection&lt;ApplicationUserRole&gt; UserRoles { get; set; }
+    public virtual ICollection&lt;ApplicationRoleClaim&gt; RoleClaims { get; set; }
+}
+
+public class ApplicationUserRole : IdentityUserRole&lt;string&gt;
+{
+    public virtual ApplicationUser User { get; set; }
+    public virtual ApplicationRole Role { get; set; }
+}
+
+public class ApplicationUserClaim : IdentityUserClaim&lt;string&gt;
+{
+    public virtual ApplicationUser User { get; set; }
+}
+
+public class ApplicationUserLogin : IdentityUserLogin&lt;string&gt;
+{
+    public virtual ApplicationUser User { get; set; }
+}
+
+public class ApplicationRoleClaim : IdentityRoleClaim&lt;string&gt;
+{
+    public virtual ApplicationRole Role { get; set; }
+}
+
+public class ApplicationUserToken : IdentityUserToken&lt;string&gt;
+{
+    public virtual ApplicationUser User { get; set; }
+}
+</code></pre>
+<pre><code class="lang-csharp">public class ApplicationDbContext
+    : IdentityDbContext&lt;
+        ApplicationUser, ApplicationRole, string,
+        ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin,
+        ApplicationRoleClaim, ApplicationUserToken&gt;
+{
+    public ApplicationDbContext(DbContextOptions&lt;ApplicationDbContext&gt; options)
+        : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity&lt;ApplicationUser&gt;(b =&gt;
+        {
+            // Each User can have many UserClaims
+            b.HasMany(e =&gt; e.Claims)
+                .WithOne(e =&gt; e.User)
+                .HasForeignKey(uc =&gt; uc.UserId)
+                .IsRequired();
+
+            // Each User can have many UserLogins
+            b.HasMany(e =&gt; e.Logins)
+                .WithOne(e =&gt; e.User)
+                .HasForeignKey(ul =&gt; ul.UserId)
+                .IsRequired();
+
+            // Each User can have many UserTokens
+            b.HasMany(e =&gt; e.Tokens)
+                .WithOne(e =&gt; e.User)
+                .HasForeignKey(ut =&gt; ut.UserId)
+                .IsRequired();
+
+            // Each User can have many entries in the UserRole join table
+            b.HasMany(e =&gt; e.UserRoles)
+                .WithOne(e =&gt; e.User)
+                .HasForeignKey(ur =&gt; ur.UserId)
+                .IsRequired();
+        });
+
+        modelBuilder.Entity&lt;ApplicationRole&gt;(b =&gt;
+        {
+            // Each Role can have many entries in the UserRole join table
+            b.HasMany(e =&gt; e.UserRoles)
+                .WithOne(e =&gt; e.Role)
+                .HasForeignKey(ur =&gt; ur.RoleId)
+                .IsRequired();
+
+            // Each Role can have many associated RoleClaims
+            b.HasMany(e =&gt; e.RoleClaims)
+                .WithOne(e =&gt; e.Role)
+                .HasForeignKey(rc =&gt; rc.RoleId)
+                .IsRequired();
+        });
+    }
+}
+</code></pre>
+<h3 id="use-composite-keys">Use composite keys</h3>
+<p>The preceding sections demonstrated changing the type of key used in the Identity model. Changing the Identity key model to use composite keys isn't supported or recommended. Using a composite key with Identity involves changing how the Identity manager code interacts with the model. This customization is beyond the scope of this document.</p>
+<h3 id="change-tablecolumn-names-and-facets">Change table/column names and facets</h3>
+<p>To change the names of tables and columns, call <code>base.OnModelCreating</code>. Then, add configuration to override any of the defaults. For example, to change the name of all the Identity tables:</p>
+<pre><code class="lang-csharp">protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity&lt;IdentityUser&gt;(b =&gt;
+    {
+        b.ToTable(&quot;MyUsers&quot;);
+    });
+
+    modelBuilder.Entity&lt;IdentityUserClaim&lt;string&gt;&gt;(b =&gt;
+    {
+        b.ToTable(&quot;MyUserClaims&quot;);
+    });
+
+    modelBuilder.Entity&lt;IdentityUserLogin&lt;string&gt;&gt;(b =&gt;
+    {
+        b.ToTable(&quot;MyUserLogins&quot;);
+    });
+
+    modelBuilder.Entity&lt;IdentityUserToken&lt;string&gt;&gt;(b =&gt;
+    {
+        b.ToTable(&quot;MyUserTokens&quot;);
+    });
+
+    modelBuilder.Entity&lt;IdentityRole&gt;(b =&gt;
+    {
+        b.ToTable(&quot;MyRoles&quot;);
+    });
+
+    modelBuilder.Entity&lt;IdentityRoleClaim&lt;string&gt;&gt;(b =&gt;
+    {
+        b.ToTable(&quot;MyRoleClaims&quot;);
+    });
+
+    modelBuilder.Entity&lt;IdentityUserRole&lt;string&gt;&gt;(b =&gt;
+    {
+        b.ToTable(&quot;MyUserRoles&quot;);
+    });
+}
+</code></pre>
+<p>These examples use the default Identity types. If using an app type such as <code>ApplicationUser</code>, configure that type instead of the default type.</p>
+<p>The following example changes some column names:</p>
+<pre><code class="lang-csharp">protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity&lt;IdentityUser&gt;(b =&gt;
+    {
+        b.Property(e =&gt; e.Email).HasColumnName(&quot;EMail&quot;);
+    });
+
+    modelBuilder.Entity&lt;IdentityUserClaim&lt;string&gt;&gt;(b =&gt;
+    {
+        b.Property(e =&gt; e.ClaimType).HasColumnName(&quot;CType&quot;);
+        b.Property(e =&gt; e.ClaimValue).HasColumnName(&quot;CValue&quot;);
+    });
+}
+</code></pre>
+<p>Some types of database columns can be configured with certain <em>facets</em> (for example, the maximum <code>string</code> length allowed). The following example sets column maximum lengths for several <code>string</code> properties in the model:</p>
+<pre><code class="lang-csharp">protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity&lt;IdentityUser&gt;(b =&gt;
+    {
+        b.Property(u =&gt; u.UserName).HasMaxLength(128);
+        b.Property(u =&gt; u.NormalizedUserName).HasMaxLength(128);
+        b.Property(u =&gt; u.Email).HasMaxLength(128);
+        b.Property(u =&gt; u.NormalizedEmail).HasMaxLength(128);
+    });
+
+    modelBuilder.Entity&lt;IdentityUserToken&lt;string&gt;&gt;(b =&gt;
+    {
+        b.Property(t =&gt; t.LoginProvider).HasMaxLength(128);
+        b.Property(t =&gt; t.Name).HasMaxLength(128);
+    });
+}
+</code></pre>
+<h3 id="map-to-a-different-schema">Map to a different schema</h3>
+<p>Schemas can behave differently across database providers. For SQL Server, the default is to create all tables in the <em>dbo</em> schema. The tables can be created in a different schema. For example:</p>
+<pre><code class="lang-csharp">protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.HasDefaultSchema(&quot;notdbo&quot;);
+}
+</code></pre>
+<h3 id="lazy-loading">Lazy loading</h3>
+<p>In this section, support for lazy-loading proxies in the Identity model is added. Lazy-loading is useful since it allows navigation properties to be used without first ensuring they're loaded.</p>
+<p>Entity types can be made suitable for lazy-loading in several ways, as described in the <a href="/en-us/ef/core/querying/related-data#lazy-loading" data-linktype="absolute-path">EF Core documentation</a>. For simplicity, use lazy-loading proxies, which requires:</p>
+<ul>
+<li>Installation of the <a href="https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/" data-linktype="external">Microsoft.EntityFrameworkCore.Proxies</a> package.</li>
+<li>A call to <a href="/en-us/dotnet/api/microsoft.entityframeworkcore.proxiesextensions.uselazyloadingproxies" class="no-loc" data-linktype="absolute-path">UseLazyLoadingProxies</a> inside <a href="/en-us/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext" class="no-loc" data-linktype="absolute-path">AddDbContext</a>.</li>
+<li>Public entity types with <code>public virtual</code> navigation properties.</li>
+</ul>
+<p>The following example demonstrates calling <code>UseLazyLoadingProxies</code> in <code>Startup.ConfigureServices</code>:</p>
+<pre><code class="lang-csharp">services
+    .AddDbContext&lt;ApplicationDbContext&gt;(
+        b =&gt; b.UseSqlServer(connectionString)
+              .UseLazyLoadingProxies())
+    .AddDefaultIdentity&lt;ApplicationUser&gt;()
+    .AddEntityFrameworkStores&lt;ApplicationDbContext&gt;();
+</code></pre>
+<p>Refer to the preceding examples for guidance on adding navigation properties to the entity types.</p>
+<h2 id="additional-resources">Additional resources</h2>
+<ul>
+<li><a href="scaffold-identity?view=aspnetcore-6.0" data-linktype="relative-path">Scaffold Identity in ASP.NET Core projects</a></li>
+</ul>
+
+							</div>
+
+							<div id="assertive-live-region" role="alert" aria-live="assertive" class="visually-hidden" aria-relevant="additions" aria-atomic="true"></div>
+							<div id="polite-live-region" role="status" aria-live="polite" class="visually-hidden" aria-relevant="additions" aria-atomic="true"></div>
+							<!-- </content> -->
+
+						</main>
+
+
+
+
+						<!-- recommendations section -->
+							<section id="recommendations-section" data-bi-name="recommendations" class="display-none-print"></section>
+						<!-- end recommendations section -->
+
+						<!-- feedback section -->
+<section class="feedback-section position-relative" data-bi-name="feedback-section">
+    <h2 id="feedback" class="title is-3 margin-top-sm">Feedback</h2>
+
+    <div class="alert choose-feedback-type">
+        <p id="send-feedback-about">Submit and view feedback for</p>
+
+        <div class="choose-feedback-buttons margin-top-xs">
+                <a class="button has-external-link-indicator feedback-type-product margin-bottom-xxs" aria-label="Send feedback about this product" href="https://github.com/dotnet/aspnetcore/blob/main/CONTRIBUTING.md" data-bi-name="product-feedback">
+                    <span>This product</span>
+                </a>
+
+			<a class="button feedback-type-product margin-bottom-xxs github-link" aria-label="Send feedback about this page" data-bi-name="create-issue-on-github">
+				<span aria-hidden="true" class="docon docon-brand-github padding-right-xxs"></span>
+				<span>This page</span>
+			</a>
+        </div>
+    </div>
+
+    <div class="action-container display-flex justify-content-flex-end margin-block-xxs">
+        <a class="view-on-github has-external-link-indicator" data-bi-name="view-on-github" href="https://github.com/dotnet/AspNetCore.Docs/issues">
+            <span aria-hidden="true" class="docon docon-brand-github"></span>
+            <span>View all page feedback</span>
+        </a>
+    </div>
+</section>
+						<!-- end feedback section -->
+
+						<!-- feedback report section -->
+						<!-- end feedback report section -->
+
+							<div
+								id="additional-resources-mobile"
+								role="complementary"
+								aria-label="Additional resources"
+								class="display-none-desktop"
+							>
+								<hr class="hr" hidden />
+								<h2 id="additional-resources-mobile-heading" class="title is-3" hidden>Additional resources</h2>
+									<section id="right-rail-recommendations-mobile" data-bi-name="recommendations" hidden></section>
+								<section id="right-rail-learning-resources-mobile" data-bi-name="learning-resources-card" hidden></section>
+								<section id="right-rail-events-mobile" data-bi-name="events-card" hidden></section>
+								<section id="right-rail-qna-mobile" data-bi-name="qna-link-card" hidden></section>
+							</div>
+
+						<div class="border-top is-visible-interactive has-default-focus margin-top-sm ">
+
+
+
+	<footer id="footer-interactive" data-bi-name="footer" class="footer-layout">
+	<div class="display-flex is-full-height padding-right-lg-desktop">
+			<a
+				data-mscc-ic="false"
+				class="locale-selector-link button button-clear flex-shrink-0"
+				href="#"
+				data-bi-name="select-locale">
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-world"></span>
+					</span>
+					<span class="local-selector-link-text"></span></a>
+		<div class="margin-inline-xs flex-shrink-0">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button button-clear button-sm has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu-interactive" aria-expanded="false" title="Theme" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Theme</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu-interactive" role="menu">
+		<ul class="theme-selector padding-xxs" role="none">
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="light">
+					<span class="theme-light margin-right-xxs">
+						<span
+							class="theme-selector-icon css-variable-support border display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+Light					</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="dark">
+					<span class="theme-dark margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+Dark					</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+High contrast					</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>
+		</div>
+	</div>
+	<ul class="links" data-bi-name="footerlinks">
+		<li class="manage-cookies-holder" hidden></li>
+				<li><a data-mscc-ic="false" href="/en-us/previous-versions/" data-bi-name="archivelink">Previous Versions</a></li>
+				<li><a data-mscc-ic="false" href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog" data-bi-name="bloglink">Blog</a></li>
+				<li><a data-mscc-ic="false" href="/en-us/contribute/" data-bi-name="contributorGuide">Contribute</a></li>
+					<li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Privacy</a></li>
+				<li><a data-mscc-ic="false" href="/en-us/legal/termsofuse" data-bi-name="termsofuse">Terms of Use</a></li>
+				<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Trademarks</a></li>
+		<li>&copy; Microsoft 2022</li>
+	</ul>
+</footer>
+						</div>
+
+					</div>
+
+						<div
+							id="additional-resources"
+							class="right-container column is-4-desktop display-none display-block-desktop"
+							data-bi-name="pageactions"
+							role="complementary"
+							aria-label="Additional resources"
+						>
+							<div id="affixed-right-container" class="margin-top-sm-tablet" data-bi-name="right-column">
+								<h2 id="additional-resources-heading" class="title is-6 margin-top-md" hidden>Additional resources</h2>
+								<section id="right-rail-events" data-bi-name="events-card" hidden></section>
+								<section id="right-rail-learning-resources" data-bi-name="learning-resources-card" hidden></section>
+								<section id="right-rail-recommendations" data-bi-name="recommendations" hidden></section>
+								<nav id="side-doc-outline" class="doc-outline" data-bi-name="intopic toc" role="navigation" aria-label="Article Outline">
+									<h3>In this article</h3>
+								</nav>
+								<section id="right-rail-qna" class="margin-top-xxs" data-bi-name="qna-link-card" hidden></section>
+							</div>
+						</div>
+
+				</div>
+				<!--end of div.columns -->
+
+			</section>
+			<!--end of .primary-holder -->
+
+			<!-- interactive container -->
+			<aside id="interactive-container" class="interactive-container is-visible-interactive column has-body-background-dark ">
+			</aside>
+			<!-- end of interactive container -->
+		</div>
+
+	</div>
+	<!--end of .mainContainer -->
+
+	<section class="border-top has-default-focus is-hidden-interactive margin-top-sm ">
+
+
+
+	<footer id="footer" data-bi-name="footer" class="footer-layout uhf-container has-padding" role="contentinfo">
+	<div class="display-flex is-full-height padding-right-lg-desktop">
+			<a
+				data-mscc-ic="false"
+				class="locale-selector-link button button-clear flex-shrink-0"
+				href="#"
+				data-bi-name="select-locale">
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-world"></span>
+					</span>
+					<span class="local-selector-link-text"></span></a>
+		<div class="margin-inline-xs flex-shrink-0">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button button-clear button-sm has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu" aria-expanded="false" title="Theme" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Theme</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu" role="menu">
+		<ul class="theme-selector padding-xxs" role="none">
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="light">
+					<span class="theme-light margin-right-xxs">
+						<span
+							class="theme-selector-icon css-variable-support border display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+Light					</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="dark">
+					<span class="theme-dark margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+Dark					</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+High contrast					</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>
+		</div>
+	</div>
+	<ul class="links" data-bi-name="footerlinks">
+		<li class="manage-cookies-holder" hidden></li>
+				<li><a data-mscc-ic="false" href="/en-us/previous-versions/" data-bi-name="archivelink">Previous Versions</a></li>
+				<li><a data-mscc-ic="false" href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog" data-bi-name="bloglink">Blog</a></li>
+				<li><a data-mscc-ic="false" href="/en-us/contribute/" data-bi-name="contributorGuide">Contribute</a></li>
+					<li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Privacy</a></li>
+				<li><a data-mscc-ic="false" href="/en-us/legal/termsofuse" data-bi-name="termsofuse">Terms of Use</a></li>
+				<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Trademarks</a></li>
+		<li>&copy; Microsoft 2022</li>
+	</ul>
+</footer>
+	</section>
+
+	<div id="action-panel" role="region" aria-label="Action Panel" class="action-panel has-default-focus" tabindex="-1"></div>
+</body>
+</html>

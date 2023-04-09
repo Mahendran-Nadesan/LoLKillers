@@ -8,7 +8,7 @@ namespace LoLKillers.API.Models
 {
     public class SummonerChampionBase
     {
-        public string RiotAccountId { get; set; }
+        public string RiotPuuId { get; set; }
         public Region Region { get; set; }
         public int RiotChampionID { get; set; }
         public string RiotChampionName { get; set; }

@@ -8,6 +8,6 @@ namespace LoLKillers.API.Interfaces
     public interface IConfigRepository
     {
         string GetRiotApiKey();
-        string GetLatestDataDragonVersion();
+        //string GetLatestDataDragonVersion();
     }
 }

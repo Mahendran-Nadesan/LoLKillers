@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="hasSidebar hasPageActions hasBreadcrumb conceptual has-default-focus theme-light" lang="en-us" dir="ltr" data-css-variable-support="true" data-authenticated="false" data-auth-status-determined="false" data-target="docs" x-ms-format-detection="none">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:title" content="Introduction to Identity on ASP.NET Core" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity" />
+			<meta property="og:description" content="Use Identity with an ASP.NET Core app. Learn how to set password requirements (RequireDigit, RequiredLength, RequiredUniqueChars, and more)." />
+
+	<meta property="og:image" content="https://learn.microsoft.com/en-us/media/logos/logo-ms-social.png" />
+
+	<meta property="og:image:alt" content="Microsoft Logo" />
+
+	<meta name="twitter:card" content="summary" />
+
+	<meta name="twitter:site" content="@docsmsft" />
+
+	<meta name="color-scheme" content="light dark">
+
+
+	<meta name="author" content="Rick-Anderson" />
+<meta name="breadcrumb_path" content="/aspnet/core/breadcrumb/toc.json" />
+<meta name="depot_name" content="MSDN.aspnet-core-conceptual" />
+<meta name="description" content="Use Identity with an ASP.NET Core app. Learn how to set password requirements (RequireDigit, RequiredLength, RequiredUniqueChars, and more)." />
+<meta name="document_id" content="94bfd895-d2af-390b-0801-428b36a27ff4" />
+<meta name="document_version_independent_id" content="0e0d870e-e49a-e16c-c259-68d58e701b8f" />
+<meta name="gitcommit" content="https://github.com/dotnet/AspNetCore.Docs/blob/b6c3d15d7fcd3b1096a52898701bf7627ab54550/aspnetcore/security/authentication/identity.md" />
+<meta name="locale" content="en-us" />
+<meta name="monikerRange" content=">= aspnetcore-3.0" />
+<meta name="monikers" content="aspnetcore-3.0" />
+<meta name="monikers" content="aspnetcore-3.1" />
+<meta name="monikers" content="aspnetcore-5.0" />
+<meta name="monikers" content="aspnetcore-6.0" />
+<meta name="monikers" content="aspnetcore-7.0" />
+<meta name="monikers" content="aspnetcore-8.0" />
+<meta name="ms.author" content="riande" />
+<meta name="ms.date" content="03/21/2022" />
+<meta name="ms.prod" content="aspnet-core" />
+<meta name="ms.technology" content="aspnetcore-security" />
+<meta name="ms.topic" content="conceptual" />
+<meta name="original_content_git_url" content="https://github.com/dotnet/AspNetCore.Docs/blob/live/aspnetcore/security/authentication/identity.md" />
+<meta name="page_type" content="conceptual" />
+<meta name="pdf_url_template" content="https://learn.microsoft.com/pdfstore/en-us/MSDN.aspnet-core-conceptual/{branchName}{pdfName}" />
+<meta name="schema" content="Conceptual" />
+<meta name="site_name" content="Docs" />
+<meta name="toc_rel" content="../../toc.json" />
+<meta name="uhfHeaderId" content="MSDocsHeader-AspNet" />
+<meta name="uid" content="security/authentication/identity" />
+<meta name="updated_at" content="2022-12-01 01:49 AM" />
+<meta name="word_count" content="4257" />
+
+
+
+
+	<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/d452572f-6212-498f-9050-ca4a9e50a425" data-source="generated" />
+
+	<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/75c493a7-abb6-4435-a651-8d9450a8ce66" data-source="generated" />
+
+	
+
+	<meta name="scope" content="ASP.NET Core" />
+	<meta name="github_feedback_content_git_url" content="https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/identity.md" />
+<link href="https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity" rel="canonical">
+	<title>Introduction to Identity on ASP.NET Core | Microsoft Learn</title>
+
+		<link rel="stylesheet" href="/_themes/docs.theme/master/en-us/_themes/styles/aeed2be4.site-ltr.css ">
+
+	
+
+	<script id="msdocs-script">
+	var msDocs = {
+		data: {
+			timeOrigin: Date.now(),
+			contentLocale: 'en-us',
+			contentDir: 'ltr',
+			userLocale: 'en-us',
+			userDir: 'ltr',
+			pageTemplate: 'Conceptual',
+			brand: '',
+			context: {
+			},
+			hasBinaryRating: true,
+			hasGithubIssues: true,
+			standardFeedback: false,
+			showFeedbackReport: false,
+			enableTutorialFeedback: false,
+			feedbackSystem: 'GitHub',
+			feedbackGitHubRepo: 'dotnet/AspNetCore.Docs',
+			feedbackProductUrl: 'https://github.com/dotnet/aspnetcore/blob/main/CONTRIBUTING.md',
+			extendBreadcrumb: true,
+			isEditDisplayable: true,
+			hideViewSource: false,
+			hasPageActions: true,
+			hasPrintButton: true,
+			hasBookmark: true,
+			hasShare: true,
+			isPermissioned: false,
+			hasRecommendations: true,
+			contributors: [
+						{ name: "Rick-Anderson", url: "https://github.com/Rick-Anderson" },
+						{ name: "samuelwine", url: "https://github.com/samuelwine" },
+						{ name: "davidfowl", url: "https://github.com/davidfowl" },
+						{ name: "guardrex", url: "https://github.com/guardrex" },
+						{ name: "PeterDraex", url: "https://github.com/PeterDraex" },
+						{ name: "serpent5", url: "https://github.com/serpent5" },
+						{ name: "v-haiboz", url: "https://github.com/v-haiboz" },
+						{ name: "rug", url: "https://github.com/rug" },
+						{ name: "fiyazbinhasan", url: "https://github.com/fiyazbinhasan" },
+						{ name: "scottaddie", url: "https://github.com/scottaddie" },
+						{ name: "SpikePuppet", url: "https://github.com/SpikePuppet" },
+						{ name: "dharmatech", url: "https://github.com/dharmatech" },
+						{ name: "rabryst", url: "https://github.com/rabryst" },
+						{ name: "alfredmyers", url: "https://github.com/alfredmyers" },
+						{ name: "HaoK", url: "https://github.com/HaoK" },
+						{ name: "donhuvy", url: "https://github.com/donhuvy" },
+						{ name: "LindaLawton", url: "https://github.com/LindaLawton" },
+						{ name: "nschonni", url: "https://github.com/nschonni" },
+						{ name: "tdykstra", url: "https://github.com/tdykstra" },
+						{ name: "rachelappel", url: "https://github.com/rachelappel" },
+						{ name: "zmqcherish", url: "https://github.com/zmqcherish" },
+						{ name: "isaac2004", url: "https://github.com/isaac2004" },
+						{ name: "scottsauber", url: "https://github.com/scottsauber" },
+						{ name: "iamdjones", url: "https://github.com/iamdjones" },
+						{ name: "josephwoodward", url: "https://github.com/josephwoodward" },
+						{ name: "ardalis", url: "https://github.com/ardalis" },
+						{ name: "pksivanantham", url: "https://github.com/pksivanantham" },
+						{ name: "v-anpasi", url: "https://github.com/v-anpasi" },
+						{ name: "jierong", url: "https://github.com/jierong" },
+						{ name: "AdrienTorris", url: "https://github.com/AdrienTorris" },
+						{ name: "danroth27", url: "https://github.com/danroth27" }
+],
+		},
+		functions:{}
+	};
+	</script>
+	<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+	<script src="https://js.monitor.azure.com/scripts/c/ms.jsll-3.min.js"></script>
+
+	<script src="/_themes/docs.theme/master/en-us/_themes/global/67a45209.deprecation.js"></script>
+		<script src="/_themes/docs.theme/master/en-us/_themes/scripts/4b524b8e.index-docs.js"></script>
+</head>
+
+<body lang="en-us" dir="ltr">
+	<div class="header-holder has-default-focus">
+		<a href="#main" class="skip-to-main-link has-outline-color-text visually-hidden-until-focused position-fixed has-inner-focus focus-visible top-0 left-0 right-0 padding-xs has-text-centered has-body-background" tabindex="1">Skip to main content</a>
+
+		<div hidden id="cookie-consent-holder"></div>
+
+		<div id="unsupported-browser" style="
+			background-color: white;
+			color: black;
+			padding: 16px;
+			border-bottom: 1px solid grey;"
+			hidden
+		>
+			<div style="max-width: 800px; margin: 0 auto;">
+				<p style="font-size: 24px">This browser is no longer supported.</p>
+				<p style="font-size: 16px; margin-top: 16px;">Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.</p>
+				<div style="margin-top: 12px;">
+					<a href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+						style="
+						background-color: #0078d4;
+						border: 1px solid #0078d4;
+						color: white;
+						padding: 6px 12px;
+						border-radius: 2px;
+						display: inline-block;
+						">
+Download Microsoft Edge					</a>
+					<a href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+						style="
+							background-color: white;
+							padding: 6px 12px;
+							border: 1px solid #505050;
+							color: #171717;
+							border-radius: 2px;
+							display: inline-block;
+							">
+More info about Internet Explorer and Microsoft Edge					</a>
+				</div>
+			</div>
+
+		</div>
+		<!-- liquid-tag banners global -->
+		<div id="headerAreaHolder" data-bi-name="header">
+<header role="banner" itemscope="itemscope" itemtype="http://schema.org/Organization">
+	<div class="nav-bar">
+		<div class="nav-bar-brand">
+			<a itemprop="url" href="https://www.microsoft.com" aria-label="Microsoft" class="nav-bar-button">
+				<div class="nav-bar-logo has-background-image theme-display is-light" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+				<div class="nav-bar-logo has-background-image theme-display is-dark is-high-contrast" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope"></div>
+			</a>
+		</div>
+	</div>
+	<div class="nav-bar border-top is-hidden-mobile"></div>
+</header>		</div>
+
+
+			<div id="content-header" class="content-header uhf-container has-padding has-default-focus border-bottom-none" data-bi-name="content-header">
+				<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
+					<button type="button" class="contents-button button button-sm margin-right-xxs" data-bi-name="contents-expand" aria-haspopup="true" data-contents-button>
+						<span class="icon"><span class="docon docon-menu" aria-hidden="true"></span></span>
+						<span class="contents-expand-title">
+Table of contents						</span>
+					</button>
+					<button type="button" class="ap-collapse-behavior ap-expanded button button-sm" data-bi-name="ap-collapse" aria-controls="action-panel">
+						<span class="icon"><span class="docon docon-exit-mode" aria-hidden="true"></span></span>
+						<span>Exit focus mode</span>
+					</button>
+				</div>
+			</div>
+
+		<div id="disclaimer-holder" class="has-overflow-hidden has-default-focus">
+			<!-- liquid-tag banners sectional -->
+		</div>
+	</div>
+
+	<div class="mainContainer  uhf-container has-default-focus" data-bi-name="body">
+
+		<div class="columns has-large-gaps is-gapless-mobile ">
+
+			<div id="left-container" class="left-container is-hidden-mobile column is-one-third-tablet is-one-quarter-desktop">
+				<nav id="affixed-left-container" class="margin-top-sm-tablet position-fixed display-flex flex-direction-column" role="navigation" aria-label="Primary"></nav>
+			</div>
+
+			<!-- .primary-holder -->
+			<section class="primary-holder column is-two-thirds-tablet is-three-quarters-desktop">
+				<!--div.columns -->
+				<div class="columns is-gapless-mobile has-large-gaps ">
+
+
+					<div id="main-column" class="column  is-full is-8-desktop">
+
+						<main id="main" role="main" data-bi-name="content" lang="en-us" dir="ltr">
+							<!-- article-header -->
+							<div id="article-header" class="background-color-body margin-top-sm-tablet margin-bottom-xs display-none-print">
+								<div class="display-flex align-items-center ">
+									<details id="article-header-breadcrumbs-overflow-popover" class="popover" data-for="article-header-breadcrumbs">
+										<summary class="button button-clear button-primary button-sm" aria-label="All breadcrumbs">
+											<span class="icon">
+												<span class="docon docon-more"></span>
+											</span>
+										</summary>
+										<div id="article-header-breadcrumbs-overflow" class="popover-content padding-none">
+
+										</div>
+									</details>
+									<bread-crumbs id="article-header-breadcrumbs" class="overflow-hidden flex-grow-1 margin-right-sm margin-right-md-tablet margin-right-lg-desktop" id="page-breadcrumbs"></bread-crumbs>
+
+									<div id="article-header-page-actions"  class="opacity-none margin-left-auto display-flex flex-wrap-no-wrap align-items-stretch">
+
+										<a
+											id="lang-link-tablet"
+											class="button button-primary button-clear button-sm display-none display-inline-flex-tablet"
+											title="Read in English" data-bi-name="language-toggle"
+											data-read-in-link
+											hidden>
+											<span class="icon margin-none" aria-hidden="true" data-read-in-link-icon>
+												<span class="docon docon-locale-globe"></span>
+											</span>
+											<span class="is-visually-hidden" data-read-in-link-text>Read in English</span>
+										</a>
+
+											<button
+												type="button"
+												class="collection button button-clear button-sm button-primary display-none display-inline-flex-tablet"
+												data-list-type="collection"
+												data-bi-name="collection"
+												title="Add to collection">
+												<span class="icon margin-none" aria-hidden="true">
+													<span class="docon docon-circle-addition"></span>
+												</span>
+												<span class="collection-status is-visually-hidden">Save</span>
+											</button>
+										
+
+											<a	data-contenteditbtn
+												class="button button-clear button-sm text-decoration-none button-primary display-none display-inline-flex-tablet"
+												aria-label="Edit"
+												title="Edit This Document"
+												data-bi-name="edit"
+
+														href="https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/identity.md"
+														data-original_content_git_url="https://github.com/dotnet/AspNetCore.Docs/blob/live/aspnetcore/security/authentication/identity.md"
+														data-original_content_git_url_template="{repo}/blob/{branch}/aspnetcore/security/authentication/identity.md"
+														data-pr_repo=""
+														data-pr_branch=""
+											>
+												<span class="icon margin-none" aria-hidden="true">
+													<span class="docon docon-edit-outline"></span>
+												</span>
+											</a>
+										
+
+
+										
+										<details class="popover popover-right" id="article-header-page-actions-overflow">
+											<summary class="justify-content-flex-start button button-clear button-sm button-primary" aria-label="More actions">
+												<span class="icon" aria-hidden="true">
+													<span class="docon docon-more-vertical"></span>
+												</span>
+											</summary>
+											<div class="popover-content padding-none">
+													<button
+														data-page-action-item="overflow-mobile"
+														type="button"
+														class="justify-content-flex-start button-block button-sm has-inner-focus button button-clear display-none-tablet"
+														aria-label="Contents"
+														data-bi-name="contents-expand"
+														data-contents-button
+														data-popover-close>
+														<span class="icon">
+															<span class="docon docon-editor-list-bullet" aria-hidden="true"></span>
+														</span>
+														<span class="contents-expand-title">Table of contents</span>
+													</button>
+
+												<a
+													id="lang-link-overflow"
+													class="justify-content-flex-start button-sm has-inner-focus button button-clear button-block display-none-tablet"
+													title="Read in English" data-bi-name="language-toggle"
+													data-page-action-item="overflow-mobile"
+													data-check-hidden="true"
+													data-read-in-link
+													hidden
+													>
+													<span class="icon" aria-hidden="true" data-read-in-link-icon>
+														<span class="docon docon-locale-globe"></span>
+													</span>
+													<span data-read-in-link-text>Read in English</span>
+												</a>
+
+													<button
+														type="button"
+														class="collection justify-content-flex-start button button-clear button-sm has-inner-focus button-block display-none-tablet"
+														data-list-type="collection"
+														data-bi-name="collection"
+														title="Add to collection"
+														data-page-action-item="overflow-mobile"
+														data-check-hidden="true"
+														data-popover-close>
+														<span class="icon" aria-hidden="true">
+															<span class="docon docon-circle-addition"></span>
+														</span>
+														<span class="collection-status">Save</span>
+													</button>
+
+													<a	data-contenteditbtn
+														class="button button-clear button-block button-sm has-inner-focus justify-content-flex-start text-decoration-none display-none-tablet"
+														aria-label="Edit"
+														title="Edit This Document"
+														data-bi-name="edit"
+
+																href="https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/security/authentication/identity.md"
+																data-original_content_git_url="https://github.com/dotnet/AspNetCore.Docs/blob/live/aspnetcore/security/authentication/identity.md"
+																data-original_content_git_url_template="{repo}/blob/{branch}/aspnetcore/security/authentication/identity.md"
+																data-pr_repo=""
+																data-pr_branch=""
+													>
+														<span class="icon" aria-hidden="true">
+															<span class="docon docon-edit-outline"></span>
+														</span>
+														<span>Edit</span>
+													</a>
+
+													<button
+														class="button button-block button-clear button-sm justify-content-flex-start has-inner-focus"
+														title="Print"
+														type="button"
+														aria-label="Print"
+														data-bi-name="print"
+														data-page-action-item="overflow-all"
+														data-popover-close
+														data-print-page
+														data-check-hidden="true"
+														hidden>
+														<span class="icon" aria-hidden="true">
+															<span class="docon docon-print"></span>
+														</span>
+														<span>Print</span>
+													</button>
+
+													<div aria-hidden="true" class="margin-none display-none-tablet border-top" data-page-action-item="overflow-all"></div>
+
+													
+														<a class="button button-clear button-sm has-inner-focus button-block text-decoration-none justify-content-flex-start share-twitter" data-bi-name="twitter" data-page-action-item="overflow-all">
+															<span class="icon" aria-hidden="true">
+																<span class="docon docon-brand-twitter"></span>
+															</span>
+															<span>Twitter</span>
+														</a>
+														<a class="button button-clear button-sm has-inner-focus button-block text-decoration-none justify-content-flex-start share-linkedin" data-bi-name="linkedin" data-page-action-item="overflow-all">
+															<span class="icon" aria-hidden="true">
+																<span class="docon docon-brand-linkedin"></span>
+															</span>
+															<span>LinkedIn</span>
+														</a>
+														<a class="button button-clear button-sm button-block has-inner-focus text-decoration-none justify-content-flex-start share-facebook" data-bi-name="facebook" data-page-action-item="overflow-all">
+															<span class="icon" aria-hidden="true">
+																<span class="docon docon-brand-facebook"></span>
+															</span>
+															<span>Facebook</span>
+														</a>
+														<a class="button button-clear button-sm button-block has-inner-focus text-decoration-none justify-content-flex-start share-email" data-bi-name="email" data-page-action-item="overflow-all">
+															<span class="icon" aria-hidden="true">
+																<span class="docon docon-mail-message-fill"></span>
+															</span>
+															<span>Email</span>
+														</a>
+												
+											</div>
+										</details>
+										
+									</div>
+								</div>
+							</div>
+							<!-- end article-header -->
+
+
+							<div class="">
+								<button type="button" class="border contents-button button button-clear button-sm is-hidden-tablet has-inner-focus" aria-label="Contents" data-bi-name="contents-expand" data-contents-button hidden>
+									<span class="icon">
+										<span class="docon docon-editor-list-bullet" aria-hidden="true"></span>
+									</span>
+									<span class="contents-expand-title">Table of contents</span>
+								</button>
+							</div>
+
+							<!-- end mobile-contents button  -->
+
+							<div class="content ">
+
+
+								<h1 id="introduction-to-identity-on-aspnet-core">Introduction to Identity on ASP.NET Core</h1>
+
+
+									<div class="display-flex justify-content-space-between align-items-center flex-wrap-wrap page-metadata-container">
+										<div class="margin-right-xxs">
+											<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+													<li>
+Article													</li>
+													<li class="visibility-hidden-visual-diff">
+														<time class="is-invisible" data-article-date aria-label="Article review date" datetime="2022-12-01T01:49:00Z" data-article-date-source="git">12/01/2022</time>
+													</li>
+															<li class="readingTime">21 minutes to read</li>
+														<li class="contributors-holder display-none-print">
+															<button aria-label="View all contributors" class="contributors-button link-button" data-bi-name="contributors" title="View all contributors">
+																	31 contributors
+															</button>
+														</li>
+											</ul>
+										</div>
+
+<div id="user-feedback" class="margin-block-xxs display-none-print" data-hide-on-archived>
+	<button
+		id="user-feedback-button"
+		data-test-id="conceptual-feedback-button"
+		class="button button-sm button-clear button-primary"
+		type="button"
+		data-bi-name="user-feedback-button"
+		data-user-feedback-button
+	>
+		<span class="icon" aria-hidden="true">
+			<span class="docon docon-like"></span>
+		</span>
+		<span>Feedback</span>
+	</button>
+</div>
+									</div>
+
+										<nav id="center-doc-outline" class="doc-outline is-hidden-desktop display-none-print" data-bi-name="intopic toc" role="navigation" aria-label="Article Outline">
+											<h3>In this article</h3>
+										</nav>
+
+								<!-- <content> -->
+									<div data-moniker="aspnetcore-6.0 aspnetcore-7.0 aspnetcore-8.0">
+<p>By <a href="https://twitter.com/RickAndMSFT" data-linktype="external">Rick Anderson</a></p>
+<p>ASP.NET Core Identity:</p>
+<ul>
+<li>Is an API that supports user interface (UI) login functionality.</li>
+<li>Manages users, passwords, profile data, roles, claims, tokens, email confirmation, and more.</li>
+</ul>
+<p>Users can create an account with the login information stored in Identity or they can use an external login provider. Supported external login providers include <a href="social/?view=aspnetcore-6.0" data-linktype="relative-path">Facebook, Google, Microsoft Account, and Twitter</a>.</p>
+<p>For information on how to globally require all users to be authenticated, see <a href="../authorization/secure-data?view=aspnetcore-6.0#rau" data-linktype="relative-path">Require authenticated users</a>.</p>
+<p>The <a href="https://github.com/dotnet/AspNetCore/tree/main/src/Identity" data-linktype="external">Identity source code</a> is available on GitHub. <a href="scaffold-identity?view=aspnetcore-6.0" data-linktype="relative-path">Scaffold Identity</a> and view the generated files to review the template interaction with Identity.</p>
+<p>Identity is typically configured using a SQL Server database to store user names, passwords, and profile data. Alternatively, another persistent store can be used, for example, Azure Table Storage.</p>
+<p>In this topic, you learn how to use Identity to register, log in, and log out a user. Note: the templates treat username and email as the same for users. For more detailed instructions about creating apps that use Identity, see <a href="#next" data-linktype="self-bookmark">Next Steps</a>.</p>
+<p>ASP.NET Core Identity isn't related to the <a href="/en-us/azure/active-directory/develop/" data-linktype="absolute-path">Microsoft identity platform</a>. Microsoft identity platform is:</p>
+<ul>
+<li>An evolution of the Azure Active Directory (Azure AD) developer platform.</li>
+<li>An alternative identity solution for authentication and authorization in ASP.NET Core apps.</li>
+</ul>
+<p>ASP.NET Core Identity adds user interface (UI) login functionality to ASP.NET Core web apps. To secure web APIs and SPAs, use one of the following:</p>
+<ul>
+<li><a href="/en-us/azure/api-management/api-management-howto-protect-backend-with-aad" data-linktype="absolute-path">Azure Active Directory</a></li>
+<li><a href="/en-us/azure/active-directory-b2c/active-directory-b2c-custom-rest-api-netfw" data-linktype="absolute-path">Azure Active Directory B2C</a> (Azure AD B2C)</li>
+<li><a href="https://docs.duendesoftware.com/identityserver/v6/overview/" data-linktype="external">Duende IdentityServer</a>. Duende IdentityServer is 3rd party product.</li>
+</ul>
+<p>Duende IdentityServer is an OpenID Connect and OAuth 2.0 framework for ASP.NET Core. Duende IdentityServer enables the following security features:</p>
+<ul>
+<li>Authentication as a Service (AaaS)</li>
+<li>Single sign-on/off (SSO) over multiple application types</li>
+<li>Access control for APIs</li>
+<li>Federation Gateway</li>
+</ul>
+<p>For more information, see <a href="https://docs.duendesoftware.com/identityserver/v6/overview/" data-linktype="external">Overview of Duende IdentityServer</a>.</p>
+<p>For more information on other authentication providers, see <a href="community?view=aspnetcore-6.0" data-linktype="relative-path">Community OSS authentication options for ASP.NET Core</a></p>
+<p><a href="https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/security/authentication/identity/sample" data-linktype="external">View or download the sample code</a> (<a href="../../introduction-to-aspnet-core?view=aspnetcore-6.0#how-to-download-a-sample" data-linktype="relative-path">how to download</a>).</p>
+<p><a name="adi"></a></p>
+<h2 id="create-a-web-app-with-authentication">Create a Web app with authentication</h2>
+<p>Create an ASP.NET Core Web Application project with Individual User Accounts.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_visual-studio" role="tab" aria-controls="tabpanel_1_visual-studio" data-tab="visual-studio" tabindex="0" aria-selected="true" data-linktype="self-bookmark">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_netcore-cli" role="tab" aria-controls="tabpanel_1_netcore-cli" data-tab="netcore-cli" tabindex="-1" data-linktype="self-bookmark">.NET Core CLI</a>
+</li>
+</ul>
+<section id="tabpanel_1_visual-studio" role="tabpanel" data-tab="visual-studio">
+
+<ul>
+<li>Select the <strong>ASP.NET Core Web App</strong> template. Name the project <strong>WebApp1</strong> to have the same namespace as the project download. Click <strong>OK</strong>.</li>
+<li>In the <strong>Authentication type</strong> input,  select  <strong>Individual User Accounts</strong>.</li>
+</ul>
+</section>
+<section id="tabpanel_1_netcore-cli" role="tabpanel" data-tab="netcore-cli" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-dotnetcli">dotnet new webapp --auth Individual -o WebApp1
+</code></pre>
+<p>The preceding command creates a Razor web app using SQLite. To create the web app with LocalDB, run the following command:</p>
+<pre><code class="lang-dotnetcli">dotnet new webapp --auth Individual -uld -o WebApp1
+</code></pre>
+</section>
+</div>
+
+<p>The generated project provides <a href="identity?view=aspnetcore-6.0" data-linktype="relative-path">ASP.NET Core Identity</a> as a <a href="../../razor-pages/ui-class?view=aspnetcore-6.0" data-linktype="relative-path">Razor Class Library</a>. The Identity Razor Class Library exposes endpoints with the <code>Identity</code> area. For example:</p>
+<ul>
+<li>/Identity/Account/Login</li>
+<li>/Identity/Account/Logout</li>
+<li>/Identity/Account/Manage</li>
+</ul>
+<h3 id="apply-migrations">Apply migrations</h3>
+<p>Apply the migrations to initialize the database.</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_visual-studio" role="tab" aria-controls="tabpanel_2_visual-studio" data-tab="visual-studio" tabindex="0" aria-selected="true" data-linktype="self-bookmark">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_2_netcore-cli" role="tab" aria-controls="tabpanel_2_netcore-cli" data-tab="netcore-cli" tabindex="-1" data-linktype="self-bookmark">.NET Core CLI</a>
+</li>
+</ul>
+<section id="tabpanel_2_visual-studio" role="tabpanel" data-tab="visual-studio">
+
+<p>Run the following command in the Package Manager Console (PMC):</p>
+<p><code>Update-Database</code></p>
+</section>
+<section id="tabpanel_2_netcore-cli" role="tabpanel" data-tab="netcore-cli" aria-hidden="true" hidden="hidden">
+
+<p>Migrations are not necessary at this step when using SQLite.</p>
+<p>If <code>dotnet ef</code> has not been installed, install it as a global tool:</p>
+<pre><code class="lang-dotnetcli">  dotnet tool install --global dotnet-ef
+</code></pre>
+<p>For more information on the CLI for EF Core, see <a href="/en-us/ef/core/miscellaneous/cli/dotnet" data-linktype="absolute-path">EF Core tools reference for the .NET CLI</a>.</p>
+<p>For LocalDB, run the following command:</p>
+<pre><code class="lang-dotnetcli">dotnet ef database update
+</code></pre>
+</section>
+</div>
+<h3 id="test-register-and-login">Test Register and Login</h3>
+<p>Run the app and register a user. Depending on your screen size, you might need to select the navigation toggle button to see the <strong>Register</strong> and <strong>Login</strong> links.</p>
+<h3 id="view-the-identity-database">View the Identity database</h3>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_visual-studio" role="tab" aria-controls="tabpanel_1_visual-studio" data-tab="visual-studio" tabindex="0" aria-selected="true" data-linktype="self-bookmark">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_netcore-cli" role="tab" aria-controls="tabpanel_1_netcore-cli" data-tab="netcore-cli" tabindex="-1" data-linktype="self-bookmark">.NET Core CLI</a>
+</li>
+</ul>
+<section id="tabpanel_1_visual-studio" role="tabpanel" data-tab="visual-studio">
+
+<ul>
+<li>From the <strong>View</strong> menu, select <strong>SQL Server Object Explorer</strong> (SSOX).</li>
+<li>Navigate to <strong>(localdb)MSSQLLocalDB(SQL Server 13)</strong>. Right-click on <strong>dbo.AspNetUsers</strong> &gt; <strong>View Data</strong>:</li>
+</ul>
+<p><img src="accconfirm/_static/ssox.png?view=aspnetcore-6.0" alt="Contextual menu on AspNetUsers table in SQL Server Object Explorer" data-linktype="relative-path"></p>
+</section>
+<section id="tabpanel_1_netcore-cli" role="tabpanel" data-tab="netcore-cli" aria-hidden="true" hidden="hidden">
+
+<p>There are many third party tools you can download to manage and view a SQLite database, for example <a href="https://sqlitebrowser.org/" data-linktype="external">DB Browser for SQLite</a>.</p>
+</section>
+</div>
+
+<p><a name="pw6"></a></p>
+<h3 id="configure-identity-services">Configure Identity services</h3>
+<p>Services are added in <code>Program.cs</code>. The typical pattern is to call methods in the following order:</p>
+<ol>
+<li><code>Add{Service}</code></li>
+<li><code>builder.Services.Configure{Service}</code></li>
+</ol>
+<pre><code class="lang-csharp">using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using WebApp1.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString(&quot;DefaultConnection&quot;);
+builder.Services.AddDbContext&lt;ApplicationDbContext&gt;(options =&gt;
+    options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddDefaultIdentity&lt;IdentityUser&gt;(options =&gt; options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores&lt;ApplicationDbContext&gt;();
+builder.Services.AddRazorPages();
+
+builder.Services.Configure&lt;IdentityOptions&gt;(options =&gt;
+{
+    // Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+
+    // Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+
+    // User settings.
+    options.User.AllowedUserNameCharacters =
+    &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+&quot;;
+    options.User.RequireUniqueEmail = false;
+});
+
+builder.Services.ConfigureApplicationCookie(options =&gt;
+{
+    // Cookie settings
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+    options.LoginPath = &quot;/Identity/Account/Login&quot;;
+    options.AccessDeniedPath = &quot;/Identity/Account/AccessDenied&quot;;
+    options.SlidingExpiration = true;
+});
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseMigrationsEndPoint();
+}
+else
+{
+    app.UseExceptionHandler(&quot;/Error&quot;);
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapRazorPages();
+
+app.Run();
+</code></pre>
+<p>The preceding code configures Identity with default option values. Services are made available to the app through <a href="../../fundamentals/dependency-injection?view=aspnetcore-6.0" data-linktype="relative-path">dependency injection</a>.</p>
+<p>Identity is enabled by calling <a href="/en-us/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication" class="no-loc" data-linktype="absolute-path">UseAuthentication</a>. <code>UseAuthentication</code> adds authentication <a href="../../fundamentals/middleware/?view=aspnetcore-6.0" data-linktype="relative-path">middleware</a> to the request pipeline.</p>
+<p>The template-generated app doesn't use <a href="../authorization/secure-data?view=aspnetcore-6.0" data-linktype="relative-path">authorization</a>. <code>app.UseAuthorization</code> is included to ensure it's added in the correct order should the app add authorization. <code>UseRouting</code>, <code>UseAuthentication</code>, and <code>UseAuthorization</code> must be called in the order shown in the preceding code.</p>
+<p>For more information on <code>IdentityOptions</code>, see <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identityoptions" class="no-loc" data-linktype="absolute-path">IdentityOptions</a> and <a href="../../fundamentals/startup?view=aspnetcore-6.0" data-linktype="relative-path">Application Startup</a>.</p>
+<!-- Start here for .NET 6 -->
+<h2 id="scaffold-register-login-logout-and-registerconfirmation">Scaffold Register, Login, LogOut, and RegisterConfirmation</h2>
+<div class="tabGroup" id="tabgroup_3">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_3_visual-studio" role="tab" aria-controls="tabpanel_3_visual-studio" data-tab="visual-studio" tabindex="0" aria-selected="true" data-linktype="self-bookmark">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_3_netcore-cli" role="tab" aria-controls="tabpanel_3_netcore-cli" data-tab="netcore-cli" tabindex="-1" data-linktype="self-bookmark">.NET Core CLI</a>
+</li>
+</ul>
+<section id="tabpanel_3_visual-studio" role="tabpanel" data-tab="visual-studio">
+
+<p>Add the <code>Register</code>, <code>Login</code>, <code>LogOut</code>, and <code>RegisterConfirmation</code> files. Follow the <a href="scaffold-identity?view=aspnetcore-6.0#scaffold-identity-into-a-razor-project-with-authorization" data-linktype="relative-path">Scaffold identity into a Razor project with authorization</a> instructions to generate the code shown in this section.</p>
+</section>
+<section id="tabpanel_3_netcore-cli" role="tabpanel" data-tab="netcore-cli" aria-hidden="true" hidden="hidden">
+
+<p>If you created the project with name <strong>WebApp1</strong>, and you're not using SQLite, run the following commands. Otherwise, use the correct namespace for the <code>ApplicationDbContext</code>:</p>
+<pre><code class="lang-dotnetcli">dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --files &quot;Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation&quot;
+</code></pre>
+<p>When using SQLite, append <code>--useSqLite</code> or <code>-sqlite</code>:</p>
+<pre><code class="lang-dotnetcli">dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --files &quot;Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation&quot; --useSqLite
+</code></pre>
+<p>PowerShell uses semicolon as a command separator. When using PowerShell, escape the semicolons in the file list or put the file list in double quotes, as the preceding example shows.</p>
+<p>For more information on scaffolding Identity, see <a href="scaffold-identity?view=aspnetcore-6.0#scaffold-identity-into-a-razor-project-with-authorization" data-linktype="relative-path">Scaffold identity into a Razor project with authorization</a>.</p>
+</section>
+</div>
+<h3 id="examine-register">Examine Register</h3>
+<p>When a user clicks the <strong>Register</strong> button on the <code>Register</code> page, the <code>RegisterModel.OnPostAsync</code> action is invoked. The user is created by <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#microsoft-aspnetcore-identity-usermanager-1-createasync(-0)" class="no-loc" data-linktype="absolute-path">CreateAsync(TUser)</a> on the <code>_userManager</code> object:</p>
+<pre><code class="lang-csharp" highlight-lines="9">public async Task&lt;IActionResult&gt; OnPostAsync(string returnUrl = null)
+{
+    returnUrl = returnUrl ?? Url.Content(&quot;~/&quot;);
+    ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync())
+                                          .ToList();
+    if (ModelState.IsValid)
+    {
+        var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+        var result = await _userManager.CreateAsync(user, Input.Password);
+        if (result.Succeeded)
+        {
+            _logger.LogInformation(&quot;User created a new account with password.&quot;);
+
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var callbackUrl = Url.Page(
+                &quot;/Account/ConfirmEmail&quot;,
+                pageHandler: null,
+                values: new { area = &quot;Identity&quot;, userId = user.Id, code = code },
+                protocol: Request.Scheme);
+
+            await _emailSender.SendEmailAsync(Input.Email, &quot;Confirm your email&quot;,
+                $&quot;Please confirm your account by &lt;a href='{HtmlEncoder.Default.Encode(callbackUrl)}'&gt;clicking here&lt;/a&gt;.&quot;);
+
+            if (_userManager.Options.SignIn.RequireConfirmedAccount)
+            {
+                return RedirectToPage(&quot;RegisterConfirmation&quot;, 
+                                      new { email = Input.Email });
+            }
+            else
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect(returnUrl);
+            }
+        }
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+    }
+
+    // If we got this far, something failed, redisplay form
+    return Page();
+}
+</code></pre><!-- .NET 5 fixes this, see
+https://github.com/dotnet/aspnetcore/blob/main/src/Identity/UI/src/Areas/Identity/Pages/V4/Account/RegisterConfirmation.cshtml.cs#L74-L77
+-->
+<p><a name="ddav"></a></p>
+<h3 id="disable-default-account-verification">Disable default account verification</h3>
+<p>With the default templates, the user is redirected to the <code>Account.RegisterConfirmation</code> where they can select a link to have the account confirmed. The default <code>Account.RegisterConfirmation</code> is used <em><strong>only</strong></em> for testing, automatic account verification should be disabled in a production app.</p>
+<p>To require a confirmed account and prevent immediate login at registration, set <code>DisplayConfirmAccountLink = false</code> in <code>/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml.cs</code>:</p>
+<pre><code class="lang-csharp" highlight-lines="34">[AllowAnonymous]
+public class RegisterConfirmationModel : PageModel
+{
+    private readonly UserManager&lt;IdentityUser&gt; _userManager;
+    private readonly IEmailSender _sender;
+
+    public RegisterConfirmationModel(UserManager&lt;IdentityUser&gt; userManager, IEmailSender sender)
+    {
+        _userManager = userManager;
+        _sender = sender;
+    }
+
+    public string Email { get; set; }
+
+    public bool DisplayConfirmAccountLink { get; set; }
+
+    public string EmailConfirmationUrl { get; set; }
+
+    public async Task&lt;IActionResult&gt; OnGetAsync(string email, string returnUrl = null)
+    {
+        if (email == null)
+        {
+            return RedirectToPage(&quot;/Index&quot;);
+        }
+
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user == null)
+        {
+            return NotFound($&quot;Unable to load user with email '{email}'.&quot;);
+        }
+
+        Email = email;
+        // Once you add a real email sender, you should remove this code that lets you confirm the account
+        DisplayConfirmAccountLink = false;
+        if (DisplayConfirmAccountLink)
+        {
+            var userId = await _userManager.GetUserIdAsync(user);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            EmailConfirmationUrl = Url.Page(
+                &quot;/Account/ConfirmEmail&quot;,
+                pageHandler: null,
+                values: new { area = &quot;Identity&quot;, userId = userId, code = code, returnUrl = returnUrl },
+                protocol: Request.Scheme);
+        }
+
+        return Page();
+    }
+}
+</code></pre><h3 id="log-in">Log in</h3>
+<p>The Login form is displayed when:</p>
+<ul>
+<li>The <strong>Log in</strong> link is selected.</li>
+<li>A user attempts to access a restricted page that they aren't authorized to access <strong>or</strong> when they haven't been authenticated by the system.</li>
+</ul>
+<p>When the form on the Login page is submitted, the <code>OnPostAsync</code> action is called. <code>PasswordSignInAsync</code> is called on the <code>_signInManager</code> object.</p>
+<pre><code class="lang-csharp" highlight-lines="10-11">public async Task&lt;IActionResult&gt; OnPostAsync(string returnUrl = null)
+{
+    returnUrl = returnUrl ?? Url.Content(&quot;~/&quot;);
+
+    if (ModelState.IsValid)
+    {
+        // This doesn't count login failures towards account lockout
+        // To enable password failures to trigger account lockout, 
+        // set lockoutOnFailure: true
+        var result = await _signInManager.PasswordSignInAsync(Input.Email,
+                           Input.Password, Input.RememberMe, lockoutOnFailure: true);
+        if (result.Succeeded)
+        {
+            _logger.LogInformation(&quot;User logged in.&quot;);
+            return LocalRedirect(returnUrl);
+        }
+        if (result.RequiresTwoFactor)
+        {
+            return RedirectToPage(&quot;./LoginWith2fa&quot;, new
+            {
+                ReturnUrl = returnUrl,
+                RememberMe = Input.RememberMe
+            });
+        }
+        if (result.IsLockedOut)
+        {
+            _logger.LogWarning(&quot;User account locked out.&quot;);
+            return RedirectToPage(&quot;./Lockout&quot;);
+        }
+        else
+        {
+            ModelState.AddModelError(string.Empty, &quot;Invalid login attempt.&quot;);
+            return Page();
+        }
+    }
+
+    // If we got this far, something failed, redisplay form
+    return Page();
+}
+</code></pre>
+<p>For information on how to make authorization decisions, see <a href="../authorization/introduction?view=aspnetcore-6.0" data-linktype="relative-path">Introduction to authorization in ASP.NET Core</a>.</p>
+<h3 id="log-out">Log out</h3>
+<p>The <strong>Log out</strong> link invokes the <code>LogoutModel.OnPost</code> action.</p>
+<pre><code class="lang-csharp" highlight-lines="36">using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+
+namespace WebApp1.Areas.Identity.Pages.Account
+{
+    [AllowAnonymous]
+    public class LogoutModel : PageModel
+    {
+        private readonly SignInManager&lt;IdentityUser&gt; _signInManager;
+        private readonly ILogger&lt;LogoutModel&gt; _logger;
+
+        public LogoutModel(SignInManager&lt;IdentityUser&gt; signInManager, ILogger&lt;LogoutModel&gt; logger)
+        {
+            _signInManager = signInManager;
+            _logger = logger;
+        }
+
+        public void OnGet()
+        {
+        }
+
+        public async Task&lt;IActionResult&gt; OnPost(string returnUrl = null)
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation(&quot;User logged out.&quot;);
+            if (returnUrl != null)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToPage();
+            }
+        }
+    }
+}
+</code></pre>
+<p>In the preceding code, the code <code>return RedirectToPage();</code> needs to be a redirect so that the browser performs a new request and the identity for the user gets updated.</p>
+<p><a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync" class="no-loc" data-linktype="absolute-path">SignOutAsync</a> clears the user's claims stored in a cookie.</p>
+<p>Post is specified in the <code>Pages/Shared/_LoginPartial.cshtml</code>:</p>
+<pre><code class="lang-cshtml" highlight-lines="15">@using Microsoft.AspNetCore.Identity
+@inject SignInManager&lt;IdentityUser&gt; SignInManager
+@inject UserManager&lt;IdentityUser&gt; UserManager
+
+&lt;ul class=&quot;navbar-nav&quot;&gt;
+@if (SignInManager.IsSignedIn(User))
+{
+    &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a  class=&quot;nav-link text-dark&quot; asp-area=&quot;Identity&quot; asp-page=&quot;/Account/Manage/Index&quot; 
+                                              title=&quot;Manage&quot;&gt;Hello @User.Identity.Name!&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;form class=&quot;form-inline&quot; asp-area=&quot;Identity&quot; asp-page=&quot;/Account/Logout&quot; 
+                                  asp-route-returnUrl=&quot;@Url.Page(&quot;/&quot;, new { area = &quot;&quot; })&quot; 
+                                  method=&quot;post&quot; &gt;
+            &lt;button  type=&quot;submit&quot; class=&quot;nav-link btn btn-link text-dark&quot;&gt;Logout&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/li&gt;
+}
+else
+{
+    &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a class=&quot;nav-link text-dark&quot; asp-area=&quot;Identity&quot; asp-page=&quot;/Account/Register&quot;&gt;Register&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a class=&quot;nav-link text-dark&quot; asp-area=&quot;Identity&quot; asp-page=&quot;/Account/Login&quot;&gt;Login&lt;/a&gt;
+    &lt;/li&gt;
+}
+&lt;/ul&gt;
+</code></pre><h2 id="test-identity">Test Identity</h2>
+<p>The default web project templates allow anonymous access to the home pages. To test Identity, add <a href="/en-us/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute" data-linktype="absolute-path"><code>[Authorize]</code></a>:</p>
+<pre><code class="lang-csharp" highlight-lines="7">using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+
+namespace WebApp1.Pages
+{
+    [Authorize]
+    public class PrivacyModel : PageModel
+    {
+        private readonly ILogger&lt;PrivacyModel&gt; _logger;
+
+        public PrivacyModel(ILogger&lt;PrivacyModel&gt; logger)
+        {
+            _logger = logger;
+        }
+
+        public void OnGet()
+        {
+        }
+    }
+}
+</code></pre>
+<p>If you are signed in, sign out. Run the app and select the <strong>Privacy</strong> link. You are redirected to the login page.</p>
+<h3 id="explore-identity">Explore Identity</h3>
+<p>To explore Identity in more detail:</p>
+<ul>
+<li><a href="scaffold-identity?view=aspnetcore-6.0#create-full-identity-ui-source" data-linktype="relative-path">Create full identity UI source</a></li>
+<li>Examine the source of each page and step through the debugger.</li>
+</ul>
+<h2 id="identity-components">Identity Components</h2>
+<p>All the Identity-dependent NuGet packages are included in the <a href="../../release-notes/aspnetcore-3.0?view=aspnetcore-6.0#use-the-aspnet-core-shared-framework" data-linktype="relative-path">ASP.NET Core shared framework</a>.</p>
+<p>The primary package for Identity is <a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/" data-linktype="external">Microsoft.AspNetCore.Identity</a>. This package contains the core set of interfaces for ASP.NET Core Identity, and is included by <code>Microsoft.AspNetCore.Identity.EntityFrameworkCore</code>.</p>
+<h2 id="migrating-to-aspnet-core-identity">Migrating to ASP.NET Core Identity</h2>
+<p>For more information and guidance on migrating your existing Identity store, see <a href="../../migration/identity?view=aspnetcore-6.0" data-linktype="relative-path">Migrate Authentication and Identity</a>.</p>
+<h2 id="setting-password-strength">Setting password strength</h2>
+<p>See <a href="#pw6" data-linktype="self-bookmark">Configuration</a> for a sample that sets the minimum password requirements.</p>
+<h2 id="adddefaultidentity-and-addidentity">AddDefaultIdentity and AddIdentity</h2>
+<p><a href="/en-us/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionuiextensions.adddefaultidentity" class="no-loc" data-linktype="absolute-path">AddDefaultIdentity</a> was introduced in ASP.NET Core 2.1. Calling <code>AddDefaultIdentity</code> is similar to calling the following:</p>
+<ul>
+<li><a href="/en-us/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.addidentity" class="no-loc" data-linktype="absolute-path">AddIdentity</a></li>
+<li><a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identitybuilderuiextensions.adddefaultui" class="no-loc" data-linktype="absolute-path">AddDefaultUI</a></li>
+<li><a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identitybuilderextensions.adddefaulttokenproviders" class="no-loc" data-linktype="absolute-path">AddDefaultTokenProviders</a></li>
+</ul>
+<p>See <a href="https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63" data-linktype="external">AddDefaultIdentity source</a> for more information.</p>
+<h2 id="prevent-publish-of-static-identity-assets">Prevent publish of static Identity assets</h2>
+<p>To prevent publishing static Identity assets (stylesheets and JavaScript files for Identity UI) to the web root, add the following <code>ResolveStaticWebAssetsInputsDependsOn</code> property and <code>RemoveIdentityAssets</code> target to the app's project file:</p>
+<pre><code class="lang-xml">&lt;PropertyGroup&gt;
+  &lt;ResolveStaticWebAssetsInputsDependsOn&gt;RemoveIdentityAssets&lt;/ResolveStaticWebAssetsInputsDependsOn&gt;
+&lt;/PropertyGroup&gt;
+
+&lt;Target Name=&quot;RemoveIdentityAssets&quot;&gt;
+  &lt;ItemGroup&gt;
+    &lt;StaticWebAsset Remove=&quot;@(StaticWebAsset)&quot; Condition=&quot;%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'&quot; /&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Target&gt;
+</code></pre>
+<p><a name="next"></a></p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><a href="https://github.com/dotnet/aspnetcore/tree/main/src/Identity" data-linktype="external">ASP.NET Core Identity source code</a></li>
+<li><a href="https://www.yogihosting.com/aspnet-core-identity-roles/" data-linktype="external">How to work with Roles in ASP.NET Core Identity</a> &lt;!-- <a href="https://github.com/dotnet/AspNetCore.Docs/issues/7114" data-linktype="external">https://github.com/dotnet/AspNetCore.Docs/issues/7114</a> -&gt;</li>
+<li>See <a href="https://github.com/dotnet/AspNetCore.Docs/issues/5131" data-linktype="external">this GitHub issue</a> for information on configuring Identity using SQLite.</li>
+<li><a href="identity-configuration?view=aspnetcore-6.0" data-linktype="relative-path">Configure Identity</a></li>
+<li><a href="../authorization/secure-data?view=aspnetcore-6.0" data-linktype="relative-path">Create an ASP.NET Core app with user data protected by authorization</a></li>
+<li><a href="add-user-data?view=aspnetcore-6.0" data-linktype="relative-path">Add, download, and delete user data to Identity in an ASP.NET Core project</a></li>
+<li><a href="identity-enable-qrcodes?view=aspnetcore-6.0" data-linktype="relative-path">Enable QR code generation for TOTP authenticator apps in ASP.NET Core</a></li>
+<li><a href="../../migration/identity?view=aspnetcore-6.0" data-linktype="relative-path">Migrate Authentication and Identity to ASP.NET Core</a></li>
+<li><a href="accconfirm?view=aspnetcore-6.0" data-linktype="relative-path">Account confirmation and password recovery in ASP.NET Core</a></li>
+<li><a href="2fa?view=aspnetcore-6.0" data-linktype="relative-path">Two-factor authentication with SMS in ASP.NET Core</a></li>
+<li><a href="../../host-and-deploy/web-farm?view=aspnetcore-6.0" data-linktype="relative-path">Host ASP.NET Core in a web farm</a></li>
+</ul>
+</div>
+<div data-moniker="aspnetcore-3.0 aspnetcore-3.1 aspnetcore-5.0">
+<p>By <a href="https://twitter.com/RickAndMSFT" data-linktype="external">Rick Anderson</a></p>
+<p>ASP.NET Core Identity:</p>
+<ul>
+<li>Is an API that supports user interface (UI) login functionality.</li>
+<li>Manages users, passwords, profile data, roles, claims, tokens, email confirmation, and more.</li>
+</ul>
+<p>Users can create an account with the login information stored in Identity or they can use an external login provider. Supported external login providers include <a href="social/?view=aspnetcore-6.0" data-linktype="relative-path">Facebook, Google, Microsoft Account, and Twitter</a>.</p>
+<p>For information on how to globally require all users to be authenticated, see <a href="../authorization/secure-data?view=aspnetcore-6.0#rau" data-linktype="relative-path">Require authenticated users</a>.</p>
+<p>The <a href="https://github.com/dotnet/AspNetCore/tree/main/src/Identity" data-linktype="external">Identity source code</a> is available on GitHub. <a href="scaffold-identity?view=aspnetcore-6.0" data-linktype="relative-path">Scaffold Identity</a> and view the generated files to review the template interaction with Identity.</p>
+<p>Identity is typically configured using a SQL Server database to store user names, passwords, and profile data. Alternatively, another persistent store can be used, for example, Azure Table Storage.</p>
+<p>In this topic, you learn how to use Identity to register, log in, and log out a user. Note: the templates treat username and email as the same for users. For more detailed instructions about creating apps that use Identity, see <a href="#next" data-linktype="self-bookmark">Next Steps</a>.</p>
+<p><a href="/en-us/azure/active-directory/develop/" data-linktype="absolute-path">Microsoft identity platform</a> is:</p>
+<ul>
+<li>An evolution of the Azure Active Directory (Azure AD) developer platform.</li>
+<li>An alternative identity solution for authentication and authorization in ASP.NET Core apps.</li>
+<li>Not related to ASP.NET Core Identity.</li>
+</ul>
+<p>ASP.NET Core Identity adds user interface (UI) login functionality to ASP.NET Core web apps. To secure web APIs and SPAs, use one of the following:</p>
+<ul>
+<li><a href="/en-us/azure/api-management/api-management-howto-protect-backend-with-aad" data-linktype="absolute-path">Azure Active Directory</a></li>
+<li><a href="/en-us/azure/active-directory-b2c/active-directory-b2c-custom-rest-api-netfw" data-linktype="absolute-path">Azure Active Directory B2C</a> (Azure AD B2C)</li>
+<li><a href="https://docs.duendesoftware.com/identityserver/v6/overview/" data-linktype="external">Duende IdentityServer</a>. Duende IdentityServer is 3rd party product.</li>
+</ul>
+<p>Duende IdentityServer is an OpenID Connect and OAuth 2.0 framework for ASP.NET Core. Duende IdentityServer enables the following security features:</p>
+<ul>
+<li>Authentication as a Service (AaaS)</li>
+<li>Single sign-on/off (SSO) over multiple application types</li>
+<li>Access control for APIs</li>
+<li>Federation Gateway</li>
+</ul>
+<p>For more information, see <a href="https://docs.duendesoftware.com/identityserver/v6/overview/" data-linktype="external">Overview of Duende IdentityServer</a>.</p>
+<p>For more information on other authentication providers, see <a href="community?view=aspnetcore-6.0" data-linktype="relative-path">Community OSS authentication options for ASP.NET Core</a></p>
+<p><a href="https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/security/authentication/identity/sample" data-linktype="external">View or download the sample code</a> (<a href="../../introduction-to-aspnet-core?view=aspnetcore-6.0#how-to-download-a-sample" data-linktype="relative-path">how to download</a>).</p>
+<p><a name="adi"></a></p>
+<h2 id="create-a-web-app-with-authentication-1">Create a Web app with authentication</h2>
+<p>Create an ASP.NET Core Web Application project with Individual User Accounts.</p>
+<div class="tabGroup" id="tabgroup_4">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_4_visual-studio" role="tab" aria-controls="tabpanel_4_visual-studio" data-tab="visual-studio" tabindex="0" aria-selected="true" data-linktype="self-bookmark">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_4_netcore-cli" role="tab" aria-controls="tabpanel_4_netcore-cli" data-tab="netcore-cli" tabindex="-1" data-linktype="self-bookmark">.NET Core CLI</a>
+</li>
+</ul>
+<section id="tabpanel_4_visual-studio" role="tabpanel" data-tab="visual-studio">
+
+<ul>
+<li>Select <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Project</strong>.</li>
+<li>Select <strong>ASP.NET Core Web Application</strong>. Name the project <strong>WebApp1</strong> to have the same namespace as the project download. Click <strong>OK</strong>.</li>
+<li>Select an ASP.NET Core <strong>Web Application</strong>, then select <strong>Change Authentication</strong>.</li>
+<li>Select <strong>Individual User Accounts</strong> and click <strong>OK</strong>.</li>
+</ul>
+</section>
+<section id="tabpanel_4_netcore-cli" role="tabpanel" data-tab="netcore-cli" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-dotnetcli">dotnet new webapp --auth Individual -o WebApp1
+</code></pre>
+<p>The preceding command creates a Razor web app using SQLite. To create the web app with LocalDB, run the following command:</p>
+<pre><code class="lang-dotnetcli">dotnet new webapp --auth Individual -uld -o WebApp1
+</code></pre>
+</section>
+</div>
+
+<p>The generated project provides <a href="identity?view=aspnetcore-6.0" data-linktype="relative-path">ASP.NET Core Identity</a> as a <a href="../../razor-pages/ui-class?view=aspnetcore-6.0" data-linktype="relative-path">Razor Class Library</a>. The Identity Razor Class Library exposes endpoints with the <code>Identity</code> area. For example:</p>
+<ul>
+<li>/Identity/Account/Login</li>
+<li>/Identity/Account/Logout</li>
+<li>/Identity/Account/Manage</li>
+</ul>
+<h3 id="apply-migrations-1">Apply migrations</h3>
+<p>Apply the migrations to initialize the database.</p>
+<div class="tabGroup" id="tabgroup_5">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_5_visual-studio" role="tab" aria-controls="tabpanel_5_visual-studio" data-tab="visual-studio" tabindex="0" aria-selected="true" data-linktype="self-bookmark">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_5_netcore-cli" role="tab" aria-controls="tabpanel_5_netcore-cli" data-tab="netcore-cli" tabindex="-1" data-linktype="self-bookmark">.NET Core CLI</a>
+</li>
+</ul>
+<section id="tabpanel_5_visual-studio" role="tabpanel" data-tab="visual-studio">
+
+<p>Run the following command in the Package Manager Console (PMC):</p>
+<p><code>PM&gt; Update-Database</code></p>
+</section>
+<section id="tabpanel_5_netcore-cli" role="tabpanel" data-tab="netcore-cli" aria-hidden="true" hidden="hidden">
+
+<p>Migrations are not necessary at this step when using SQLite.</p>
+<p>If <code>dotnet ef</code> has not been installed, install it as a global tool:</p>
+<pre><code class="lang-dotnetcli">  dotnet tool install --global dotnet-ef
+</code></pre>
+<p>For more information on the CLI for EF Core, see <a href="/en-us/ef/core/miscellaneous/cli/dotnet" data-linktype="absolute-path">EF Core tools reference for the .NET CLI</a>.</p>
+<p>For LocalDB, run the following command:</p>
+<pre><code class="lang-dotnetcli">dotnet ef database update
+</code></pre>
+</section>
+</div>
+<h3 id="test-register-and-login-1">Test Register and Login</h3>
+<p>Run the app and register a user. Depending on your screen size, you might need to select the navigation toggle button to see the <strong>Register</strong> and <strong>Login</strong> links.</p>
+<h3 id="view-the-identity-database">View the Identity database</h3>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_visual-studio" role="tab" aria-controls="tabpanel_1_visual-studio" data-tab="visual-studio" tabindex="0" aria-selected="true" data-linktype="self-bookmark">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_netcore-cli" role="tab" aria-controls="tabpanel_1_netcore-cli" data-tab="netcore-cli" tabindex="-1" data-linktype="self-bookmark">.NET Core CLI</a>
+</li>
+</ul>
+<section id="tabpanel_1_visual-studio" role="tabpanel" data-tab="visual-studio">
+
+<ul>
+<li>From the <strong>View</strong> menu, select <strong>SQL Server Object Explorer</strong> (SSOX).</li>
+<li>Navigate to <strong>(localdb)MSSQLLocalDB(SQL Server 13)</strong>. Right-click on <strong>dbo.AspNetUsers</strong> &gt; <strong>View Data</strong>:</li>
+</ul>
+<p><img src="accconfirm/_static/ssox.png?view=aspnetcore-6.0" alt="Contextual menu on AspNetUsers table in SQL Server Object Explorer" data-linktype="relative-path"></p>
+</section>
+<section id="tabpanel_1_netcore-cli" role="tabpanel" data-tab="netcore-cli" aria-hidden="true" hidden="hidden">
+
+<p>There are many third party tools you can download to manage and view a SQLite database, for example <a href="https://sqlitebrowser.org/" data-linktype="external">DB Browser for SQLite</a>.</p>
+</section>
+</div>
+
+<p><a name="pw"></a></p>
+<h3 id="configure-identity-services-1">Configure Identity services</h3>
+<p>Services are added in <code>ConfigureServices</code>. The typical pattern is to call all the <code>Add{Service}</code> methods, and then call all the <code>services.Configure{Service}</code> methods.</p>
+</div>
+<div data-moniker="aspnetcore-3.0 aspnetcore-3.1">
+<pre><code class="lang-csharp" highlight-lines="11-99">public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext&lt;ApplicationDbContext&gt;(options =&gt;
+     // options.UseSqlite(
+        options.UseSqlServer(
+            Configuration.GetConnectionString(&quot;DefaultConnection&quot;)));
+    services.AddDefaultIdentity&lt;IdentityUser&gt;(options =&gt; options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores&lt;ApplicationDbContext&gt;();
+    services.AddRazorPages();
+
+    services.Configure&lt;IdentityOptions&gt;(options =&gt;
+    {
+        // Password settings.
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequiredLength = 6;
+        options.Password.RequiredUniqueChars = 1;
+
+        // Lockout settings.
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.AllowedForNewUsers = true;
+
+        // User settings.
+        options.User.AllowedUserNameCharacters =
+        &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+&quot;;
+        options.User.RequireUniqueEmail = false;
+    });
+
+    services.ConfigureApplicationCookie(options =&gt;
+    {
+        // Cookie settings
+        options.Cookie.HttpOnly = true;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+        options.LoginPath = &quot;/Identity/Account/Login&quot;;
+        options.AccessDeniedPath = &quot;/Identity/Account/AccessDenied&quot;;
+        options.SlidingExpiration = true;
+    });
+}
+</code></pre>
+<p>The preceding highlighted code configures Identity with default option values. Services are made available to the app through <a href="../../fundamentals/dependency-injection?view=aspnetcore-6.0" data-linktype="relative-path">dependency injection</a>.</p>
+<p>Identity is enabled by calling <a href="/en-us/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication" class="no-loc" data-linktype="absolute-path">UseAuthentication</a>. <code>UseAuthentication</code> adds authentication <a href="../../fundamentals/middleware/?view=aspnetcore-6.0" data-linktype="relative-path">middleware</a> to the request pipeline.</p>
+<pre><code class="lang-csharp" highlight-lines="19">public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+        app.UseDatabaseErrorPage();
+    }
+    else
+    {
+        app.UseExceptionHandler(&quot;/Error&quot;);
+        app.UseHsts();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+
+    app.UseRouting();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.UseEndpoints(endpoints =&gt;
+    {
+        endpoints.MapRazorPages();
+    });
+}
+</code></pre></div>
+<div data-moniker="aspnetcore-5.0">
+<pre><code class="lang-csharp" highlight-lines="12-99">public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext&lt;ApplicationDbContext&gt;(options =&gt;
+        // options.UseSqlite(
+        options.UseSqlServer(
+            Configuration.GetConnectionString(&quot;DefaultConnection&quot;)));
+    services.AddDatabaseDeveloperPageExceptionFilter();
+    services.AddDefaultIdentity&lt;IdentityUser&gt;(options =&gt; options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores&lt;ApplicationDbContext&gt;();
+    services.AddRazorPages();
+
+    services.Configure&lt;IdentityOptions&gt;(options =&gt;
+    {
+        // Password settings.
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequiredLength = 6;
+        options.Password.RequiredUniqueChars = 1;
+
+        // Lockout settings.
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.AllowedForNewUsers = true;
+
+        // User settings.
+        options.User.AllowedUserNameCharacters =
+        &quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+&quot;;
+        options.User.RequireUniqueEmail = false;
+    });
+
+    services.ConfigureApplicationCookie(options =&gt;
+    {
+        // Cookie settings
+        options.Cookie.HttpOnly = true;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+        options.LoginPath = &quot;/Identity/Account/Login&quot;;
+        options.AccessDeniedPath = &quot;/Identity/Account/AccessDenied&quot;;
+        options.SlidingExpiration = true;
+    });
+}
+</code></pre>
+<p>The preceding code configures Identity with default option values. Services are made available to the app through <a href="../../fundamentals/dependency-injection?view=aspnetcore-6.0" data-linktype="relative-path">dependency injection</a>.</p>
+<p>Identity is enabled by calling <a href="/en-us/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication" class="no-loc" data-linktype="absolute-path">UseAuthentication</a>. <code>UseAuthentication</code> adds authentication <a href="../../fundamentals/middleware/?view=aspnetcore-6.0" data-linktype="relative-path">middleware</a> to the request pipeline.</p>
+<pre><code class="lang-csharp" highlight-lines="19">public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+        app.UseMigrationsEndPoint();
+    }
+    else
+    {
+        app.UseExceptionHandler(&quot;/Error&quot;);
+        app.UseHsts();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+
+    app.UseRouting();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.UseEndpoints(endpoints =&gt;
+    {
+        endpoints.MapRazorPages();
+    });
+}
+</code></pre></div>
+<div data-moniker="aspnetcore-3.0 aspnetcore-3.1 aspnetcore-5.0">
+<p>The template-generated app doesn't use <a href="../authorization/secure-data?view=aspnetcore-6.0" data-linktype="relative-path">authorization</a>. <code>app.UseAuthorization</code> is included to ensure it's added in the correct order should the app add authorization. <code>UseRouting</code>, <code>UseAuthentication</code>, <code>UseAuthorization</code>, and <code>UseEndpoints</code> must be called in the order shown in the preceding code.</p>
+<p>For more information on <code>IdentityOptions</code> and <code>Startup</code>, see <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identityoptions" class="no-loc" data-linktype="absolute-path">IdentityOptions</a> and <a href="../../fundamentals/startup?view=aspnetcore-6.0" data-linktype="relative-path">Application Startup</a>.</p>
+<h2 id="scaffold-register-login-logout-and-registerconfirmation-1">Scaffold Register, Login, LogOut, and RegisterConfirmation</h2>
+<div class="tabGroup" id="tabgroup_6">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_6_visual-studio" role="tab" aria-controls="tabpanel_6_visual-studio" data-tab="visual-studio" tabindex="0" aria-selected="true" data-linktype="self-bookmark">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_6_netcore-cli" role="tab" aria-controls="tabpanel_6_netcore-cli" data-tab="netcore-cli" tabindex="-1" data-linktype="self-bookmark">.NET Core CLI</a>
+</li>
+</ul>
+<section id="tabpanel_6_visual-studio" role="tabpanel" data-tab="visual-studio">
+
+<p>Add the <code>Register</code>, <code>Login</code>, <code>LogOut</code>, and <code>RegisterConfirmation</code> files. Follow the <a href="scaffold-identity?view=aspnetcore-6.0#scaffold-identity-into-a-razor-project-with-authorization" data-linktype="relative-path">Scaffold identity into a Razor project with authorization</a> instructions to generate the code shown in this section.</p>
+</section>
+<section id="tabpanel_6_netcore-cli" role="tabpanel" data-tab="netcore-cli" aria-hidden="true" hidden="hidden">
+
+<p>If you created the project with name <strong>WebApp1</strong>, and you're not using SQLite, run the following commands. Otherwise, use the correct namespace for the <code>ApplicationDbContext</code>:</p>
+<pre><code class="lang-dotnetcli">dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --files &quot;Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation&quot;
+</code></pre>
+<p>When using SQLite, append <code>--useSqLite</code> or <code>-sqlite</code>:</p>
+<pre><code class="lang-dotnetcli">dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --files &quot;Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation&quot; --useSqLite
+</code></pre>
+<p>PowerShell uses semicolon as a command separator. When using PowerShell, escape the semicolons in the file list or put the file list in double quotes, as the preceding example shows.</p>
+<p>For more information on scaffolding Identity, see <a href="scaffold-identity?view=aspnetcore-6.0#scaffold-identity-into-a-razor-project-with-authorization" data-linktype="relative-path">Scaffold identity into a Razor project with authorization</a>.</p>
+</section>
+</div>
+<h3 id="examine-register-1">Examine Register</h3>
+<p>When a user clicks the <strong>Register</strong> button on the <code>Register</code> page, the <code>RegisterModel.OnPostAsync</code> action is invoked. The user is created by <a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.usermanager-1.createasync#microsoft-aspnetcore-identity-usermanager-1-createasync(-0)" class="no-loc" data-linktype="absolute-path">CreateAsync(TUser)</a> on the <code>_userManager</code> object:</p>
+<pre><code class="lang-csharp" highlight-lines="9">public async Task&lt;IActionResult&gt; OnPostAsync(string returnUrl = null)
+{
+    returnUrl = returnUrl ?? Url.Content(&quot;~/&quot;);
+    ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync())
+                                          .ToList();
+    if (ModelState.IsValid)
+    {
+        var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+        var result = await _userManager.CreateAsync(user, Input.Password);
+        if (result.Succeeded)
+        {
+            _logger.LogInformation(&quot;User created a new account with password.&quot;);
+
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var callbackUrl = Url.Page(
+                &quot;/Account/ConfirmEmail&quot;,
+                pageHandler: null,
+                values: new { area = &quot;Identity&quot;, userId = user.Id, code = code },
+                protocol: Request.Scheme);
+
+            await _emailSender.SendEmailAsync(Input.Email, &quot;Confirm your email&quot;,
+                $&quot;Please confirm your account by &lt;a href='{HtmlEncoder.Default.Encode(callbackUrl)}'&gt;clicking here&lt;/a&gt;.&quot;);
+
+            if (_userManager.Options.SignIn.RequireConfirmedAccount)
+            {
+                return RedirectToPage(&quot;RegisterConfirmation&quot;, 
+                                      new { email = Input.Email });
+            }
+            else
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect(returnUrl);
+            }
+        }
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+    }
+
+    // If we got this far, something failed, redisplay form
+    return Page();
+}
+</code></pre><!-- .NET 5 fixes this, see
+https://github.com/dotnet/aspnetcore/blob/main/src/Identity/UI/src/Areas/Identity/Pages/V4/Account/RegisterConfirmation.cshtml.cs#L74-L77
+-->
+<p><a name="ddav"></a></p>
+<h3 id="disable-default-account-verification">Disable default account verification</h3>
+<p>With the default templates, the user is redirected to the <code>Account.RegisterConfirmation</code> where they can select a link to have the account confirmed. The default <code>Account.RegisterConfirmation</code> is used <em><strong>only</strong></em> for testing, automatic account verification should be disabled in a production app.</p>
+<p>To require a confirmed account and prevent immediate login at registration, set <code>DisplayConfirmAccountLink = false</code> in <code>/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml.cs</code>:</p>
+<pre><code class="lang-csharp" highlight-lines="34">[AllowAnonymous]
+public class RegisterConfirmationModel : PageModel
+{
+    private readonly UserManager&lt;IdentityUser&gt; _userManager;
+    private readonly IEmailSender _sender;
+
+    public RegisterConfirmationModel(UserManager&lt;IdentityUser&gt; userManager, IEmailSender sender)
+    {
+        _userManager = userManager;
+        _sender = sender;
+    }
+
+    public string Email { get; set; }
+
+    public bool DisplayConfirmAccountLink { get; set; }
+
+    public string EmailConfirmationUrl { get; set; }
+
+    public async Task&lt;IActionResult&gt; OnGetAsync(string email, string returnUrl = null)
+    {
+        if (email == null)
+        {
+            return RedirectToPage(&quot;/Index&quot;);
+        }
+
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user == null)
+        {
+            return NotFound($&quot;Unable to load user with email '{email}'.&quot;);
+        }
+
+        Email = email;
+        // Once you add a real email sender, you should remove this code that lets you confirm the account
+        DisplayConfirmAccountLink = false;
+        if (DisplayConfirmAccountLink)
+        {
+            var userId = await _userManager.GetUserIdAsync(user);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            EmailConfirmationUrl = Url.Page(
+                &quot;/Account/ConfirmEmail&quot;,
+                pageHandler: null,
+                values: new { area = &quot;Identity&quot;, userId = userId, code = code, returnUrl = returnUrl },
+                protocol: Request.Scheme);
+        }
+
+        return Page();
+    }
+}
+</code></pre><h3 id="log-in-1">Log in</h3>
+<p>The Login form is displayed when:</p>
+<ul>
+<li>The <strong>Log in</strong> link is selected.</li>
+<li>A user attempts to access a restricted page that they aren't authorized to access <strong>or</strong> when they haven't been authenticated by the system.</li>
+</ul>
+<p>When the form on the Login page is submitted, the <code>OnPostAsync</code> action is called. <code>PasswordSignInAsync</code> is called on the <code>_signInManager</code> object.</p>
+<pre><code class="lang-csharp" highlight-lines="10-11">public async Task&lt;IActionResult&gt; OnPostAsync(string returnUrl = null)
+{
+    returnUrl = returnUrl ?? Url.Content(&quot;~/&quot;);
+
+    if (ModelState.IsValid)
+    {
+        // This doesn't count login failures towards account lockout
+        // To enable password failures to trigger account lockout, 
+        // set lockoutOnFailure: true
+        var result = await _signInManager.PasswordSignInAsync(Input.Email,
+                           Input.Password, Input.RememberMe, lockoutOnFailure: true);
+        if (result.Succeeded)
+        {
+            _logger.LogInformation(&quot;User logged in.&quot;);
+            return LocalRedirect(returnUrl);
+        }
+        if (result.RequiresTwoFactor)
+        {
+            return RedirectToPage(&quot;./LoginWith2fa&quot;, new
+            {
+                ReturnUrl = returnUrl,
+                RememberMe = Input.RememberMe
+            });
+        }
+        if (result.IsLockedOut)
+        {
+            _logger.LogWarning(&quot;User account locked out.&quot;);
+            return RedirectToPage(&quot;./Lockout&quot;);
+        }
+        else
+        {
+            ModelState.AddModelError(string.Empty, &quot;Invalid login attempt.&quot;);
+            return Page();
+        }
+    }
+
+    // If we got this far, something failed, redisplay form
+    return Page();
+}
+</code></pre>
+<p>For information on how to make authorization decisions, see <a href="../authorization/introduction?view=aspnetcore-6.0" data-linktype="relative-path">Introduction to authorization in ASP.NET Core</a>.</p>
+<h3 id="log-out-1">Log out</h3>
+<p>The <strong>Log out</strong> link invokes the <code>LogoutModel.OnPost</code> action.</p>
+<pre><code class="lang-csharp" highlight-lines="36">using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
+
+namespace WebApp1.Areas.Identity.Pages.Account
+{
+    [AllowAnonymous]
+    public class LogoutModel : PageModel
+    {
+        private readonly SignInManager&lt;IdentityUser&gt; _signInManager;
+        private readonly ILogger&lt;LogoutModel&gt; _logger;
+
+        public LogoutModel(SignInManager&lt;IdentityUser&gt; signInManager, ILogger&lt;LogoutModel&gt; logger)
+        {
+            _signInManager = signInManager;
+            _logger = logger;
+        }
+
+        public void OnGet()
+        {
+        }
+
+        public async Task&lt;IActionResult&gt; OnPost(string returnUrl = null)
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation(&quot;User logged out.&quot;);
+            if (returnUrl != null)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToPage();
+            }
+        }
+    }
+}
+</code></pre>
+<p>In the preceding code, the code <code>return RedirectToPage();</code> needs to be a redirect so that the browser performs a new request and the identity for the user gets updated.</p>
+<p><a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.signoutasync" class="no-loc" data-linktype="absolute-path">SignOutAsync</a> clears the user's claims stored in a cookie.</p>
+<p>Post is specified in the <code>Pages/Shared/_LoginPartial.cshtml</code>:</p>
+<pre><code class="lang-cshtml" highlight-lines="15">@using Microsoft.AspNetCore.Identity
+@inject SignInManager&lt;IdentityUser&gt; SignInManager
+@inject UserManager&lt;IdentityUser&gt; UserManager
+
+&lt;ul class=&quot;navbar-nav&quot;&gt;
+@if (SignInManager.IsSignedIn(User))
+{
+    &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a  class=&quot;nav-link text-dark&quot; asp-area=&quot;Identity&quot; asp-page=&quot;/Account/Manage/Index&quot; 
+                                              title=&quot;Manage&quot;&gt;Hello @User.Identity.Name!&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;form class=&quot;form-inline&quot; asp-area=&quot;Identity&quot; asp-page=&quot;/Account/Logout&quot; 
+                                  asp-route-returnUrl=&quot;@Url.Page(&quot;/&quot;, new { area = &quot;&quot; })&quot; 
+                                  method=&quot;post&quot; &gt;
+            &lt;button  type=&quot;submit&quot; class=&quot;nav-link btn btn-link text-dark&quot;&gt;Logout&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/li&gt;
+}
+else
+{
+    &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a class=&quot;nav-link text-dark&quot; asp-area=&quot;Identity&quot; asp-page=&quot;/Account/Register&quot;&gt;Register&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;nav-item&quot;&gt;
+        &lt;a class=&quot;nav-link text-dark&quot; asp-area=&quot;Identity&quot; asp-page=&quot;/Account/Login&quot;&gt;Login&lt;/a&gt;
+    &lt;/li&gt;
+}
+&lt;/ul&gt;
+</code></pre><h2 id="test-identity-1">Test Identity</h2>
+<p>The default web project templates allow anonymous access to the home pages. To test Identity, add <a href="/en-us/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute" data-linktype="absolute-path"><code>[Authorize]</code></a>:</p>
+<pre><code class="lang-csharp" highlight-lines="7">using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+
+namespace WebApp1.Pages
+{
+    [Authorize]
+    public class PrivacyModel : PageModel
+    {
+        private readonly ILogger&lt;PrivacyModel&gt; _logger;
+
+        public PrivacyModel(ILogger&lt;PrivacyModel&gt; logger)
+        {
+            _logger = logger;
+        }
+
+        public void OnGet()
+        {
+        }
+    }
+}
+</code></pre>
+<p>If you are signed in, sign out. Run the app and select the <strong>Privacy</strong> link. You are redirected to the login page.</p>
+<h3 id="explore-identity-1">Explore Identity</h3>
+<p>To explore Identity in more detail:</p>
+<ul>
+<li><a href="scaffold-identity?view=aspnetcore-6.0#create-full-identity-ui-source" data-linktype="relative-path">Create full identity UI source</a></li>
+<li>Examine the source of each page and step through the debugger.</li>
+</ul>
+<h2 id="identity-components-1">Identity Components</h2>
+<p>All the Identity-dependent NuGet packages are included in the <a href="../../release-notes/aspnetcore-3.0?view=aspnetcore-6.0#use-the-aspnet-core-shared-framework" data-linktype="relative-path">ASP.NET Core shared framework</a>.</p>
+<p>The primary package for Identity is <a href="https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/" data-linktype="external">Microsoft.AspNetCore.Identity</a>. This package contains the core set of interfaces for ASP.NET Core Identity, and is included by <code>Microsoft.AspNetCore.Identity.EntityFrameworkCore</code>.</p>
+<h2 id="migrating-to-aspnet-core-identity-1">Migrating to ASP.NET Core Identity</h2>
+<p>For more information and guidance on migrating your existing Identity store, see <a href="../../migration/identity?view=aspnetcore-6.0" data-linktype="relative-path">Migrate Authentication and Identity</a>.</p>
+<h2 id="setting-password-strength-1">Setting password strength</h2>
+<p>See <a href="#pw" data-linktype="self-bookmark">Configuration</a> for a sample that sets the minimum password requirements.</p>
+<h2 id="adddefaultidentity-and-addidentity-1">AddDefaultIdentity and AddIdentity</h2>
+<p><a href="/en-us/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionuiextensions.adddefaultidentity" class="no-loc" data-linktype="absolute-path">AddDefaultIdentity</a> was introduced in ASP.NET Core 2.1. Calling <code>AddDefaultIdentity</code> is similar to calling the following:</p>
+<ul>
+<li><a href="/en-us/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.addidentity" class="no-loc" data-linktype="absolute-path">AddIdentity</a></li>
+<li><a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identitybuilderuiextensions.adddefaultui" class="no-loc" data-linktype="absolute-path">AddDefaultUI</a></li>
+<li><a href="/en-us/dotnet/api/microsoft.aspnetcore.identity.identitybuilderextensions.adddefaulttokenproviders" class="no-loc" data-linktype="absolute-path">AddDefaultTokenProviders</a></li>
+</ul>
+<p>See <a href="https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Identity/UI/src/IdentityServiceCollectionUIExtensions.cs#L47-L63" data-linktype="external">AddDefaultIdentity source</a> for more information.</p>
+<h2 id="prevent-publish-of-static-identity-assets-1">Prevent publish of static Identity assets</h2>
+<p>To prevent publishing static Identity assets (stylesheets and JavaScript files for Identity UI) to the web root, add the following <code>ResolveStaticWebAssetsInputsDependsOn</code> property and <code>RemoveIdentityAssets</code> target to the app's project file:</p>
+<pre><code class="lang-xml">&lt;PropertyGroup&gt;
+  &lt;ResolveStaticWebAssetsInputsDependsOn&gt;RemoveIdentityAssets&lt;/ResolveStaticWebAssetsInputsDependsOn&gt;
+&lt;/PropertyGroup&gt;
+
+&lt;Target Name=&quot;RemoveIdentityAssets&quot;&gt;
+  &lt;ItemGroup&gt;
+    &lt;StaticWebAsset Remove=&quot;@(StaticWebAsset)&quot; Condition=&quot;%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'&quot; /&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Target&gt;
+</code></pre>
+<p><a name="next"></a></p>
+<h2 id="next-steps-1">Next Steps</h2>
+<ul>
+<li><a href="https://github.com/dotnet/aspnetcore/tree/main/src/Identity" data-linktype="external">ASP.NET Core Identity source code</a></li>
+<li>See <a href="https://github.com/dotnet/AspNetCore.Docs/issues/5131" data-linktype="external">this GitHub issue</a> for information on configuring Identity using SQLite.</li>
+<li><a href="identity-configuration?view=aspnetcore-6.0" data-linktype="relative-path">Configure Identity</a></li>
+<li><a href="../authorization/secure-data?view=aspnetcore-6.0" data-linktype="relative-path">Create an ASP.NET Core app with user data protected by authorization</a></li>
+<li><a href="add-user-data?view=aspnetcore-6.0" data-linktype="relative-path">Add, download, and delete user data to Identity in an ASP.NET Core project</a></li>
+<li><a href="identity-enable-qrcodes?view=aspnetcore-6.0" data-linktype="relative-path">Enable QR code generation for TOTP authenticator apps in ASP.NET Core</a></li>
+<li><a href="../../migration/identity?view=aspnetcore-6.0" data-linktype="relative-path">Migrate Authentication and Identity to ASP.NET Core</a></li>
+<li><a href="accconfirm?view=aspnetcore-6.0" data-linktype="relative-path">Account confirmation and password recovery in ASP.NET Core</a></li>
+<li><a href="2fa?view=aspnetcore-6.0" data-linktype="relative-path">Two-factor authentication with SMS in ASP.NET Core</a></li>
+<li><a href="../../host-and-deploy/web-farm?view=aspnetcore-6.0" data-linktype="relative-path">Host ASP.NET Core in a web farm</a></li>
+</ul>
+</div>
+
+							</div>
+
+							<div id="assertive-live-region" role="alert" aria-live="assertive" class="visually-hidden" aria-relevant="additions" aria-atomic="true"></div>
+							<div id="polite-live-region" role="status" aria-live="polite" class="visually-hidden" aria-relevant="additions" aria-atomic="true"></div>
+							<!-- </content> -->
+
+						</main>
+
+
+
+
+						<!-- recommendations section -->
+							<section id="recommendations-section" data-bi-name="recommendations" class="display-none-print"></section>
+						<!-- end recommendations section -->
+
+						<!-- feedback section -->
+<section class="feedback-section position-relative" data-bi-name="feedback-section">
+    <h2 id="feedback" class="title is-3 margin-top-sm">Feedback</h2>
+
+    <div class="alert choose-feedback-type">
+        <p id="send-feedback-about">Submit and view feedback for</p>
+
+        <div class="choose-feedback-buttons margin-top-xs">
+                <a class="button has-external-link-indicator feedback-type-product margin-bottom-xxs" aria-label="Send feedback about this product" href="https://github.com/dotnet/aspnetcore/blob/main/CONTRIBUTING.md" data-bi-name="product-feedback">
+                    <span>This product</span>
+                </a>
+
+			<a class="button feedback-type-product margin-bottom-xxs github-link" aria-label="Send feedback about this page" data-bi-name="create-issue-on-github">
+				<span aria-hidden="true" class="docon docon-brand-github padding-right-xxs"></span>
+				<span>This page</span>
+			</a>
+        </div>
+    </div>
+
+    <div class="action-container display-flex justify-content-flex-end margin-block-xxs">
+        <a class="view-on-github has-external-link-indicator" data-bi-name="view-on-github" href="https://github.com/dotnet/AspNetCore.Docs/issues">
+            <span aria-hidden="true" class="docon docon-brand-github"></span>
+            <span>View all page feedback</span>
+        </a>
+    </div>
+</section>
+						<!-- end feedback section -->
+
+						<!-- feedback report section -->
+						<!-- end feedback report section -->
+
+							<div
+								id="additional-resources-mobile"
+								role="complementary"
+								aria-label="Additional resources"
+								class="display-none-desktop"
+							>
+								<hr class="hr" hidden />
+								<h2 id="additional-resources-mobile-heading" class="title is-3" hidden>Additional resources</h2>
+									<section id="right-rail-recommendations-mobile" data-bi-name="recommendations" hidden></section>
+								<section id="right-rail-learning-resources-mobile" data-bi-name="learning-resources-card" hidden></section>
+								<section id="right-rail-events-mobile" data-bi-name="events-card" hidden></section>
+								<section id="right-rail-qna-mobile" data-bi-name="qna-link-card" hidden></section>
+							</div>
+
+						<div class="border-top is-visible-interactive has-default-focus margin-top-sm ">
+
+
+
+	<footer id="footer-interactive" data-bi-name="footer" class="footer-layout">
+	<div class="display-flex is-full-height padding-right-lg-desktop">
+			<a
+				data-mscc-ic="false"
+				class="locale-selector-link button button-clear flex-shrink-0"
+				href="#"
+				data-bi-name="select-locale">
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-world"></span>
+					</span>
+					<span class="local-selector-link-text"></span></a>
+		<div class="margin-inline-xs flex-shrink-0">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button button-clear button-sm has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu-interactive" aria-expanded="false" title="Theme" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Theme</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu-interactive" role="menu">
+		<ul class="theme-selector padding-xxs" role="none">
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="light">
+					<span class="theme-light margin-right-xxs">
+						<span
+							class="theme-selector-icon css-variable-support border display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+Light					</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="dark">
+					<span class="theme-dark margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+Dark					</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+High contrast					</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>
+		</div>
+	</div>
+	<ul class="links" data-bi-name="footerlinks">
+		<li class="manage-cookies-holder" hidden></li>
+				<li><a data-mscc-ic="false" href="/en-us/previous-versions/" data-bi-name="archivelink">Previous Versions</a></li>
+				<li><a data-mscc-ic="false" href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog" data-bi-name="bloglink">Blog</a></li>
+				<li><a data-mscc-ic="false" href="/en-us/contribute/" data-bi-name="contributorGuide">Contribute</a></li>
+					<li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Privacy</a></li>
+				<li><a data-mscc-ic="false" href="/en-us/legal/termsofuse" data-bi-name="termsofuse">Terms of Use</a></li>
+				<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Trademarks</a></li>
+		<li>&copy; Microsoft 2022</li>
+	</ul>
+</footer>
+						</div>
+
+					</div>
+
+						<div
+							id="additional-resources"
+							class="right-container column is-4-desktop display-none display-block-desktop"
+							data-bi-name="pageactions"
+							role="complementary"
+							aria-label="Additional resources"
+						>
+							<div id="affixed-right-container" class="margin-top-sm-tablet" data-bi-name="right-column">
+								<h2 id="additional-resources-heading" class="title is-6 margin-top-md" hidden>Additional resources</h2>
+								<section id="right-rail-events" data-bi-name="events-card" hidden></section>
+								<section id="right-rail-learning-resources" data-bi-name="learning-resources-card" hidden></section>
+								<section id="right-rail-recommendations" data-bi-name="recommendations" hidden></section>
+								<nav id="side-doc-outline" class="doc-outline" data-bi-name="intopic toc" role="navigation" aria-label="Article Outline">
+									<h3>In this article</h3>
+								</nav>
+								<section id="right-rail-qna" class="margin-top-xxs" data-bi-name="qna-link-card" hidden></section>
+							</div>
+						</div>
+
+				</div>
+				<!--end of div.columns -->
+
+			</section>
+			<!--end of .primary-holder -->
+
+			<!-- interactive container -->
+			<aside id="interactive-container" class="interactive-container is-visible-interactive column has-body-background-dark ">
+			</aside>
+			<!-- end of interactive container -->
+		</div>
+
+	</div>
+	<!--end of .mainContainer -->
+
+	<section class="border-top has-default-focus is-hidden-interactive margin-top-sm ">
+
+
+
+	<footer id="footer" data-bi-name="footer" class="footer-layout uhf-container has-padding" role="contentinfo">
+	<div class="display-flex is-full-height padding-right-lg-desktop">
+			<a
+				data-mscc-ic="false"
+				class="locale-selector-link button button-clear flex-shrink-0"
+				href="#"
+				data-bi-name="select-locale">
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-world"></span>
+					</span>
+					<span class="local-selector-link-text"></span></a>
+		<div class="margin-inline-xs flex-shrink-0">
+<div class="dropdown has-caret-up">
+	<button class="dropdown-trigger button button-clear button-sm has-inner-focus theme-dropdown-trigger"
+		aria-controls="theme-menu" aria-expanded="false" title="Theme" data-bi-name="theme">
+		<span class="icon">
+			<span class="docon docon-sun" aria-hidden="true"></span>
+		</span>
+		<span>Theme</span>
+	</button>
+	<div class="dropdown-menu" id="theme-menu" role="menu">
+		<ul class="theme-selector padding-xxs" role="none">
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="light">
+					<span class="theme-light margin-right-xxs">
+						<span
+							class="theme-selector-icon css-variable-support border display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+Light					</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="dark">
+					<span class="theme-dark margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+Dark					</span>
+				</button>
+			</li>
+			<li class="theme display-block" role="menuitem">
+				<button class="button button-clear button-sm theme-control button-block justify-content-flex-start"
+					data-theme-to="high-contrast">
+					<span class="theme-high-contrast margin-right-xxs">
+						<span
+							class="border theme-selector-icon css-variable-support display-inline-block has-body-background"
+							aria-hidden="true">
+							<svg class="svg" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 22 14">
+								<rect width="22" height="14" class="has-fill-body-background" />
+								<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+								<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+								<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+								<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+								<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+								<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+							</svg>
+						</span>
+					</span>
+					<span>
+High contrast					</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>
+		</div>
+	</div>
+	<ul class="links" data-bi-name="footerlinks">
+		<li class="manage-cookies-holder" hidden></li>
+				<li><a data-mscc-ic="false" href="/en-us/previous-versions/" data-bi-name="archivelink">Previous Versions</a></li>
+				<li><a data-mscc-ic="false" href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog" data-bi-name="bloglink">Blog</a></li>
+				<li><a data-mscc-ic="false" href="/en-us/contribute/" data-bi-name="contributorGuide">Contribute</a></li>
+					<li><a data-mscc-ic="false" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-bi-name="privacy">Privacy</a></li>
+				<li><a data-mscc-ic="false" href="/en-us/legal/termsofuse" data-bi-name="termsofuse">Terms of Use</a></li>
+				<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Trademarks</a></li>
+		<li>&copy; Microsoft 2022</li>
+	</ul>
+</footer>
+	</section>
+
+	<div id="action-panel" role="region" aria-label="Action Panel" class="action-panel has-default-focus" tabindex="-1"></div>
+</body>
+</html>
