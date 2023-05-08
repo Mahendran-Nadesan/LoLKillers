@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+	
+    <div class="container-fluid">
+        <span>Select a Region, Enter Summoner Name, Hit Enter</span>
+        
+        <form class="d-flex input-group w-auto">
+            <select ngbDropdown [(ngModel)]="selectedRegion" [ngModelOptions]="{standalone: true}" (change)="printSelectedRegion()">
+                <option *ngFor="let region of REGIONS" ngbDropdownItem>
+                    {{region}}
+                </option>
+            </select>
+            <input class="form-control" type="text" placeholder="Summoner Name" />
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+    </div>
+    
+</nav>
